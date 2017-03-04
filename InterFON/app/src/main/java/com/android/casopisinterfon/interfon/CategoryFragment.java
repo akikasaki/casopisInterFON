@@ -11,13 +11,13 @@ import android.widget.TextView;
  * Created by Aleksa on 4.3.2017.
  */
 
-public class Category_Fragment extends Fragment {
+public class CategoryFragment extends Fragment {
     // Store instance variables
     private String title;
     private int page;
 
-    public static Category_Fragment newInstance(int page, String title) {
-        Category_Fragment fragmentFirst = new Category_Fragment();
+    public static CategoryFragment newInstance(int page, String title) {
+        CategoryFragment fragmentFirst = new CategoryFragment();
         Bundle args = new Bundle();
         args.putInt("someInt", page);
         args.putString("someTitle", title);
@@ -37,6 +37,7 @@ public class Category_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.category_fragment, container, false);
         TextView tvLabel = (TextView) view.findViewById(R.id.tvFirst);
         tvLabel.setText(page + " -- " + title);

@@ -12,36 +12,36 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:elevation="4dp"
         android:background="@color/colorPrimary"
-        app:contentInsetStart="0dp"
-        android:paddingLeft="16dp">
+        android:elevation="4dp"
+        android:paddingLeft="16dp"
+        app:contentInsetStart="0dp">
 
         <ImageView
+            android:layout_width="130dp"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_logo"
-            android:layout_width="130dp" />
+            android:src="@drawable/ic_logo" />
     </android.support.v7.widget.Toolbar>
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:tabMinWidth="150dp"
+        app:tabMode="scrollable"
+        app:tabGravity="fill"
         android:background="@android:color/darker_gray" />
 
-    <ListView
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vpCategory"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-<<<<<<< HEAD
-        android:id="@+id/listView"></ListView>
-=======
-        android:id="@+id/vpCategory">
+        android:layout_height="match_parent">
 
         <TextView
-            android:text="TextView"
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView" />
+            android:text="TextView" />
     </android.support.v4.view.ViewPager>
->>>>>>> d84b784c2bdd6c9ac689821e0a682278067b103f
 
 </LinearLayout>

@@ -1,23 +1,23 @@
 package com.android.casopisinterfon.interfon;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import com.android.casopisinterfon.interfon.ArticlesAdapter;
+import com.android.casopisinterfon.interfon.R;
+
 
 /**
- * Created by Aleksa on 4.3.2017.
+ * Created by Aleksa on 5.3.2017.
  */
 
-public class CategoryFragment extends Fragment {
-    // Store instance variables
-
-
-    public CategoryFragment() {
+public class CategoryFragment3 extends Fragment {
+    public CategoryFragment3() {
         // Required empty public constructor
     }
     @Override
@@ -34,7 +34,7 @@ public class CategoryFragment extends Fragment {
 
         RecyclerView rv = (RecyclerView) rootView.findViewById(R.id.rvArticles);
         rv.setHasFixedSize(true);
-        ArticlesAdapter adapter = new ArticlesAdapter(new String[]{"test one", "test two", "test three", "test four", "test five" , "test six" , "test seven"});
+        ArticlesAdapter adapter = new ArticlesAdapter(new String[]{"test one", "test two", "test three"});
         rv.setAdapter(adapter);
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -42,5 +42,4 @@ public class CategoryFragment extends Fragment {
 
         return rootView;
     }
-
 }

@@ -6,10 +6,11 @@
         android:id="@+id/custom_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/selectableItemBackground"
+        android:background="@android:color/black"
+
         android:gravity="center"
         android:textSize="16dip"
-        android:textColor="#ffffff"
+        android:textColor="#d02424"
         android:singleLine="true"
         />
 </LinearLayout>

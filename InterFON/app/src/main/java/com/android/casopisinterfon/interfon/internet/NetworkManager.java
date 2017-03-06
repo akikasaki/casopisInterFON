@@ -56,7 +56,7 @@ public class NetworkManager {
                         if (callbackListener != null)
                             callbackListener.onDownloadSuccess(response);
 
-                        // TODO - add default response handling
+                        // TODO - add default response handling RADOVAN
                     }
                 },
                 new Response.ErrorListener() {
@@ -71,7 +71,7 @@ public class NetworkManager {
                             callbackListener.onDownloadFailed(errorData);
 
                         Log.e(TAG, errorData);
-                        // TODO - add default response handling
+                        // TODO - add default response handling RADOVAN
                     }
                 });
 

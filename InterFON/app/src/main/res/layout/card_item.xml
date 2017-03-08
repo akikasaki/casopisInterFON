@@ -24,7 +24,7 @@
             </ImageView>
 
             <TextView
-                android:id="@+id/tv_text"
+                android:id="@+id/tvText"
 
                 android:layout_toRightOf ="@+id/iv_image"
                 android:layout_width="wrap_content"
@@ -33,11 +33,11 @@
             </TextView>
 
             <TextView
-                android:id="@+id/tv_blah"
+                android:id="@+id/tvSubject"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="blah blah blah......"
-                android:layout_below="@+id/tv_text"
+                android:layout_below="@+id/tvText"
                 android:layout_toRightOf="@+id/iv_image"
                 android:layout_toEndOf="@+id/iv_image">
             </TextView>

@@ -3,8 +3,6 @@ package com.android.casopisinterfon.interfon;
 
 import android.support.annotation.NonNull;
 
-import com.android.casopisinterfon.interfon.model.Article;
-
 import org.json.JSONObject;
 
 import java.util.ArrayList;

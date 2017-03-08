@@ -17,8 +17,6 @@ public class CategoryFragment extends Fragment implements DownloadInterface{
 
     public static final String POSITION_ARG = "page_position";
 
-    int number;
-
     public CategoryFragment() {
     }
 
@@ -40,20 +38,15 @@ public class CategoryFragment extends Fragment implements DownloadInterface{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
-
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.content_view, container, false);
 
         RecyclerView rv = (RecyclerView) rootView.findViewById(R.id.rvArticles);
-        rv.setHasFixedSize(true);
         ArticlesAdapter adapter = new ArticlesAdapter();
         rv.setAdapter(adapter);
-
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        rv.setLayoutManager(llm);
-
+        Bundle a = getArguments();
+        int position= a.getInt(POSITION_ARG);
+        adapter.setData(ArticlesFilter.filterArticles(Category.getCategory(position), ArticlesAdapter.mData));
         return rootView;
     }
 

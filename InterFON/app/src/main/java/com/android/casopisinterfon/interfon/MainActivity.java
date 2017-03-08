@@ -32,10 +32,10 @@ public class MainActivity extends AppCompatActivity implements DownloadInterface
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+/*
         NetworkManager manager = NetworkManager.getInstance(this);
         manager.downloadArticles(0, this);
-
+*/
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mViewPager = (ViewPager) findViewById(R.id.vpCategory);
@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements DownloadInterface
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
         }
+
+        ArticlesAdapter.mData = DummyData.createDummyData();
 
         adapterViewPager = new CategoryPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(adapterViewPager);
@@ -52,8 +54,6 @@ public class MainActivity extends AppCompatActivity implements DownloadInterface
 //            tab.setCustomView(getTabView(i));
 //        }
 
-
-        ArticlesAdapter.mData = DummyData.createDummyData();
     }
 
 //    protected View getTabView(int position) {

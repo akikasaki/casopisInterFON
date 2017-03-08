@@ -19,8 +19,8 @@ import org.json.JSONObject;
 /**
  * Class for building json request sent to the server
  */
-public class NetworkManager {
-    private static final String TAG = NetworkManager.class.getSimpleName();
+public class NetworkManager {}
+   /* private static final String TAG = NetworkManager.class.getSimpleName();
 
     private static NetworkManager mInstance;
     private RequestQueue mRequestQueue;
@@ -44,7 +44,7 @@ public class NetworkManager {
      * @param callbackListener callback interface to be called when download has completed.
      *                         If null, default listeners would be used.
      */
-    public void downloadArticles(int pageIndex, @Nullable final DownloadInterface callbackListener) {
+   /* public void downloadArticles(int pageIndex, @Nullable final DownloadInterface callbackListener) {
         Uri.Builder builder = Uri.parse(UrlData.GET_POSTS)
                 .buildUpon()
                 .appendQueryParameter(UrlData.PARAM_PAGE, Integer.toString(pageIndex));
@@ -78,3 +78,4 @@ public class NetworkManager {
         mRequestQueue.add(request);
     }
 }
+*/

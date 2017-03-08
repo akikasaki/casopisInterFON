@@ -1,16 +1,17 @@
 package com.android.casopisinterfon.interfon;
 
 
-import com.android.casopisinterfon.interfon.model.Article;
+import android.os.Bundle;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * Used for filtering articles with multiple categories and returning required ones.
  */
 public class ArticlesFilter {
-
+    public static final String POSITION_ARG = "page_position";
 
     // JSON names retrieved from server
     /**
@@ -40,7 +41,15 @@ public class ArticlesFilter {
      * @return
      */
     public static List<Article> filterArticles(Category articleCategory, List<Article> list) {
-        return new ArrayList<>(0); // TODO - TRAMPA
+        List<Article> filteredList = new ArrayList<>();
+        for (Article a: list) {
+            if(a.getArticleCategory()== articleCategory){
+               filteredList.add(a);
+            }
+
+        }
+
+        return filteredList; // TODO - TRAMPA
     }
 
 

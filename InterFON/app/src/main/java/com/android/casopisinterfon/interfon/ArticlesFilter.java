@@ -43,6 +43,8 @@ public class ArticlesFilter {
     public static List<Article> filterArticles(Category articleCategory, List<Article> list) {
         List<Article> filteredList = new ArrayList<>();
         for (Article a: list) {
+            if(articleCategory==Category.ALL)
+                return list;
             if(a.getArticleCategory()== articleCategory){
                filteredList.add(a);
             }

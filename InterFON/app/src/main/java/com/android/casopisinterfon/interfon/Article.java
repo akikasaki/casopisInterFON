@@ -29,7 +29,7 @@ public class Article {
         articleTytle="tytle"+articleNum;
         articleDescription="description"+articleNum;
         articleDate="date"+articleNum;
-        articleCategory= Category.getCategory(new Random().nextInt(8));
+        articleCategory= Category.getCategory(new Random().nextInt(8)+1);
         }
 
     public Category getArticleCategory() {

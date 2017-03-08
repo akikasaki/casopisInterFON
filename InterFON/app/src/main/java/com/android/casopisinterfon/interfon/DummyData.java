@@ -22,9 +22,9 @@ public class DummyData {
     }
 
     public static List<Article> createDummyData() {
-        List<Article> list = new ArrayList<>(100);
+        List<Article> list = new ArrayList<>(50);
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 50; i++) {
             Article article = new Article();
             list.add(article);
         }

@@ -6,6 +6,7 @@ package com.android.casopisinterfon.interfon;
  */
 public enum Category {
     ALL,
+    NEWS,
     INTERESTING,
     SCIENCE,
     CULTURE,
@@ -21,18 +22,20 @@ public enum Category {
             case 0:
                 return ALL;
             case 1:
-                return INTERESTING;
+                return NEWS;
             case 2:
-             return SCIENCE;
+             return INTERESTING;
             case 3:
-                return CULTURE;
+                return SCIENCE;
             case 4:
-               return INTERVIEWS;
+               return CULTURE;
             case 5:
-                return COLUMNS;
+                return INTERVIEWS;
             case 6:
-                return PRACTICE;
+                return COLUMNS;
             case 7:
+                return PRACTICE;
+            case 8:
                 return SPORT;
             default: return null;
         }

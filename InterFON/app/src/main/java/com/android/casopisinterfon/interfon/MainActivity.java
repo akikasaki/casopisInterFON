@@ -19,8 +19,8 @@ public class MainActivity extends AppCompatActivity implements DownloadInterface
     /**
      * Total number of categories on interFON casopis
      */
-    private static final int CATEGORY_COUNT = 8;
-    public String tabTitles[] = {"Vesti", "Interesantno", "Nauka", "Kultura", "Intervjui", "Kolumne", "Prakse", "Sport"};
+    private static final int CATEGORY_COUNT = 9;
+    public String tabTitles[] = {"Sve","Vesti", "Interesantno", "Nauka", "Kultura", "Intervjui", "Kolumne", "Prakse", "Sport"};
 
 
     CategoryPagerAdapter adapterViewPager;

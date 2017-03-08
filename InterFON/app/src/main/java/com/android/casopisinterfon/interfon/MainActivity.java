@@ -49,10 +49,7 @@ public class MainActivity extends AppCompatActivity implements DownloadInterface
         adapterViewPager = new CategoryPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(adapterViewPager);
         mTabLayout.setupWithViewPager(mViewPager);
-//        for (int i = 0; i < mTabLayout.getTabCount(); i++) {
-//            TabLayout.Tab tab = mTabLayout.getTabAt(i);
-//            tab.setCustomView(getTabView(i));
-//        }
+
 
     }
 

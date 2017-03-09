@@ -17,7 +17,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service
+            android:enabled="true"
+            android:name=".NotificationService" />
         <activity android:name=".SingleArticle"/>
+        <activity android:name=".Settings"/>
     </application>
 
 </manifest>

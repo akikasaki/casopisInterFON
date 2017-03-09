@@ -21,6 +21,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter <ArticlesAdapter.MyVie
     public static final String DESCRIPTION_KEY="description";
     public static final String DATE_KEY="Date";
     public static final String PICTURE_KEY="Picture";
+    public static final String CATEGORY_KEY ="Category" ;
     static Context context;
     /**
      * Array for storing whole articles data retrieved from the server.
@@ -54,7 +55,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter <ArticlesAdapter.MyVie
                 sendSingleArticle.putString(DESCRIPTION_KEY,singleArticle.getArticleDescription());
                 sendSingleArticle.putString(DATE_KEY,singleArticle.getArticleDate());
                 sendSingleArticle.putString(PICTURE_KEY,singleArticle.getPictureLink());
-                sendSingleArticle.putString(PICTURE_KEY,singleArticle.getArticleCategory().toString());
+                sendSingleArticle.putString(CATEGORY_KEY,singleArticle.getArticleCategory().toString());
                 Intent intent = new Intent(context, SingleArticle.class);
                 intent.putExtras(sendSingleArticle);
                 context.startActivity(intent);

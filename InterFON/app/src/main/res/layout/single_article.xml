@@ -21,16 +21,16 @@
     </android.support.v7.widget.Toolbar>
 
     <TextView
-        android:text="Tytle"
+        android:text="Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvSingleTytle" />
+        android:id="@+id/tvSingleTitle" />
 
     <TextView
         android:text="Image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvSingleImage" />
+        android:id="@+id/tvSinglePicture" />
 
     <TextView
         android:text="Description"

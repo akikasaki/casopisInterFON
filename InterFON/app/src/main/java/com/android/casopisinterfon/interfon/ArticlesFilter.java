@@ -51,7 +51,7 @@ public class ArticlesFilter {
 
         }
 
-        return filteredList; // TODO - TRAMPA
+        return filteredList;
     }
 
 

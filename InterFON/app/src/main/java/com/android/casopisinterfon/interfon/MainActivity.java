@@ -1,5 +1,7 @@
 package com.android.casopisinterfon.interfon;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -8,6 +10,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.android.casopisinterfon.interfon.internet.DownloadInterface;
 import com.android.casopisinterfon.interfon.internet.NetworkManager;
@@ -20,9 +25,9 @@ public class MainActivity extends AppCompatActivity implements DownloadInterface
      * Total number of categories on interFON casopis
      */
     private static final int CATEGORY_COUNT = 9;
+   // private static final String NOTIFY = "notify";
     public String tabTitles[] = {"Sve","Vesti", "Interesantno", "Nauka", "Kultura", "Intervjui", "Kolumne", "Prakse", "Sport"};
-
-
+    public static boolean notification;
     CategoryPagerAdapter adapterViewPager;
     ViewPager mViewPager;
     TabLayout mTabLayout;
@@ -71,7 +76,28 @@ public class MainActivity extends AppCompatActivity implements DownloadInterface
 //            e.printStackTrace();
 //        }
     }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_expandable, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.miSettings:
+                Intent openSettings=new Intent(this,Settings.class);
+                startActivity(openSettings);
+                return true;
+            case R.id.miAboutUs:
+                return true;
+            case R.id.miContacts:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     @Override
     public void onDownloadFailed(String error) {
 
@@ -98,5 +124,25 @@ public class MainActivity extends AppCompatActivity implements DownloadInterface
             return tabTitles[position];
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Intent notificationStarter= new Intent(this,NotificationService.class);
+        SharedPreferences prefs = getSharedPreferences(Settings.NOTIFICATION_TOGGLE, MODE_PRIVATE);
+        if(prefs.getBoolean(Settings.NOTIFICATION_STATE, true)){
+            startService(notificationStarter);}
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent notificationStarter= new Intent(this,NotificationService.class);
+        SharedPreferences prefs = getSharedPreferences(Settings.NOTIFICATION_TOGGLE, MODE_PRIVATE);
+        if(prefs.getBoolean(Settings.NOTIFICATION_STATE, true)){
+            stopService(notificationStarter);
+        }
+    }
 }
+
 

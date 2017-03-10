@@ -17,8 +17,13 @@ import android.widget.ToggleButton;
  */
 
 public class Settings extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener,RadioGroup.OnCheckedChangeListener{
+
     public final static String NOTIFICATION_TOGGLE ="NotificationsOn";
     public final static String NOTIFICATION_STATE ="NotificationsState";
+    public final static String FONTS ="fonts";
+    public final static String GET_A_FONT ="getAFont";
+    public final static String GET_LAST_TOGGLED_STATE ="ToggledState";
+
     ToggleButton tbNotifications;
     RadioGroup fontGroup;
     TextView tvFont;
@@ -35,11 +40,27 @@ public class Settings extends AppCompatActivity implements CompoundButton.OnChec
         tvFont= (TextView) findViewById(R.id.tvFont);
         fontGroup=(RadioGroup) findViewById(R.id.rgFont);
         SharedPreferences prefs = getSharedPreferences(NOTIFICATION_TOGGLE, MODE_PRIVATE);
+        SharedPreferences buttonState = getSharedPreferences(FONTS, MODE_PRIVATE);
+        int i=buttonState.getInt(GET_LAST_TOGGLED_STATE,1);
+        switch(i){
+            case 0:
+                RadioButton rbSmall = (RadioButton) findViewById(R.id.rbSmall);
+                rbSmall.setChecked(true);
+                break;
+            case 1:
+                RadioButton rbMedium = (RadioButton) findViewById(R.id.rbMedium);
+                rbMedium.setChecked(true);
+                break;
+            case 2:
+                RadioButton rbLarge = (RadioButton) findViewById(R.id.rbLarge);
+                rbLarge.setChecked(true);
+                break;
+        }
         tbNotifications.setChecked(prefs.getBoolean(NOTIFICATION_STATE, true));
         tbNotifications.setOnCheckedChangeListener(this);
         fontGroup.setOnCheckedChangeListener(this);
     }
-    
+
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         SharedPreferences.Editor editor = getSharedPreferences(NOTIFICATION_TOGGLE, MODE_PRIVATE).edit();
@@ -58,7 +79,7 @@ public class Settings extends AppCompatActivity implements CompoundButton.OnChec
     protected void onDestroy() {
         super.onDestroy();
         Intent notificationStarter= new Intent(this,NotificationService.class);
-        SharedPreferences prefs = getSharedPreferences(Settings.NOTIFICATION_TOGGLE, MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences(NOTIFICATION_TOGGLE, MODE_PRIVATE);
         if(prefs.getBoolean(NOTIFICATION_STATE, true)){
             startService(notificationStarter);}
     }
@@ -67,7 +88,7 @@ public class Settings extends AppCompatActivity implements CompoundButton.OnChec
     protected void onStart() {
         super.onStart();
         Intent notificationStarter= new Intent(this,NotificationService.class);
-        SharedPreferences prefs = getSharedPreferences(Settings.NOTIFICATION_TOGGLE, MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences(NOTIFICATION_TOGGLE, MODE_PRIVATE);
         if(prefs.getBoolean(NOTIFICATION_STATE, true)){
             stopService(notificationStarter);
         }
@@ -75,16 +96,25 @@ public class Settings extends AppCompatActivity implements CompoundButton.OnChec
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
+        SharedPreferences.Editor fonts = getSharedPreferences(FONTS, MODE_PRIVATE).edit();
         switch(checkedId) {
+
             case R.id.rbSmall:
-                    tvFont.setTextSize(10);
-                    break;
+                fonts.putFloat(GET_A_FONT, 10);
+                fonts.putInt(GET_LAST_TOGGLED_STATE,0);
+                fonts.apply();
+                break;
             case R.id.rbMedium:
-                tvFont.setTextSize(20);
+                fonts.putFloat(GET_A_FONT, 20);
+                fonts.putInt(GET_LAST_TOGGLED_STATE,1);
+                fonts.apply();
                     break;
             case R.id.rbLarge:
-                tvFont.setTextSize(30);
+                fonts.putFloat(GET_A_FONT, 30);
+                fonts.putInt(GET_LAST_TOGGLED_STATE,2);
+                fonts.apply();
                     break;
+            // TODO Method for setting a font
         }
     }
 }

@@ -44,7 +44,4 @@ public enum Category {
     }
 
 
-    // TODO - finish adding categories - TRAMPA
-
-
 }

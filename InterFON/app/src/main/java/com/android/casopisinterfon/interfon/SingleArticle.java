@@ -43,11 +43,17 @@ public class SingleArticle extends AppCompatActivity {
     }
 
     private void setArticle() {
+        SharedPreferences fonts = getSharedPreferences(Settings.FONTS, MODE_PRIVATE);
         tvTitle.setText(title);
         tvCategory.setText(category);
         tvDescription.setText(description);
         tvDate.setText(date);
         tvPicture.setText(picture);
+        tvTitle.setTextSize(fonts.getFloat(Settings.GET_A_FONT, 10));
+        tvCategory.setTextSize(fonts.getFloat(Settings.GET_A_FONT, 10));
+        tvDescription.setTextSize(fonts.getFloat(Settings.GET_A_FONT, 10));
+        tvDate.setTextSize(fonts.getFloat(Settings.GET_A_FONT, 10));
+        tvPicture.setTextSize(fonts.getFloat(Settings.GET_A_FONT, 10));
     }
     @Override
     protected void onDestroy() {

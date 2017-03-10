@@ -74,6 +74,4 @@ public class Article {
         this.pictureLink = pictureLink;
     }
 
-    // TODO - finish adding Fields and methods if any; Fields cannot be public. - TRAMPA
-
 }

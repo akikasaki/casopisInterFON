@@ -15,7 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.android.casopisinterfon.interfon.internet.DownloadInterface;
-import com.android.casopisinterfon.interfon.internet.NetworkManager;
 
 import org.json.JSONObject;
 
@@ -33,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements DownloadInterface
     TabLayout mTabLayout;
     Toolbar mToolbar;
 
+    private DataManager mDataManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +42,15 @@ public class MainActivity extends AppCompatActivity implements DownloadInterface
         NetworkManager manager = NetworkManager.getInstance(this);
         manager.downloadArticles(0, this);
 */
+
+        init();
+    }
+
+    private void init() {
+        mDataManager = DataManager.getInstance();
+        // Sets dummy data for debug
+        mDataManager.setData(DummyData.createDummyData());
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mViewPager = (ViewPager) findViewById(R.id.vpCategory);
@@ -48,22 +58,11 @@ public class MainActivity extends AppCompatActivity implements DownloadInterface
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
         }
-
-        ArticlesAdapter.mData = DummyData.createDummyData();
-
         adapterViewPager = new CategoryPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(adapterViewPager);
         mTabLayout.setupWithViewPager(mViewPager);
-
-
     }
 
-//    protected View getTabView(int position) {
-//        View tab = LayoutInflater.from(MainActivity.this).inflate(R.layout.custom_tab, null);
-//        TextView tv = (TextView) tab.findViewById(R.id.custom_text);
-//        tv.setText(tabTitles[position]);
-//        return tab;
-//    }
 
     @Override
     public void onDownloadSuccess(JSONObject response) {
@@ -76,18 +75,44 @@ public class MainActivity extends AppCompatActivity implements DownloadInterface
 //            e.printStackTrace();
 //        }
     }
+
+    @Override
+    public void onDownloadFailed(String error) {
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent notificationStarter= new Intent(this,NotificationService.class);
+        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
+        if(prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)){
+            stopService(notificationStarter);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Intent notificationStarter= new Intent(this,NotificationService.class);
+        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
+        if(prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)){
+            startService(notificationStarter);}
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_expandable, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.miSettings:
-                Intent openSettings=new Intent(this,Settings.class);
+                Intent openSettings=new Intent(this,SettingsActivity.class);
                 startActivity(openSettings);
                 return true;
             case R.id.miAboutUs:
@@ -98,11 +123,6 @@ public class MainActivity extends AppCompatActivity implements DownloadInterface
                 return super.onOptionsItemSelected(item);
         }
     }
-    @Override
-    public void onDownloadFailed(String error) {
-
-    }
-
 
     public class CategoryPagerAdapter extends FragmentStatePagerAdapter {
         public CategoryPagerAdapter(FragmentManager fm) {
@@ -122,25 +142,6 @@ public class MainActivity extends AppCompatActivity implements DownloadInterface
         @Override
         public CharSequence getPageTitle(int position) {
             return tabTitles[position];
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Intent notificationStarter= new Intent(this,NotificationService.class);
-        SharedPreferences prefs = getSharedPreferences(Settings.NOTIFICATION_TOGGLE, MODE_PRIVATE);
-        if(prefs.getBoolean(Settings.NOTIFICATION_STATE, true)){
-            startService(notificationStarter);}
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Intent notificationStarter= new Intent(this,NotificationService.class);
-        SharedPreferences prefs = getSharedPreferences(Settings.NOTIFICATION_TOGGLE, MODE_PRIVATE);
-        if(prefs.getBoolean(Settings.NOTIFICATION_STATE, true)){
-            stopService(notificationStarter);
         }
     }
 }

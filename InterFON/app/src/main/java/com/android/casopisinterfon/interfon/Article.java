@@ -1,10 +1,6 @@
 package com.android.casopisinterfon.interfon;
 
 
-import android.content.SharedPreferences;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -13,13 +9,14 @@ import java.util.Random;
 public class Article {
 
     Category category;
+    private String _id;
     private String pictureLink;
     private String articleTytle;
     private String articleDescription;
     private Category articleCategory;
     private String articleDate;
 
-    public Article(){
+    public Article() {
         randomArticle();
     }
 
@@ -27,12 +24,17 @@ public class Article {
         Random rand = new Random();
         int articleNum = rand.nextInt(35);
 
-        pictureLink="link"+articleNum;
-        articleTytle="tytle"+articleNum;
-        articleDescription="description"+articleNum;
-        articleDate="date"+articleNum;
-        articleCategory= Category.getCategory(new Random().nextInt(8)+1);
-        }
+        pictureLink = "link" + articleNum;
+        articleTytle = "tytle" + articleNum;
+        articleDescription = "description" + articleNum;
+        articleDate = "date" + articleNum;
+        articleCategory = Category.getCategory(new Random().nextInt(8) + 1);
+        _id = articleTytle + articleDate; // TODO - implement id
+    }
+
+    public String getId() {
+        return _id;
+    }
 
     public Category getArticleCategory() {
         return articleCategory;

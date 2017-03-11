@@ -3,20 +3,15 @@ package com.android.casopisinterfon.interfon;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-/**
- * Created by Aleksa on 9.3.2017.
- */
 
-public class Settings extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener,RadioGroup.OnCheckedChangeListener{
+public class SettingsActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener,RadioGroup.OnCheckedChangeListener{
 
     public final static String NOTIFICATION_TOGGLE ="NotificationsOn";
     public final static String NOTIFICATION_STATE ="NotificationsState";
@@ -100,7 +95,7 @@ public class Settings extends AppCompatActivity implements CompoundButton.OnChec
         switch(checkedId) {
 
             case R.id.rbSmall:
-                fonts.putFloat(GET_A_FONT, 10);
+                fonts.putFloat(GET_A_FONT, 10); // TODO - store values in DIP - TRAMPA
                 fonts.putInt(GET_LAST_TOGGLED_STATE,0);
                 fonts.apply();
                 break;

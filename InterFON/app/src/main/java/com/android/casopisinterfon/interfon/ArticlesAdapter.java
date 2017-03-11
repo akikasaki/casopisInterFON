@@ -1,8 +1,5 @@
 package com.android.casopisinterfon.interfon;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,57 +8,54 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 
-public class ArticlesAdapter extends RecyclerView.Adapter <ArticlesAdapter.MyViewHolder>{
-    public static final String TITLE_KEY="Title";
-    public static final String DESCRIPTION_KEY="description";
-    public static final String DATE_KEY="Date";
-    public static final String PICTURE_KEY="Picture";
-    public static final String CATEGORY_KEY ="Category" ;
-    static Context context;
+public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyViewHolder> {
+    public static final String TITLE_KEY = "Title";
+    public static final String DESCRIPTION_KEY = "description";
+    public static final String DATE_KEY = "Date";
+    public static final String PICTURE_KEY = "Picture";
+    public static final String CATEGORY_KEY = "Category";
     /**
-     * Array for storing whole articles data retrieved from the server.
+     * Used for notifying fragment that item has been clicked.
      */
-    public static List<Article> mData;
+    private ItemClickedCallbackInterface mListener;
+
+    /**
+     * Classes that use {@link ArticlesAdapter}, must implement this listener for item list interaction.
+     */
+    interface ItemClickedCallbackInterface {
+        /**
+         * Called when item has been clicked.
+         * @param articleId id of the article
+         */
+        void onItemClicked(String articleId);
+    }
 
     /**
      * List for storing appropriate data for current page fragment position that will be shown in recycle view.
      */
     private List<Article> mCurrentData;
 
-
-    public ArticlesAdapter() {}
+    ArticlesAdapter(ItemClickedCallbackInterface listener) {
+        this.mListener = listener;
+        mCurrentData = new ArrayList<>();
+    }
 
     // Create new views (invoked by the layout manager)
     @Override
     public ArticlesAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                     int viewType) {
-
+                                                           int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.card_item, parent, false);
-        return new MyViewHolder(v, new MyViewHolder.ItemClickListener(){
+        return new MyViewHolder(v, new MyViewHolder.ViewHolderClickListener() {
             @Override
             public void onItemClicked(int position) {
-                Article singleArticle ;
-               singleArticle= mCurrentData.get(position);
-                Bundle sendSingleArticle= new Bundle();
-                singleArticle.getArticleTytle();
-                sendSingleArticle.putString(TITLE_KEY,singleArticle.getArticleTytle());
-                sendSingleArticle.putString(DESCRIPTION_KEY,singleArticle.getArticleDescription());
-                sendSingleArticle.putString(DATE_KEY,singleArticle.getArticleDate());
-                sendSingleArticle.putString(PICTURE_KEY,singleArticle.getPictureLink());
-                sendSingleArticle.putString(CATEGORY_KEY,singleArticle.getArticleCategory().toString());
-                Intent intent = new Intent(context, SingleArticle.class);
-                intent.putExtras(sendSingleArticle);
-                context.startActivity(intent);
+               mListener.onItemClicked(mCurrentData.get(position).getId());
             }
         });
-        // set the view's size, margins, paddings and layout parameters
     }
 
     @Override
@@ -74,15 +68,13 @@ public class ArticlesAdapter extends RecyclerView.Adapter <ArticlesAdapter.MyVie
 
     @Override
     public int getItemCount() {
-        // Lista artikla iz trenutne kategorije
-//        return mCurrentData.size();
-
         return mCurrentData.size();
     }
 
     /**
      * Sets current adapter data that will be shown in recycle view.
-     * @param data
+     *
+     * @param data list of articles used by this adapter
      */
     public void setData(List<Article> data) {
         mCurrentData = data;
@@ -92,28 +84,25 @@ public class ArticlesAdapter extends RecyclerView.Adapter <ArticlesAdapter.MyVie
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-
-
+    static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
-            itemClickListener.onItemClicked(getAdapterPosition());
+            viewHolderClickListener.onItemClicked(getAdapterPosition());
         }
 
-        public interface ItemClickListener{
-           void onItemClicked(int position);
+        public interface ViewHolderClickListener {
+            void onItemClicked(int position);
         }
 
         private CardView mCardView;
         private TextView tvCategory;
         private TextView tvSubject;
-        private ItemClickListener itemClickListener;
+        private ViewHolderClickListener viewHolderClickListener;
 
-        MyViewHolder(View v, ItemClickListener itemClickListener) {
+        MyViewHolder(View v, ViewHolderClickListener viewHolderClickListener) {
             super(v);
-            context = itemView.getContext();
-            this.itemClickListener = itemClickListener;
+            this.viewHolderClickListener = viewHolderClickListener;
 
             tvSubject = (TextView) v.findViewById(R.id.tvSubject);
             mCardView = (CardView) v.findViewById(R.id.card_view);

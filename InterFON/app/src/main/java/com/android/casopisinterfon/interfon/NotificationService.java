@@ -6,20 +6,12 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.NotificationCompat;
 
-import com.android.casopisinterfon.interfon.MainActivity;
-import com.android.casopisinterfon.interfon.R;
-
 import static java.lang.Thread.sleep;
 
-/**
- * Created by Aleksa on 9.3.2017.
- */
 
 public class NotificationService extends Service {
     boolean notify;
@@ -33,7 +25,7 @@ public class NotificationService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        SharedPreferences prefs = getSharedPreferences(Settings.NOTIFICATION_TOGGLE, MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
         if(prefs.getBoolean(NOTIFICATION_SERVICE, true)) {
             try {
                 sleep(5000);

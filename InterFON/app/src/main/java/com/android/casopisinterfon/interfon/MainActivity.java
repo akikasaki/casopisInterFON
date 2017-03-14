@@ -15,8 +15,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.android.casopisinterfon.interfon.internet.DownloadInterface;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements DownloadInterface {
 
@@ -50,7 +53,9 @@ public class MainActivity extends AppCompatActivity implements DownloadInterface
         mDataManager = DataManager.getInstance();
         // Sets dummy data for debug
         mDataManager.setData(DummyData.createDummyData());
-
+        DataSaver datasaver = new DataSaver(getApplicationContext());
+        datasaver.saveData();
+        datasaver.readData();
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mViewPager = (ViewPager) findViewById(R.id.vpCategory);

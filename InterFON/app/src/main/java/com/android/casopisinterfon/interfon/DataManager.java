@@ -1,5 +1,6 @@
 package com.android.casopisinterfon.interfon;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
  * Used for storing and accessing articles data
  */
 public class DataManager {
+    Context context;
     private static final String TAG = DataManager.class.getSimpleName();
 
     /**
@@ -53,6 +55,7 @@ public class DataManager {
      * @return newly created article object if found, null otherwise.
      */
     public Article getArticle(String id) {
+
         for (Article a :
                 mData) {
             if (a.getId().equals(id))

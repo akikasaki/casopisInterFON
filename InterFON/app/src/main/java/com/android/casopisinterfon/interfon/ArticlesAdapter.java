@@ -62,8 +62,11 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Article a = mCurrentData.get(position);
 
-        holder.tvSubject.setText(a.getArticleTytle());
+        holder.tvTitle.setText(a.getArticleTytle());
         holder.tvCategory.setText(a.getArticleCategory().toString());
+        holder.tvDate.setText(a.getArticleDate());
+        holder.tvDescription.setText(a.getArticleDescription());
+        holder.tvPicture.setText(a.getPictureLink());
     }
 
     @Override
@@ -96,17 +99,19 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         }
 
         private CardView mCardView;
-        private TextView tvCategory;
-        private TextView tvSubject;
+        private TextView tvCategory,tvTitle,tvDate,tvPicture,tvDescription;
         private ViewHolderClickListener viewHolderClickListener;
 
         MyViewHolder(View v, ViewHolderClickListener viewHolderClickListener) {
             super(v);
             this.viewHolderClickListener = viewHolderClickListener;
 
-            tvSubject = (TextView) v.findViewById(R.id.tvSubject);
+            tvTitle = (TextView) v.findViewById(R.id.tvTitle);
             mCardView = (CardView) v.findViewById(R.id.card_view);
-            tvCategory = (TextView) v.findViewById(R.id.tvText);
+            tvCategory = (TextView) v.findViewById(R.id.tvCategory);
+            tvDate = (TextView) v.findViewById(R.id.tvDate);
+            tvDescription = (TextView) v.findViewById(R.id.tvDescription);
+            tvPicture = (TextView) v.findViewById(R.id.tvPicture);
 
             v.setOnClickListener(this);
         }

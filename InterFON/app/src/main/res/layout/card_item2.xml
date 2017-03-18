@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view2"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="4dp"
+        card_view:elevation="14dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvPicture2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center" >
+            </TextView>
+            <TextView
+                android:id="@+id/tvTitle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tvPicture2"
+                android:layout_toEndOf="@+id/tvPicture2">
+
+            </TextView>
+            <TextView
+                android:id="@+id/tvDescription2"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTitle2"
+                android:layout_toRightOf="@+id/tvPicture2"
+                android:layout_toEndOf="@+id/tvPicture2"
+                android:gravity="center" >
+            </TextView>
+            <TextView
+                android:id="@+id/tvDate2"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvDescription2"
+                android:layout_toRightOf="@+id/tvPicture2"
+                android:layout_toEndOf="@+id/tvPicture2"
+                android:gravity="center" >
+            </TextView>
+            <TextView
+                android:id="@+id/tvCategory2"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvDescription2"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true">
+            </TextView>
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

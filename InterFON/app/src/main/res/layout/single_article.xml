@@ -19,26 +19,29 @@
             android:layout_height="match_parent"
             android:src="@drawable/ic_logo" />
     </android.support.v7.widget.Toolbar>
-
-    <TextView
-        android:text="Title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvSingleTitle" />
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
     <TextView
         android:text="Image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvSinglePicture" />
-
     <TextView
-        android:text="Description"
+        android:text="Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvSingleDescription" />
+        android:layout_gravity="center"
+        android:id="@+id/tvSingleTitle"
+        android:textAlignment="center" />
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <TextView
+        <TextView
         android:text="Category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,5 +51,15 @@
         android:text="Date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvSingleDate" />
+        android:id="@+id/tvSingleDate"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp" />
+</LinearLayout>
+    <View style="@style/Divider"/>
+
+    <TextView
+        android:text="Description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvSingleDescription" />
 </LinearLayout>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    xmlns:app="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
@@ -45,15 +47,44 @@
                 android:layout_below="@+id/tvDescription"
                 android:gravity="center" >
             </TextView>
-            <TextView
+            <com.android.casopisinterfon.interfon.UnderlinedTextView3
                 android:id="@+id/tvCategory"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingLeft="3dp"
+                android:paddingStart="3dp"
+                android:paddingRight="3dp"
                 android:layout_below="@+id/tvDescription"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true">
-            </TextView>
+            </com.android.casopisinterfon.interfon.UnderlinedTextView3>
+            <com.android.casopisinterfon.interfon.UnderlinedTextView2
+                android:id="@+id/tvCategory12"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="3dp"
+                android:paddingStart="3dp"
+                android:paddingRight="3dp"
+                android:layout_below="@+id/tvDescription"
+                android:layout_toLeftOf="@+id/tvCategory"
+                android:layout_toStartOf="@+id/tvCategory">
+            </com.android.casopisinterfon.interfon.UnderlinedTextView2>
+            <com.android.casopisinterfon.interfon.UnderlinedTextView
+                android:id="@+id/tvCategory13"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="3dp"
+                android:paddingStart="3dp"
+                android:paddingRight="3dp"
+                android:layout_below="@+id/tvDescription"
+                android:layout_toLeftOf="@+id/tvCategory12"
+                android:layout_toStartOf="@+id/tvCategory12"
+                app:underlineColor="#ffc112ef"
+                app:underlineWidth="3dp">
+            </com.android.casopisinterfon.interfon.UnderlinedTextView>
 
 
         </RelativeLayout>

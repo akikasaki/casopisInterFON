@@ -24,12 +24,10 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
     <TextView
-        android:text="Image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvSinglePicture" />
     <TextView
-        android:text="Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -41,14 +39,29 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
-        android:text="Category"
+        <com.android.casopisinterfon.interfon.UnderlinedTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+            android:paddingLeft="3dp"
+            android:paddingStart="3dp"
+            android:paddingRight="3dp"
         android:id="@+id/tvSingleCategory" />
+        <com.android.casopisinterfon.interfon.UnderlinedTextView2
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="3dp"
+            android:paddingStart="3dp"
+            android:paddingRight="3dp"
+            android:id="@+id/tvSingleCategory2" />
+        <com.android.casopisinterfon.interfon.UnderlinedTextView3
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="3dp"
+            android:paddingStart="3dp"
+            android:paddingRight="3dp"
+            android:id="@+id/tvSingleCategory3" />
 
     <TextView
-        android:text="Date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvSingleDate"
@@ -58,7 +71,6 @@
     <View style="@style/Divider"/>
 
     <TextView
-        android:text="Description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvSingleDescription" />

@@ -13,7 +13,7 @@ public class Article {
     private String pictureLink;
     private String articleTytle;
     private String articleDescription;
-    private Category articleCategory;
+    private Category articleCategory,articleCategory2,articleCategory3;
     private String articleDate;
 
     public Article() {
@@ -23,12 +23,22 @@ public class Article {
     private void randomArticle() {
         Random rand = new Random();
         int articleNum = rand.nextInt(35);
-
+        boolean duplicateCategory=true;
         pictureLink = "link" + articleNum;
         articleTytle = "tytle" + articleNum;
         articleDescription = "description" + articleNum;
         articleDate = "date" + articleNum;
         articleCategory = Category.getCategory(new Random().nextInt(8) + 1);
+        while(duplicateCategory) {
+            articleCategory2 = Category.getCategory(new Random().nextInt(8) + 1);
+            if(articleCategory2!=articleCategory)
+                duplicateCategory=false;
+        }
+        while(!duplicateCategory) {
+            articleCategory3 = Category.getCategory(new Random().nextInt(8) + 1);
+            if(articleCategory3!=articleCategory && articleCategory3!=articleCategory2)
+                duplicateCategory=true;
+        }
         _id = articleTytle + articleDate; // TODO - implement id
     }
 
@@ -36,8 +46,14 @@ public class Article {
         return _id;
     }
 
+    public Category getArticleCategory2() {
+        return articleCategory2;
+    }
     public Category getArticleCategory() {
         return articleCategory;
+    }
+    public Category getArticleCategory3() {
+        return articleCategory3;
     }
 
     public void setArticleCategory(Category articleCategory) {

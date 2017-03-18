@@ -24,7 +24,7 @@ public class SingleArticle extends AppCompatActivity {
 
     private Article mCurArticle;
 
-    TextView tvTitle, tvDescription, tvPicture, tvCategory, tvDate;
+    TextView tvTitle, tvDescription, tvPicture, tvCategory,tvCategory2,tvCategory3, tvDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,8 @@ public class SingleArticle extends AppCompatActivity {
         mDataManager = DataManager.getInstance();
         tvTitle = (TextView) findViewById(R.id.tvSingleTitle);
         tvCategory = (TextView) findViewById(R.id.tvSingleCategory);
+        tvCategory2 = (TextView) findViewById(R.id.tvSingleCategory2);
+        tvCategory3 = (TextView) findViewById(R.id.tvSingleCategory3);
         tvDate = (TextView) findViewById(R.id.tvSingleDate);
         tvDescription = (TextView) findViewById(R.id.tvSingleDescription);
         tvPicture = (TextView) findViewById(R.id.tvSinglePicture);
@@ -83,11 +85,15 @@ public class SingleArticle extends AppCompatActivity {
 
         tvTitle.setText(a.getArticleTytle());
         tvCategory.setText(a.getArticleCategory().name());
+        tvCategory2.setText(a.getArticleCategory2().name());
+        tvCategory3.setText(a.getArticleCategory3().name());
         tvDescription.setText(a.getArticleDescription());
         tvDate.setText(a.getArticleDate());
         tvPicture.setText(a.getPictureLink());
         tvTitle.setTextSize(fontSize);
         tvCategory.setTextSize(fontSize);
+        tvCategory2.setTextSize(fontSize);
+        tvCategory3.setTextSize(fontSize);
         tvDescription.setTextSize(fontSize);
         tvDate.setTextSize(fontSize);
         tvPicture.setTextSize(fontSize);

@@ -1,5 +1,6 @@
 package com.android.casopisinterfon.interfon;
 
+import android.graphics.Paint;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -72,18 +73,22 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        Article a = mCurrentData.get(position);
+        // TODO Change underline color depending on category - TRAMPA
        if(holder.getItemViewType()==0) {
-            Article a = mCurrentData.get(position);
             holder.tvTitle.setText(a.getArticleTytle());
             holder.tvCategory.setText(a.getArticleCategory().toString());
+            holder.tvCategory12.setText(a.getArticleCategory2().toString());
+            holder.tvCategory13.setText(a.getArticleCategory3().toString());
             holder.tvDate.setText(a.getArticleDate());
             holder.tvDescription.setText(a.getArticleDescription());
             holder.tvPicture.setText(a.getPictureLink());
        }
        else {
-            Article a = mCurrentData.get(position);
             holder.tvTitle2.setText(a.getArticleTytle());
             holder.tvCategory2.setText(a.getArticleCategory().toString());
+            holder.tvCategory22.setText(a.getArticleCategory2().toString());
+            holder.tvCategory23.setText(a.getArticleCategory3().toString());
             holder.tvDate2.setText(a.getArticleDate());
             holder.tvDescription2.setText(a.getArticleDescription());
             holder.tvPicture2.setText(a.getPictureLink());
@@ -131,8 +136,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         }
 
         CardView mCardView,mCardView2;
-        private TextView tvCategory,tvTitle,tvDate,tvPicture,tvDescription;
-        private TextView tvCategory2,tvTitle2,tvDate2,tvPicture2,tvDescription2;
+        private TextView tvCategory,tvCategory12,tvCategory13,tvTitle,tvDate,tvPicture,tvDescription;
+        private TextView tvCategory2,tvCategory22,tvCategory23,tvTitle2,tvDate2,tvPicture2,tvDescription2;
         private ViewHolderClickListener viewHolderClickListener;
 
         MyViewHolder(View v, ViewHolderClickListener viewHolderClickListener) {
@@ -142,12 +147,16 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             tvTitle = (TextView) v.findViewById(R.id.tvTitle);
             mCardView = (CardView) v.findViewById(R.id.card_view);
             tvCategory = (TextView) v.findViewById(R.id.tvCategory);
+            tvCategory12 = (TextView) v.findViewById(R.id.tvCategory12);
+            tvCategory13 = (TextView) v.findViewById(R.id.tvCategory13);
             tvDate = (TextView) v.findViewById(R.id.tvDate);
             tvDescription = (TextView) v.findViewById(R.id.tvDescription);
             tvPicture = (TextView) v.findViewById(R.id.tvPicture);
             tvTitle2 = (TextView) v.findViewById(R.id.tvTitle2);
             mCardView2 = (CardView) v.findViewById(R.id.card_view2);
             tvCategory2 = (TextView) v.findViewById(R.id.tvCategory2);
+            tvCategory22 = (TextView) v.findViewById(R.id.tvCategory22);
+            tvCategory23 = (TextView) v.findViewById(R.id.tvCategory23);
             tvDate2 = (TextView) v.findViewById(R.id.tvDate2);
             tvDescription2 = (TextView) v.findViewById(R.id.tvDescription2);
             tvPicture2 = (TextView) v.findViewById(R.id.tvPicture2);

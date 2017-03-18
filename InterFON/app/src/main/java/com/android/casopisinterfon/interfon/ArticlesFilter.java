@@ -45,8 +45,14 @@ public class ArticlesFilter {
         for (Article a: list) {
             if(articleCategory==Category.ALL)
                 return list;
-            if(a.getArticleCategory()== articleCategory){
+            else if(a.getArticleCategory()== articleCategory){
                filteredList.add(a);
+            }
+            else if(a.getArticleCategory2()== articleCategory){
+                filteredList.add(a);
+            }
+            else if(a.getArticleCategory3()== articleCategory){
+                filteredList.add(a);
             }
 
         }

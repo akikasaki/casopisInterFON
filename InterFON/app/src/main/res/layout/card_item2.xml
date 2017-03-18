@@ -50,7 +50,7 @@
                 android:layout_toEndOf="@+id/tvPicture2"
                 android:gravity="center" >
             </TextView>
-            <TextView
+            <com.android.casopisinterfon.interfon.UnderlinedTextView3
                 android:id="@+id/tvCategory2"
 
                 android:layout_width="wrap_content"
@@ -58,7 +58,31 @@
                 android:layout_below="@+id/tvDescription2"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true">
-            </TextView>
+            </com.android.casopisinterfon.interfon.UnderlinedTextView3>
+            <com.android.casopisinterfon.interfon.UnderlinedTextView2
+                android:id="@+id/tvCategory22"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="3dp"
+                android:paddingStart="3dp"
+                android:paddingRight="3dp"
+                android:layout_below="@+id/tvDescription2"
+                android:layout_toLeftOf="@+id/tvCategory2"
+                android:layout_toStartOf="@+id/tvCategory2">
+            </com.android.casopisinterfon.interfon.UnderlinedTextView2>
+            <com.android.casopisinterfon.interfon.UnderlinedTextView
+                android:id="@+id/tvCategory23"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="3dp"
+                android:paddingStart="3dp"
+                android:paddingRight="3dp"
+                android:layout_below="@+id/tvDescription2"
+                android:layout_toLeftOf="@+id/tvCategory22"
+                android:layout_toStartOf="@+id/tvCategory22">
+            </com.android.casopisinterfon.interfon.UnderlinedTextView>
 
 
         </RelativeLayout>

@@ -18,21 +18,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/ivPicture"
+            <TextView
+                android:id="@+id/tvPicture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center" >
-            </ImageView>
+            </TextView>
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ivPicture"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:textSize="18sp"
-                android:textStyle="normal|bold">
+                android:layout_below="@+id/tvPicture">
 
             </TextView>
             <TextView
@@ -41,8 +37,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvTitle"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
                 android:gravity="center" >
             </TextView>
             <TextView
@@ -51,10 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvDescription"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:gravity="center"
-                android:textSize="12sp">
+                android:gravity="center" >
             </TextView>
             <com.android.casopisinterfon.interfon.UnderlinedTextView3
                 android:id="@+id/tvCategory"
@@ -66,8 +57,7 @@
                 android:paddingRight="3dp"
                 android:layout_below="@+id/tvDescription"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:textSize="12sp">
+                android:layout_alignParentRight="true">
             </com.android.casopisinterfon.interfon.UnderlinedTextView3>
             <com.android.casopisinterfon.interfon.UnderlinedTextView2
                 android:id="@+id/tvCategory12"
@@ -79,8 +69,7 @@
                 android:paddingRight="3dp"
                 android:layout_below="@+id/tvDescription"
                 android:layout_toLeftOf="@+id/tvCategory"
-                android:layout_toStartOf="@+id/tvCategory"
-                android:textSize="12sp">
+                android:layout_toStartOf="@+id/tvCategory">
             </com.android.casopisinterfon.interfon.UnderlinedTextView2>
             <com.android.casopisinterfon.interfon.UnderlinedTextView
                 android:id="@+id/tvCategory13"
@@ -94,8 +83,7 @@
                 android:layout_toLeftOf="@+id/tvCategory12"
                 android:layout_toStartOf="@+id/tvCategory12"
                 app:underlineColor="#ffc112ef"
-                app:underlineWidth="3dp"
-                android:textSize="12sp">
+                app:underlineWidth="3dp">
             </com.android.casopisinterfon.interfon.UnderlinedTextView>
 
 

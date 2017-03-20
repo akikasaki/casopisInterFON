@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +24,7 @@ public class SingleArticle extends AppCompatActivity {
 
     private Article mCurArticle;
 
-    TextView tvTitle, tvDescription, tvCategory,tvCategory2,tvCategory3, tvDate;
-    ImageView ivSinglePicture;
+    TextView tvTitle, tvDescription, tvPicture, tvCategory,tvCategory2,tvCategory3, tvDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +43,7 @@ public class SingleArticle extends AppCompatActivity {
         tvCategory3 = (TextView) findViewById(R.id.tvSingleCategory3);
         tvDate = (TextView) findViewById(R.id.tvSingleDate);
         tvDescription = (TextView) findViewById(R.id.tvSingleDescription);
-        ivSinglePicture = (ImageView) findViewById(R.id.ivSinglePicture);
+        tvPicture = (TextView) findViewById(R.id.tvSinglePicture);
 
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setTitle(null);
@@ -82,7 +79,9 @@ public class SingleArticle extends AppCompatActivity {
     private void setArticle(Article a) {
         SharedPreferences fonts = getSharedPreferences(SettingsActivity.FONTS, MODE_PRIVATE);
 
-        float size = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, fonts.getFloat(SettingsActivity.GET_A_FONT, 12), getResources().getDisplayMetrics());
+        float fontSize = fonts.getFloat(SettingsActivity.GET_A_FONT, 12);
+
+        float size = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, getResources().getDisplayMetrics());
 
         tvTitle.setText(a.getArticleTytle());
         tvCategory.setText(a.getArticleCategory().name());
@@ -90,14 +89,14 @@ public class SingleArticle extends AppCompatActivity {
         tvCategory3.setText(a.getArticleCategory3().name());
         tvDescription.setText(a.getArticleDescription());
         tvDate.setText(a.getArticleDate());
-        ivSinglePicture.setImageResource(R.drawable.dummyimage0);
-       /* tvTitle.setTextSize(size);
-        tvCategory.setTextSize(size);
-        tvCategory2.setTextSize(size);
-        tvCategory3.setTextSize(size);*/
-        tvDescription.setTextSize(size);
-       // tvDate.setTextSize(size);
-     //   ivSinglePicture.setTextSize(fontSize);
+        tvPicture.setText(a.getPictureLink());
+        tvTitle.setTextSize(fontSize);
+        tvCategory.setTextSize(fontSize);
+        tvCategory2.setTextSize(fontSize);
+        tvCategory3.setTextSize(fontSize);
+        tvDescription.setTextSize(fontSize);
+        tvDate.setTextSize(fontSize);
+        tvPicture.setTextSize(fontSize);
     }
 
     @Override

@@ -1,13 +1,21 @@
 package com.android.casopisinterfon.interfon;
 
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import java.util.Random;
 
 /**
  * Model representing one article
  */
 public class Article {
+    public Article(Context context) {
+        this.context = context;
+    }
 
+    Context context;
     Category category;
     private String _id;
     private String pictureLink;
@@ -24,7 +32,7 @@ public class Article {
         Random rand = new Random();
         int articleNum = rand.nextInt(35);
         boolean duplicateCategory=true;
-        pictureLink = "link" + articleNum;
+        pictureLink = "link"+articleNum;
         articleTytle = "tytle" + articleNum;
         articleDescription = "description" + articleNum;
         articleDate = "date" + articleNum;

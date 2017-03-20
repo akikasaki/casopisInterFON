@@ -1,11 +1,14 @@
 package com.android.casopisinterfon.interfon;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -82,7 +85,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             holder.tvCategory13.setText(a.getArticleCategory3().toString());
             holder.tvDate.setText(a.getArticleDate());
             holder.tvDescription.setText(a.getArticleDescription());
-            holder.tvPicture.setText(a.getPictureLink());
+            holder.ivPicture.setImageResource(R.drawable.dummyimage1);
        }
        else {
             holder.tvTitle2.setText(a.getArticleTytle());
@@ -91,7 +94,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             holder.tvCategory23.setText(a.getArticleCategory3().toString());
             holder.tvDate2.setText(a.getArticleDate());
             holder.tvDescription2.setText(a.getArticleDescription());
-            holder.tvPicture2.setText(a.getPictureLink());
+            holder.ivPicture2.setImageResource(R.drawable.dummyimage0);
        }
     }
 
@@ -136,7 +139,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         }
 
         CardView mCardView,mCardView2;
-        private TextView tvCategory,tvCategory12,tvCategory13,tvTitle,tvDate,tvPicture,tvDescription;
+        private TextView tvCategory,tvCategory12,tvCategory13,tvTitle,tvDate,tvDescription;
+        private ImageView ivPicture,ivPicture2;
         private TextView tvCategory2,tvCategory22,tvCategory23,tvTitle2,tvDate2,tvPicture2,tvDescription2;
         private ViewHolderClickListener viewHolderClickListener;
 
@@ -151,7 +155,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             tvCategory13 = (TextView) v.findViewById(R.id.tvCategory13);
             tvDate = (TextView) v.findViewById(R.id.tvDate);
             tvDescription = (TextView) v.findViewById(R.id.tvDescription);
-            tvPicture = (TextView) v.findViewById(R.id.tvPicture);
+            ivPicture = (ImageView) v.findViewById(R.id.ivPicture);
             tvTitle2 = (TextView) v.findViewById(R.id.tvTitle2);
             mCardView2 = (CardView) v.findViewById(R.id.card_view2);
             tvCategory2 = (TextView) v.findViewById(R.id.tvCategory2);
@@ -159,7 +163,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             tvCategory23 = (TextView) v.findViewById(R.id.tvCategory23);
             tvDate2 = (TextView) v.findViewById(R.id.tvDate2);
             tvDescription2 = (TextView) v.findViewById(R.id.tvDescription2);
-            tvPicture2 = (TextView) v.findViewById(R.id.tvPicture2);
+            ivPicture2 = (ImageView) v.findViewById(R.id.ivPicture2);
 
             v.setOnClickListener(this);
         }

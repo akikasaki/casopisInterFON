@@ -16,18 +16,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tvPicture2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/ivPicture2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:gravity="center" >
-            </TextView>
+            </ImageView>
             <TextView
                 android:id="@+id/tvTitle2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/tvPicture2"
-                android:layout_toEndOf="@+id/tvPicture2">
+                android:layout_toRightOf="@+id/ivPicture2"
+                android:layout_toEndOf="@+id/ivPicture2"
+                android:textSize="18sp"
+                android:textStyle="normal|bold"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp">
 
             </TextView>
             <TextView
@@ -36,8 +40,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvTitle2"
-                android:layout_toRightOf="@+id/tvPicture2"
-                android:layout_toEndOf="@+id/tvPicture2"
+                android:layout_toRightOf="@+id/ivPicture2"
+                android:layout_toEndOf="@+id/ivPicture2"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 android:gravity="center" >
             </TextView>
             <TextView
@@ -46,18 +52,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvDescription2"
-                android:layout_toRightOf="@+id/tvPicture2"
-                android:layout_toEndOf="@+id/tvPicture2"
-                android:gravity="center" >
+                android:layout_toRightOf="@+id/ivPicture2"
+                android:layout_toEndOf="@+id/ivPicture2"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:gravity="center"
+                android:textSize="12sp">
             </TextView>
             <com.android.casopisinterfon.interfon.UnderlinedTextView3
                 android:id="@+id/tvCategory2"
-
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvDescription2"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true">
+                android:layout_alignParentRight="true"
+                android:textSize="12sp">
             </com.android.casopisinterfon.interfon.UnderlinedTextView3>
             <com.android.casopisinterfon.interfon.UnderlinedTextView2
                 android:id="@+id/tvCategory22"
@@ -69,7 +80,8 @@
                 android:paddingRight="3dp"
                 android:layout_below="@+id/tvDescription2"
                 android:layout_toLeftOf="@+id/tvCategory2"
-                android:layout_toStartOf="@+id/tvCategory2">
+                android:layout_toStartOf="@+id/tvCategory2"
+                android:textSize="12sp">
             </com.android.casopisinterfon.interfon.UnderlinedTextView2>
             <com.android.casopisinterfon.interfon.UnderlinedTextView
                 android:id="@+id/tvCategory23"
@@ -81,7 +93,8 @@
                 android:paddingRight="3dp"
                 android:layout_below="@+id/tvDescription2"
                 android:layout_toLeftOf="@+id/tvCategory22"
-                android:layout_toStartOf="@+id/tvCategory22">
+                android:layout_toStartOf="@+id/tvCategory22"
+                android:textSize="12sp">
             </com.android.casopisinterfon.interfon.UnderlinedTextView>
 
 

@@ -9,7 +9,7 @@
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/colorPrimary"
+        android:background="@color/toolbarColor"
         android:elevation="4dp"
         android:paddingLeft="16dp"
         app:contentInsetStart="0dp">
@@ -19,21 +19,27 @@
             android:layout_height="match_parent"
             android:src="@drawable/ic_logo" />
     </android.support.v7.widget.Toolbar>
-<LinearLayout
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <TextView
-        android:layout_width="match_parent"
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvSinglePicture" />
+        android:id="@+id/ivSinglePicture" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/tvSingleTitle"
-        android:textAlignment="center" />
-</LinearLayout>
+        android:textSize="24sp"
+        android:textStyle="normal|bold"
+        android:paddingBottom="10dp"
+        android:gravity="top|center"
+        android:layout_below="@+id/ivSinglePicture"
+        android:paddingTop="5dp" />
+</RelativeLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -66,7 +72,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/tvSingleDate"
         android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp" />
+        android:layout_marginStart="15dp"
+        android:gravity="right|end" />
 </LinearLayout>
     <View style="@style/Divider"/>
 

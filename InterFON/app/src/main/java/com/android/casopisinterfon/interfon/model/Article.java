@@ -1,6 +1,7 @@
 package com.android.casopisinterfon.interfon.model;
 
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -15,6 +16,9 @@ public class Article {
     private String articleDescription;
     private Category articleCategory,articleCategory2,articleCategory3;
     private String articleDate;
+    private long id;
+    private String articleLink;
+    private List<Category> articleCategories;
 
     public Article() {
         randomArticle();
@@ -80,7 +84,7 @@ public class Article {
         return articleTytle;
     }
 
-    public void setArticleTytle(String articleTytle) {
+    public void setArticleTitle(String articleTytle) {
         this.articleTytle = articleTytle;
     }
 
@@ -92,4 +96,15 @@ public class Article {
         this.pictureLink = pictureLink;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setArticleLink(String articleLink) {
+        this.articleLink = articleLink;
+    }
+
+    public void setArticleCategories(List<Category> articleCategories) {
+        this.articleCategories = articleCategories;
+    }
 }

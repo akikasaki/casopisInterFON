@@ -23,22 +23,23 @@ public class DataManager {
      */
     private static DataManager mInstance;
 
-    public synchronized static DataManager getInstance(){
+    public synchronized static DataManager getInstance() {
         if (mInstance == null) {
             mInstance = new DataManager();
         }
         return mInstance;
     }
 
-    private DataManager(){
+    private DataManager() {
         mData = new ArrayList<>();
     }
 
     /**
      * Sets list of articles.
+     *
      * @param data list which will replace old data.
      */
-    public void setData(List<Article> data){
+    public void setData(List<Article> data) {
         if (data != null)
             mData = data;
         else
@@ -47,11 +48,12 @@ public class DataManager {
 
     /**
      * Method for adding list of articles retrieved from the server.
-     * @param data list to be added to memory.
+     *
+     * @param data        list to be added to memory.
      * @param isFreshData boolean that indicates if this list of data is fresh and old one should be cleared first.
      */
     public void addData(List<Article> data, boolean isFreshData) {
-        if(isFreshData){
+        if (isFreshData && data.size() > 0) {
             mData.clear();
             mData.addAll(data);
         } else {
@@ -61,6 +63,7 @@ public class DataManager {
 
     /**
      * Returns filtered list of articles by category based on provided position.
+     *
      * @param position position of fragment in view pager.
      * @return filtered list of articles.
      */
@@ -73,6 +76,7 @@ public class DataManager {
     /**
      * Return {@link Article} object from database based on provided article id.
      * <p><u>NOTE</u>: Should called this method from other thread.</p>
+     *
      * @param id id of wanted article.
      * @return newly created article object if found, null otherwise.
      */

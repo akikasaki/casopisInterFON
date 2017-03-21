@@ -64,7 +64,7 @@ public class NetworkManager {
                                 // Save data
                                 DataManager.getInstance().addData(
                                         // Parse data
-                                        ArticlesParser.parseResponse(response),
+                                        new ArticlesParser().parseAll(response),
                                         freshData);
                                 // Notify UI
                                 EventBus.getDefault().post(new ListDownloadedEvent(true));

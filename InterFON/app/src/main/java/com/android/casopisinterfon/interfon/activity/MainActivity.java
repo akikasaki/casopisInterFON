@@ -14,12 +14,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.android.casopisinterfon.interfon.activity.fragment.ArticlesFragment;
 import com.android.casopisinterfon.interfon.NotificationService;
 import com.android.casopisinterfon.interfon.R;
-import com.android.casopisinterfon.interfon.data.DataLoader;
-import com.android.casopisinterfon.interfon.data.DataManager;
-import com.android.casopisinterfon.interfon.data.DataSaver;
+import com.android.casopisinterfon.interfon.activity.fragment.ArticlesFragment;
+import com.android.casopisinterfon.interfon.internet.NetworkManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,36 +25,38 @@ public class MainActivity extends AppCompatActivity {
      * Total number of categories on interFON casopis
      */
     private static final int CATEGORY_COUNT = 9;
-   // private static final String NOTIFY = "notify";
-    public String tabTitles[] = {"Sve","Vesti", "Interesantno", "Nauka", "Kultura", "Intervjui", "Kolumne", "Prakse", "Sport"};
+    // private static final String NOTIFY = "notify";
+    public String tabTitles[] = {"Sve", "Vesti", "Interesantno", "Nauka", "Kultura", "Intervjui", "Kolumne", "Prakse", "Sport"};
     public static boolean notification;
     CategoryPagerAdapter adapterViewPager;
     ViewPager mViewPager;
     TabLayout mTabLayout;
     Toolbar mToolbar;
 
-    private DataManager mDataManager;
+//    private DataManager mDataManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-/*
-        NetworkManager manager = NetworkManager.getInstance(this);
-        manager.downloadArticles(0, this);
-*/
 
+        downloadFreshData();
         init();
     }
 
-    private void init() {
-        mDataManager = DataManager.getInstance();
+    private void downloadFreshData() {
+        NetworkManager manager = NetworkManager.getInstance(this);
+        manager.downloadArticles(0, true);
+    }
 
-        //for fetching DummyArticles for debugging
-        DataSaver datasaver = new DataSaver(getApplicationContext());
-        datasaver.saveData();
-        DataLoader dataLoader = new DataLoader(getApplicationContext());
-        mDataManager.setData(dataLoader.readData());
+    private void init() {
+//        mDataManager = DataManager.getInstance();
+
+//        //for fetching DummyArticles for debugging
+//        DataSaver datasaver = new DataSaver(getApplicationContext());
+//        datasaver.saveData();
+//        DataLoader dataLoader = new DataLoader(getApplicationContext());
+//        mDataManager.setData(dataLoader.readData());
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mViewPager = (ViewPager) findViewById(R.id.vpCategory);
@@ -72,9 +72,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Intent notificationStarter= new Intent(this,NotificationService.class);
+        Intent notificationStarter = new Intent(this, NotificationService.class);
         SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
-        if(prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)){
+        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
             stopService(notificationStarter);
         }
     }
@@ -82,10 +82,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Intent notificationStarter= new Intent(this,NotificationService.class);
+        Intent notificationStarter = new Intent(this, NotificationService.class);
         SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
-        if(prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)){
-            startService(notificationStarter);}
+        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
+            startService(notificationStarter);
+        }
     }
 
     @Override
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.miSettings:
-                Intent openSettings=new Intent(this,SettingsActivity.class);
+                Intent openSettings = new Intent(this, SettingsActivity.class);
                 startActivity(openSettings);
                 return true;
             case R.id.miAboutUs:

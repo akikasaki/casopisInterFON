@@ -18,14 +18,15 @@ public class DataManager {
      * Array for storing whole articles data retrieved from the server.
      */
     private List<Article> mData;
-
+    /**
+     * Contains single instance of this class.
+     */
     private static DataManager mInstance;
 
     public synchronized static DataManager getInstance(){
         if (mInstance == null) {
             mInstance = new DataManager();
         }
-
         return mInstance;
     }
 
@@ -45,11 +46,27 @@ public class DataManager {
     }
 
     /**
+     * Method for adding list of articles retrieved from the server.
+     * @param data list to be added to memory.
+     * @param isFreshData boolean that indicates if this list of data is fresh and old one should be cleared first.
+     */
+    public void addData(List<Article> data, boolean isFreshData) {
+        if(isFreshData){
+            mData.clear();
+            mData.addAll(data);
+        } else {
+            mData.addAll(data);
+        }
+    }
+
+    /**
      * Returns filtered list of articles by category based on provided position.
      * @param position position of fragment in view pager.
      * @return filtered list of articles.
      */
     public List<Article> getArticlesForPosition(int position) {
+        // TODO - maybe refactor this
+        // this method if coupling DataManager and Category class
         return ArticlesFilter.filterArticles(Category.getCategory(position), mData);
     }
 

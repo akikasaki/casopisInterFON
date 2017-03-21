@@ -12,12 +12,19 @@ import com.android.casopisinterfon.interfon.ArticlesAdapter;
 import com.android.casopisinterfon.interfon.R;
 import com.android.casopisinterfon.interfon.activity.ArticleViewActivity;
 import com.android.casopisinterfon.interfon.data.DataManager;
+import com.android.casopisinterfon.interfon.internet.events.ListDownloadedEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 
 public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemClickedCallbackInterface{
 
-    private DataManager mDataManager;
     public static final String POSITION_ARG = "page_position";
+
+    private DataManager mDataManager;
+    private ArticlesAdapter mAdapter;
 
     public ArticlesFragment() {
     }
@@ -46,15 +53,15 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.content_view, container, false);
 
-        // Setup list view and it's adapter
+        // Setup list view and it's mAdapter
         RecyclerView rv = (RecyclerView) rootView.findViewById(R.id.rvArticles);
-        ArticlesAdapter adapter = new ArticlesAdapter(this);
-        rv.setAdapter(adapter);
+        mAdapter = new ArticlesAdapter(this);
+        rv.setAdapter(mAdapter);
 
-        // Set adapter data
+        // Set mAdapter data
         Bundle a = getArguments();
         int position= a.getInt(POSITION_ARG);
-        adapter.setData(mDataManager.getArticlesForPosition(position));
+        mAdapter.setData(mDataManager.getArticlesForPosition(position));
 
         return rootView;
     }
@@ -65,4 +72,24 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         intent.putExtra(ArticleViewActivity.EXTRA_ARTICLE_ID, articleId);
         startActivity(intent);
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onListDownloadEvent(ListDownloadedEvent event) {
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+        // Try refreshing data if it's downloaded
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
 }

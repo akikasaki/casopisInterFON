@@ -1,4 +1,4 @@
-package com.android.casopisinterfon.interfon;
+package com.android.casopisinterfon.interfon.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -10,9 +10,14 @@ import android.util.TypedValue;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.casopisinterfon.interfon.data.DataManager;
+import com.android.casopisinterfon.interfon.NotificationService;
+import com.android.casopisinterfon.interfon.R;
+import com.android.casopisinterfon.interfon.model.Article;
 
-public class SingleArticle extends AppCompatActivity {
-    private static final String TAG = SingleArticle.class.getSimpleName();
+
+public class ArticleViewActivity extends AppCompatActivity {
+    private static final String TAG = ArticleViewActivity.class.getSimpleName();
 
     /**
      * Parameter for intent's extra that contains id of article that is being opened.

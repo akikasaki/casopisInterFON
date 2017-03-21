@@ -1,4 +1,4 @@
-package com.android.casopisinterfon.interfon;
+package com.android.casopisinterfon.interfon.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,14 +14,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.android.casopisinterfon.interfon.internet.DownloadInterface;
-import com.google.gson.Gson;
+import com.android.casopisinterfon.interfon.activity.fragment.ArticlesFragment;
+import com.android.casopisinterfon.interfon.NotificationService;
+import com.android.casopisinterfon.interfon.R;
+import com.android.casopisinterfon.interfon.data.DataLoader;
+import com.android.casopisinterfon.interfon.data.DataManager;
+import com.android.casopisinterfon.interfon.data.DataSaver;
 
-import org.json.JSONObject;
-
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity implements DownloadInterface {
+public class MainActivity extends AppCompatActivity {
 
     /**
      * Total number of categories on interFON casopis
@@ -67,24 +67,6 @@ public class MainActivity extends AppCompatActivity implements DownloadInterface
         adapterViewPager = new CategoryPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(adapterViewPager);
         mTabLayout.setupWithViewPager(mViewPager);
-    }
-
-
-    @Override
-    public void onDownloadSuccess(JSONObject response) {
-//        try {
-////            JSONArray array = response.getJSONArray(Article.POSTS);
-//            int size = array.length();
-//            for (int i = 0; i < size; i++) {
-//            }
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-    }
-
-    @Override
-    public void onDownloadFailed(String error) {
-
     }
 
     @Override
@@ -137,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements DownloadInterface
 
         @Override
         public Fragment getItem(int position) {
-            return CategoryFragment.getInstance(position);
+            return ArticlesFragment.getInstance(position);
         }
 
         @Override

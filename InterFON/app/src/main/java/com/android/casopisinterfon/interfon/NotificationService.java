@@ -10,6 +10,9 @@ import android.os.IBinder;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.NotificationCompat;
 
+import com.android.casopisinterfon.interfon.activity.MainActivity;
+import com.android.casopisinterfon.interfon.activity.SettingsActivity;
+
 import static java.lang.Thread.sleep;
 
 

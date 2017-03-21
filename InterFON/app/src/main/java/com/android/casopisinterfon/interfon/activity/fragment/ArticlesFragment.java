@@ -1,4 +1,4 @@
-package com.android.casopisinterfon.interfon;
+package com.android.casopisinterfon.interfon.activity.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,25 +8,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.casopisinterfon.interfon.internet.DownloadInterface;
+import com.android.casopisinterfon.interfon.ArticlesAdapter;
+import com.android.casopisinterfon.interfon.R;
+import com.android.casopisinterfon.interfon.activity.ArticleViewActivity;
+import com.android.casopisinterfon.interfon.data.DataManager;
 
-import org.json.JSONObject;
 
-
-public class CategoryFragment extends Fragment implements DownloadInterface, ArticlesAdapter.ItemClickedCallbackInterface{
+public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemClickedCallbackInterface{
 
     private DataManager mDataManager;
     public static final String POSITION_ARG = "page_position";
 
-    public CategoryFragment() {
+    public ArticlesFragment() {
     }
 
-    public static CategoryFragment getInstance(int position) {
+    public static ArticlesFragment getInstance(int position) {
         Bundle b = new Bundle();
         b.putInt(POSITION_ARG, position);
 
         // Initialize new fragment
-        CategoryFragment fragment = new CategoryFragment();
+        ArticlesFragment fragment = new ArticlesFragment();
         fragment.setArguments(b);
 
         return fragment;
@@ -60,19 +61,8 @@ public class CategoryFragment extends Fragment implements DownloadInterface, Art
 
     @Override
     public void onItemClicked(String articleId) {
-        Intent intent = new Intent(getContext(), SingleArticle.class);
-        intent.putExtra(SingleArticle.EXTRA_ARTICLE_ID, articleId);
+        Intent intent = new Intent(getContext(), ArticleViewActivity.class);
+        intent.putExtra(ArticleViewActivity.EXTRA_ARTICLE_ID, articleId);
         startActivity(intent);
     }
-
-    @Override
-    public void onDownloadSuccess(JSONObject response) {
-//        List<Article> list = ArticlesParser.parseResponse(response);
-    }
-
-    @Override
-    public void onDownloadFailed(String error) {
-    }
-
-
 }

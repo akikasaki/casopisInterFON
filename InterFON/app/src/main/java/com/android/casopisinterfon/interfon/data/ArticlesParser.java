@@ -1,7 +1,9 @@
-package com.android.casopisinterfon.interfon;
+package com.android.casopisinterfon.interfon.data;
 
 
 import android.support.annotation.NonNull;
+
+import com.android.casopisinterfon.interfon.model.Article;
 
 import org.json.JSONObject;
 

@@ -1,10 +1,10 @@
-package com.android.casopisinterfon.interfon;
+package com.android.casopisinterfon.interfon.data;
 
 
-import android.os.Bundle;
+import com.android.casopisinterfon.interfon.model.Article;
+import com.android.casopisinterfon.interfon.model.Category;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**

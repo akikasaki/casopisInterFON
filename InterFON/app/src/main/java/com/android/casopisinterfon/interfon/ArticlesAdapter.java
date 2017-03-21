@@ -1,13 +1,13 @@
 package com.android.casopisinterfon.interfon;
 
-import android.graphics.Paint;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.android.casopisinterfon.interfon.model.Article;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     /**
      * Classes that use {@link ArticlesAdapter}, must implement this listener for item list interaction.
      */
-    interface ItemClickedCallbackInterface {
+    public interface ItemClickedCallbackInterface {
         /**
          * Called when item has been clicked.
          * @param articleId id of the article
@@ -43,7 +43,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
      */
     private List<Article> mCurrentData;
 
-    ArticlesAdapter(ItemClickedCallbackInterface listener) {
+    public ArticlesAdapter(ItemClickedCallbackInterface listener) {
         this.mListener = listener;
         mCurrentData = new ArrayList<>();
     }

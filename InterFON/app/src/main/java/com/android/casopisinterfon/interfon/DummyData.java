@@ -1,10 +1,10 @@
 package com.android.casopisinterfon.interfon;
 
 
+import com.android.casopisinterfon.interfon.model.Article;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Creates mock up data for testing.

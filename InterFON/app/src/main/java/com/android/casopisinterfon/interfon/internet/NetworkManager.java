@@ -3,7 +3,6 @@ package com.android.casopisinterfon.interfon.internet;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.android.volley.NetworkResponse;
@@ -19,8 +18,8 @@ import org.json.JSONObject;
 /**
  * Class for building json request sent to the server
  */
-public class NetworkManager {}
-   /* private static final String TAG = NetworkManager.class.getSimpleName();
+public class NetworkManager {
+    private static final String TAG = NetworkManager.class.getSimpleName();
 
     private static NetworkManager mInstance;
     private RequestQueue mRequestQueue;
@@ -40,11 +39,10 @@ public class NetworkManager {}
     /**
      * Method for downloading new articles from the server.
      *
-     * @param pageIndex        page number of articles to download from
-     * @param callbackListener callback interface to be called when download has completed.
-     *                         If null, default listeners would be used.
+     * @param pageIndex page number of articles to download from
+     * @param freshData boolean that indicates if fresh data is needed for download thus deleting all old data.
      */
-   /* public void downloadArticles(int pageIndex, @Nullable final DownloadInterface callbackListener) {
+    public void downloadArticles(int pageIndex, boolean freshData) {
         Uri.Builder builder = Uri.parse(UrlData.GET_POSTS)
                 .buildUpon()
                 .appendQueryParameter(UrlData.PARAM_PAGE, Integer.toString(pageIndex));
@@ -78,4 +76,3 @@ public class NetworkManager {}
         mRequestQueue.add(request);
     }
 }
-*/

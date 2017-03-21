@@ -1,4 +1,4 @@
-package com.android.casopisinterfon.interfon;
+package com.android.casopisinterfon.interfon.model;
 
 
 import java.util.Random;

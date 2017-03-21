@@ -1,4 +1,4 @@
-package com.android.casopisinterfon.interfon;
+package com.android.casopisinterfon.interfon.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +9,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
+import com.android.casopisinterfon.interfon.NotificationService;
+import com.android.casopisinterfon.interfon.R;
 
 
 public class SettingsActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener,RadioGroup.OnCheckedChangeListener{

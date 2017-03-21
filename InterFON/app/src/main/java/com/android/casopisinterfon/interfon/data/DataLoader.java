@@ -1,15 +1,13 @@
-package com.android.casopisinterfon.interfon;
+package com.android.casopisinterfon.interfon.data;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
 
+import com.android.casopisinterfon.interfon.model.Article;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;

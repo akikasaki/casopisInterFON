@@ -1,7 +1,9 @@
-package com.android.casopisinterfon.interfon;
+package com.android.casopisinterfon.interfon.data;
 
-import android.content.Context;
 import android.util.Log;
+
+import com.android.casopisinterfon.interfon.model.Article;
+import com.android.casopisinterfon.interfon.model.Category;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +12,6 @@ import java.util.List;
  * Used for storing and accessing articles data
  */
 public class DataManager {
-    Context context;
     private static final String TAG = DataManager.class.getSimpleName();
 
     /**
@@ -20,7 +21,7 @@ public class DataManager {
 
     private static DataManager mInstance;
 
-    public static DataManager getInstance(){
+    public synchronized static DataManager getInstance(){
         if (mInstance == null) {
             mInstance = new DataManager();
         }
@@ -32,6 +33,10 @@ public class DataManager {
         mData = new ArrayList<>();
     }
 
+    /**
+     * Sets list of articles.
+     * @param data list which will replace old data.
+     */
     public void setData(List<Article> data){
         if (data != null)
             mData = data;

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.casopisinterfon.interfon.model.Article;
+import com.android.casopisinterfon.interfon.utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +82,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             holder.tvCategory12.setText(a.getArticleCategory2().toString());
             holder.tvCategory13.setText(a.getArticleCategory3().toString());
             holder.tvDate.setText(a.getArticleDate());
-            holder.tvDescription.setText(a.getArticleDescription());
+            holder.tvDescription.setText(Util.fromHtml(a.getArticleDescription()));
             holder.tvPicture.setText(a.getPictureLink());
        }
        else {
@@ -90,7 +91,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             holder.tvCategory22.setText(a.getArticleCategory2().toString());
             holder.tvCategory23.setText(a.getArticleCategory3().toString());
             holder.tvDate2.setText(a.getArticleDate());
-            holder.tvDescription2.setText(a.getArticleDescription());
+            holder.tvDescription2.setText(Util.fromHtml(a.getArticleDescription()));
             holder.tvPicture2.setText(a.getPictureLink());
        }
     }

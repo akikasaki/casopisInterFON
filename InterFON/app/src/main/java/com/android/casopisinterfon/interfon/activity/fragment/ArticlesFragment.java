@@ -25,6 +25,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
 
     private DataManager mDataManager;
     private ArticlesAdapter mAdapter;
+    private int mFragPosition;
 
     public ArticlesFragment() {
     }
@@ -60,8 +61,8 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
 
         // Set mAdapter data
         Bundle a = getArguments();
-        int position= a.getInt(POSITION_ARG);
-        mAdapter.setData(mDataManager.getArticlesForPosition(position));
+        mFragPosition = a.getInt(POSITION_ARG);
+        mAdapter.setData(mDataManager.getArticlesForPosition(mFragPosition));
 
         return rootView;
     }
@@ -75,7 +76,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onListDownloadEvent(ListDownloadedEvent event) {
-        mAdapter.notifyDataSetChanged();
+        mAdapter.setData(mDataManager.getArticlesForPosition(mFragPosition));
     }
 
     @Override
@@ -83,7 +84,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         super.onStart();
         EventBus.getDefault().register(this);
         // Try refreshing data if it's downloaded
-        mAdapter.notifyDataSetChanged();
+        mAdapter.setData(mDataManager.getArticlesForPosition(mFragPosition));
     }
 
     @Override

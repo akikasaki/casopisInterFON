@@ -45,13 +45,17 @@ public class NetworkManager {
     /**
      * Method for downloading new articles from the server.
      * Emits {@link ListDownloadedEvent} event when download is completed of failed.
+     *
      * @param pageIndex page number of articles to download from
      * @param freshData boolean that indicates if fresh data is needed for download thus deleting all old data.
      */
     public void downloadArticles(final int pageIndex, final boolean freshData) {
         Uri.Builder builder = Uri.parse(UrlData.GET_POSTS)
                 .buildUpon()
-                .appendQueryParameter(UrlData.PARAM_PAGE, Integer.toString(pageIndex));
+                .appendQueryParameter(UrlData.PARAM_PAGE, Integer.toString(pageIndex))
+                .appendQueryParameter(UrlData.PARAM_UNESCAPE_UNICODE, Boolean.toString(true))
+                // Exclude content
+                .appendQueryParameter(UrlData.PARAM_EXCLUDE, ArticlesParser.KEY_POST_CONTENT);
 
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, builder.build().toString(), null,
                 new Response.Listener<JSONObject>() {

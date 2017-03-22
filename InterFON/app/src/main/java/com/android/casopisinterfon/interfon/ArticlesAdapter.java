@@ -21,8 +21,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     public static final String PICTURE_KEY = "Picture";
     public static final String CATEGORY_KEY = "Category";
 
-    int type=0;
-   View vw;
+    int type = 0;
+    View vw;
     /**
      * Used for notifying fragment that item has been clicked.
      */
@@ -34,6 +34,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     public interface ItemClickedCallbackInterface {
         /**
          * Called when item has been clicked.
+         *
          * @param articleId id of the article
          */
         void onItemClicked(String articleId);
@@ -54,20 +55,19 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     public ArticlesAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                            int viewType) {
         // create a new view
-      if(viewType==0) {
-          vw = LayoutInflater.from(parent.getContext())
-                  .inflate(R.layout.card_item, parent, false);
-      }
-        else {
-          vw = LayoutInflater.from(parent.getContext())
-                  .inflate(R.layout.card_item2, parent, false);
-      }
+        if (viewType == 0) {
+            vw = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.card_item, parent, false);
+        } else {
+            vw = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.card_item2, parent, false);
+        }
 
 
         return new MyViewHolder(vw, new MyViewHolder.ViewHolderClickListener() {
             @Override
             public void onItemClicked(int position) {
-               mListener.onItemClicked(mCurrentData.get(position).getId());
+                mListener.onItemClicked(mCurrentData.get(position).getId());
             }
         });
     }
@@ -76,7 +76,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Article a = mCurrentData.get(position);
         // TODO Change underline color depending on category - TRAMPA
-       if(holder.getItemViewType()==0) {
+        if (holder.getItemViewType() == 0) {
             holder.tvTitle.setText(a.getArticleTytle());
             holder.tvCategory.setText(a.getArticleCategory().toString());
             holder.tvCategory12.setText(a.getArticleCategory2().toString());
@@ -84,8 +84,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             holder.tvDate.setText(a.getArticleDate());
             holder.tvDescription.setText(Util.fromHtml(a.getArticleDescription()));
             holder.tvPicture.setText(a.getPictureLink());
-       }
-       else {
+        } else {
             holder.tvTitle2.setText(a.getArticleTytle());
             holder.tvCategory2.setText(a.getArticleCategory().toString());
             holder.tvCategory22.setText(a.getArticleCategory2().toString());
@@ -93,16 +92,17 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             holder.tvDate2.setText(a.getArticleDate());
             holder.tvDescription2.setText(Util.fromHtml(a.getArticleDescription()));
             holder.tvPicture2.setText(a.getPictureLink());
-       }
+        }
     }
 
 
-
-   @Override
+    @Override
     public int getItemViewType(int position) {
-        if(position<4)
-        return 0;
-        else{
+        // Today news will be diferent from others
+        // TODO - finsih method 
+        if (position < 4)
+            return 0;
+        else {
             return 1;
         }
     }
@@ -136,9 +136,9 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             void onItemClicked(int position);
         }
 
-        CardView mCardView,mCardView2;
-        private TextView tvCategory,tvCategory12,tvCategory13,tvTitle,tvDate,tvPicture,tvDescription;
-        private TextView tvCategory2,tvCategory22,tvCategory23,tvTitle2,tvDate2,tvPicture2,tvDescription2;
+        CardView mCardView, mCardView2;
+        private TextView tvCategory, tvCategory12, tvCategory13, tvTitle, tvDate, tvPicture, tvDescription;
+        private TextView tvCategory2, tvCategory22, tvCategory23, tvTitle2, tvDate2, tvPicture2, tvDescription2;
         private ViewHolderClickListener viewHolderClickListener;
 
         MyViewHolder(View v, ViewHolderClickListener viewHolderClickListener) {

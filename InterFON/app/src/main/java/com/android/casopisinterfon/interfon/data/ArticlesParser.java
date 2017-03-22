@@ -27,7 +27,7 @@ public class ArticlesParser {
     private static final String KEY_POST_ID = "id";
     private static final String KEY_POST_URL = "url";
     private static final String KEY_POST_TITLE = "title";
-    private static final String KEY_POST_CONTENT = "content";
+    public static final String KEY_POST_CONTENT = "content";
     private static final String KEY_POST_DATE_C = "date";
     private static final String KEY_POST_CATEGORIES = "categories";
 
@@ -76,13 +76,17 @@ public class ArticlesParser {
             String url = jsonObject.getString(KEY_POST_URL);
             String title = jsonObject.getString(KEY_POST_TITLE);
             // Parse content
-            StringBuilder builder = new StringBuilder(jsonObject.getString(KEY_POST_CONTENT));
             String description;
-            try { // Remove post ratings script
+            StringBuilder builder = new StringBuilder();
+            try {
+                builder = new StringBuilder(jsonObject.getString(KEY_POST_CONTENT));
                 description = builder.substring(0, builder.indexOf("<span id=\"post-ratings"));
-            } catch (Exception e) { // No rating script inserted
+            } catch (StringIndexOutOfBoundsException e) {
                 Log.w(TAG, "No post ratings.");
                 description = builder.toString();
+            } catch (JSONException e) {
+                Log.w(TAG, "No post description.");
+                description = "";
             }
             String date = jsonObject.getString(KEY_POST_DATE_C);
             List<Category> categories = parseCategories(jsonObject.getJSONArray(KEY_POST_CATEGORIES));
@@ -107,16 +111,16 @@ public class ArticlesParser {
      * @return vector of {@link Category} objects.
      */
     private List<Category> parseCategories(JSONArray array) {
-//        int size = array.length();
-//        Category[] vector = new Category[size];
-//        for (int i = 0; i < size; i++) {
-//            try {
-//                JSONObject object = array.getJSONObject(i);
-//            } catch (JSONException e) {
-//                Log.e(TAG, "Failed to parse category.", e);
-//            }
-//        }
-        // TODO - finish parsing categories - RADOVAN
-        return new ArrayList<>(0);
+        int size = array.length();
+        List<Category> list = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            try {
+                JSONObject object = array.getJSONObject(i);
+                list.add(Category.getCategoryById(object.getInt("id")));
+            } catch (JSONException e) {
+                Log.e(TAG, "Failed to parse category.", e);
+            }
+        }
+        return list;
     }
 }

@@ -37,7 +37,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
          *
          * @param articleId id of the article
          */
-        void onItemClicked(String articleId);
+        void onItemClicked(long articleId);
     }
 
     /**

@@ -80,7 +80,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
     }
 
     @Override
-    public void onItemClicked(long articleId) {
+    public void onItemClicked(String articleId) {
         Intent intent = new Intent(getContext(), ArticleViewActivity.class);
         intent.putExtra(ArticleViewActivity.EXTRA_ARTICLE_ID, articleId);
         startActivity(intent);

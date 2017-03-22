@@ -10,6 +10,7 @@ import java.util.Random;
 public class Article {
 
     Category category;
+    private String _id;
     private String pictureLink;
     private String articleTytle;
     private String articleDescription;
@@ -32,7 +33,6 @@ public class Article {
         articleDescription = "description" + articleNum;
         articleDate = "date" + articleNum;
         articleCategory = Category.getCategory(new Random().nextInt(8) + 1);
-
         while(duplicateCategory) {
             articleCategory2 = Category.getCategory(new Random().nextInt(8) + 1);
             if(articleCategory2!=articleCategory)
@@ -43,11 +43,11 @@ public class Article {
             if(articleCategory3!=articleCategory && articleCategory3!=articleCategory2)
                 duplicateCategory=true;
         }
-        id = articleNum; // TODO - implement id
+        _id = articleTytle + articleDate; // TODO - implement id
     }
 
-    public long getId() {
-        return id;
+    public String getId() {
+        return _id;
     }
 
     public Category getArticleCategory2() {

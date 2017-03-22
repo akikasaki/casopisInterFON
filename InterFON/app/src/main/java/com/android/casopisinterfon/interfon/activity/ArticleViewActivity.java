@@ -58,9 +58,9 @@ public class ArticleViewActivity extends AppCompatActivity {
     }
 
     private void getArticle() {
-        final long id = getIntent().getLongExtra(EXTRA_ARTICLE_ID,0);
+        final String _id = getIntent().getStringExtra(EXTRA_ARTICLE_ID);
 
-        if (id == -1) { // Should not happen
+        if (_id == null) { // Should not happen
             Log.e(TAG, "No article data has been passed.");
             Toast.makeText(this, "Sorry, an error has occurred :(", Toast.LENGTH_SHORT).show();
             finish();
@@ -69,7 +69,7 @@ public class ArticleViewActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final Article article = mDataManager.getArticle(id);
+                final Article article = mDataManager.getArticle(_id);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

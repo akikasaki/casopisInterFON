@@ -69,6 +69,25 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent notificationStarter = new Intent(this, NotificationService.class);
+        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
+        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
+            stopService(notificationStarter);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Intent notificationStarter = new Intent(this, NotificationService.class);
+        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
+        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
+            startService(notificationStarter);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -112,25 +131,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             return tabTitles[position];
-        }
-    }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Intent notificationStarter = new Intent(this, NotificationService.class);
-        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
-        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
-            stopService(notificationStarter);
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Intent notificationStarter = new Intent(this, NotificationService.class);
-        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
-        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
-            startService(notificationStarter);
         }
     }
 }

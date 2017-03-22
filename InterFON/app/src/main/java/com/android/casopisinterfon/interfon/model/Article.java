@@ -12,7 +12,7 @@ public class Article {
     Category category;
     private String _id;
     private String pictureLink;
-    private String articleTytle;
+    private String articleTitle;
     private String articleDescription;
     private Category articleCategory,articleCategory2,articleCategory3;
     private String articleDate;
@@ -29,7 +29,7 @@ public class Article {
         int articleNum = rand.nextInt(35);
         boolean duplicateCategory=true;
         pictureLink = "link" + articleNum;
-        articleTytle = "tytle" + articleNum;
+        articleTitle = "tytle" + articleNum;
         articleDescription = "description" + articleNum;
         articleDate = "date" + articleNum;
         articleCategory = Category.getCategory(new Random().nextInt(8) + 1);
@@ -43,7 +43,7 @@ public class Article {
             if(articleCategory3!=articleCategory && articleCategory3!=articleCategory2)
                 duplicateCategory=true;
         }
-        _id = articleTytle + articleDate; // TODO - implement id
+        _id = articleTitle + articleDate; // TODO - implement id
     }
 
     public String getId() {
@@ -81,11 +81,11 @@ public class Article {
     }
 
     public String getArticleTitle() {
-        return articleTytle;
+        return articleTitle;
     }
 
     public void setArticleTitle(String articleTytle) {
-        this.articleTytle = articleTytle;
+        this.articleTitle = articleTytle;
     }
 
     public String getPictureLink() {

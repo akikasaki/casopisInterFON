@@ -80,11 +80,11 @@ public class DataManager {
      * @param id id of wanted article.
      * @return newly created article object if found, null otherwise.
      */
-    public Article getArticle(String id) {
+    public Article getArticle(long id) {
 
         for (Article a :
                 mData) {
-            if (a.getId().equals(id))
+            if (a.getId()==id)
                 return a;
         }
 

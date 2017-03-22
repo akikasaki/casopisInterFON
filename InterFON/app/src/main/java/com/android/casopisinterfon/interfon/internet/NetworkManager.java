@@ -53,9 +53,9 @@ public class NetworkManager {
         Uri.Builder builder = Uri.parse(UrlData.GET_POSTS)
                 .buildUpon()
                 .appendQueryParameter(UrlData.PARAM_PAGE, Integer.toString(pageIndex))
-                .appendQueryParameter(UrlData.PARAM_UNESCAPE_UNICODE, Boolean.toString(true))
+                .appendQueryParameter(UrlData.PARAM_UNESCAPE_UNICODE_OPTION, Boolean.toString(true))
                 // Exclude content
-                .appendQueryParameter(UrlData.PARAM_EXCLUDE, ArticlesParser.KEY_POST_CONTENT);
+                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_POST_CONTENT);
 
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, builder.build().toString(), null,
                 new Response.Listener<JSONObject>() {

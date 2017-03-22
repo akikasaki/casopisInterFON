@@ -10,8 +10,8 @@ public class UrlData {
     public static final String GET_POSTS = BASE_URL.concat("get_posts/");
     public static final String PARAM_PAGE = "page";
     public static final String PARAM_COUNT = "count";
-    public static final String PARAM_UNESCAPE_UNICODE = "json_unescaped_unicode";
+    public static final String PARAM_UNESCAPE_UNICODE_OPTION = "json_unescaped_unicode";
     // Param which indicates which object to exclude from response
-    public static final String PARAM_EXCLUDE = "exclude";
+    public static final String PARAM_EXCLUDE_OPTION = "exclude";
 
 }

@@ -3,6 +3,7 @@ package com.android.casopisinterfon.interfon.activity.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.android.casopisinterfon.interfon.ArticlesAdapter;
 import com.android.casopisinterfon.interfon.R;
 import com.android.casopisinterfon.interfon.activity.ArticleViewActivity;
 import com.android.casopisinterfon.interfon.data.DataManager;
+import com.android.casopisinterfon.interfon.internet.NetworkManager;
 import com.android.casopisinterfon.interfon.internet.events.ListDownloadedEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -24,8 +26,11 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
     public static final String POSITION_ARG = "page_position";
 
     private DataManager mDataManager;
+    private NetworkManager mNetManager;
     private ArticlesAdapter mAdapter;
     private int mFragPosition;
+
+    private SwipeRefreshLayout srRootView;
 
     public ArticlesFragment() {
     }
@@ -46,16 +51,23 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         super.onCreate(savedInstanceState);
 
         mDataManager = DataManager.getInstance();
+        mNetManager = NetworkManager.getInstance(getContext());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.content_view, container, false);
+        srRootView = (SwipeRefreshLayout) inflater.inflate(R.layout.content_view, container, false);
+        srRootView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mNetManager.downloadArticles(0, true);
+            }
+        });
 
         // Setup list view and it's mAdapter
-        RecyclerView rv = (RecyclerView) rootView.findViewById(R.id.rvArticles);
+        RecyclerView rv = (RecyclerView) srRootView.findViewById(R.id.rvArticles);
         mAdapter = new ArticlesAdapter(this);
         rv.setAdapter(mAdapter);
 
@@ -64,7 +76,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         mFragPosition = a.getInt(POSITION_ARG);
         mAdapter.setData(mDataManager.getArticlesForPosition(mFragPosition));
 
-        return rootView;
+        return srRootView;
     }
 
     @Override
@@ -77,6 +89,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onListDownloadEvent(ListDownloadedEvent event) {
         mAdapter.setData(mDataManager.getArticlesForPosition(mFragPosition));
+        srRootView.setRefreshing(false);
     }
 
     @Override

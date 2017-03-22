@@ -99,7 +99,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     @Override
     public int getItemViewType(int position) {
         // Today news will be diferent from others
-        // TODO - finsih method 
+        // TODO - finsih method
         if (position < 4)
             return 0;
         else {

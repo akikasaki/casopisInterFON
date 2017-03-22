@@ -5,32 +5,45 @@ package com.android.casopisinterfon.interfon.model;
  * Contains types of category
  */
 public enum Category {
-    ALL,
-    NEWS,
-    INTERESTING,
-    SCIENCE,
-    CULTURE,
-    INTERVIEWS,
-    COLUMNS,
-    PRACTICE,
-    SPORT,
-    INTRAFON,
-    FONNEWS,
-    POETS;
+    ALL(0),
+    NEWS(45),
+    INTERESTING(38),
+    SCIENCE(960),
+    CULTURE(1371),
+    INTERVIEWS(1370),
+    COLUMNS(758),
+    PRACTICE(3759),
+    SPORT(48),
+    INTRAFON(37),
+    FONNEWS(2085),
+    POETS(4422);
 
-    public static Category getCategory(int position) {
+    private int catId;
 
-        switch (position){
+    Category() {
+    }
+
+    Category(int id) {
+        this.catId = id;
+    }
+
+    public int getCatId() {
+        return this.catId;
+    }
+
+    public static Category getCategory(int pagePosition) {
+
+        switch (pagePosition) {
             case 0:
                 return ALL;
             case 1:
                 return NEWS;
             case 2:
-             return INTERESTING;
+                return INTERESTING;
             case 3:
                 return SCIENCE;
             case 4:
-               return CULTURE;
+                return CULTURE;
             case 5:
                 return INTERVIEWS;
             case 6:
@@ -39,12 +52,13 @@ public enum Category {
                 return PRACTICE;
             case 8:
                 return SPORT;
-            default: return null;
+            default:
+                return null;
         }
     }
 
     public static Category getCategoryById(int id) {
-        switch (id){
+        switch (id) {
             default: // Ostalo je par kategorija - http://casopisinterfon.org/api/get_category_index/
             case 45:
                 return NEWS;

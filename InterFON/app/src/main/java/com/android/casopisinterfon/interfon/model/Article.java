@@ -80,7 +80,7 @@ public class Article {
         this.articleDescription = articleDescription;
     }
 
-    public String getArticleTytle() {
+    public String getArticleTitle() {
         return articleTytle;
     }
 

@@ -15,13 +15,14 @@ import com.android.casopisinterfon.interfon.activity.ArticleViewActivity;
 import com.android.casopisinterfon.interfon.data.DataManager;
 import com.android.casopisinterfon.interfon.internet.NetworkManager;
 import com.android.casopisinterfon.interfon.internet.events.ListDownloadedEvent;
+import com.android.casopisinterfon.interfon.model.Category;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 
-public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemClickedCallbackInterface{
+public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemClickedCallbackInterface {
 
     public static final String POSITION_ARG = "page_position";
 
@@ -62,7 +63,10 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         srRootView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mNetManager.downloadArticles(0, true);
+                if (mFragPosition != 0)
+                    mNetManager.downloadArticles(0, true, Category.getCategory(mFragPosition));
+                else
+                    mNetManager.downloadArticles(0, true, null);
             }
         });
 

@@ -88,7 +88,7 @@ public class ArticleViewActivity extends AppCompatActivity {
 
         float size = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, getResources().getDisplayMetrics());
 
-        tvTitle.setText(a.getArticleTytle());
+        tvTitle.setText(a.getArticleTitle());
         tvCategory.setText(a.getArticleCategory().name());
         tvCategory2.setText(a.getArticleCategory2().name());
         tvCategory3.setText(a.getArticleCategory3().name());

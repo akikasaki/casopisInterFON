@@ -77,7 +77,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         Article a = mCurrentData.get(position);
         // TODO Change underline color depending on category - TRAMPA
         if (holder.getItemViewType() == 0) {
-            holder.tvTitle.setText(a.getArticleTytle());
+           // holder.tvTitle.setText(Util.fromHtml(a.getArticleTitle()));
+            holder.tvTitle.setText(a.getArticleTitle());
             holder.tvCategory.setText(a.getArticleCategory().toString());
             holder.tvCategory12.setText(a.getArticleCategory2().toString());
             holder.tvCategory13.setText(a.getArticleCategory3().toString());
@@ -85,7 +86,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             holder.tvDescription.setText(Util.fromHtml(a.getArticleDescription()));
             holder.tvPicture.setText(a.getPictureLink());
         } else {
-            holder.tvTitle2.setText(a.getArticleTytle());
+            //holder.tvTitle.setText(Util.fromHtml(a.getArticleTitle()));
+            holder.tvTitle2.setText(a.getArticleTitle());
             holder.tvCategory2.setText(a.getArticleCategory().toString());
             holder.tvCategory22.setText(a.getArticleCategory2().toString());
             holder.tvCategory23.setText(a.getArticleCategory3().toString());

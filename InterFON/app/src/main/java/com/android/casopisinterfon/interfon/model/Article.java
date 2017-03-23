@@ -11,7 +11,7 @@ public class Article {
 
     Category category;
     private String pictureLink;
-    private String articleTytle;
+    private String articleTitle;
     private String articleDescription;
     private Category articleCategory,articleCategory2,articleCategory3;
     private String articleDate;
@@ -28,7 +28,7 @@ public class Article {
         int articleNum = rand.nextInt(35);
         boolean duplicateCategory=true;
         pictureLink = "link" + articleNum;
-        articleTytle = "tytle" + articleNum;
+        articleTitle = "tytle" + articleNum;
         articleDescription = "description" + articleNum;
         articleDate = "date" + articleNum;
         articleCategory = Category.getCategory(new Random().nextInt(8) + 1);
@@ -80,12 +80,12 @@ public class Article {
         this.articleDescription = articleDescription;
     }
 
-    public String getArticleTytle() {
-        return articleTytle;
+    public String getArticleTitle() {
+        return articleTitle;
     }
 
-    public void setArticleTitle(String articleTytle) {
-        this.articleTytle = articleTytle;
+    public void setArticleTitle(String articleTitle) {
+        this.articleTitle = articleTitle;
     }
 
     public String getPictureLink() {

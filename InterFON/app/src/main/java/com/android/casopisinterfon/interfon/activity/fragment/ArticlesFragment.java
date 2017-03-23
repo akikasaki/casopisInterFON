@@ -4,23 +4,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.casopisinterfon.interfon.ArticlesAdapter;
+import com.android.casopisinterfon.interfon.DummyData;
 import com.android.casopisinterfon.interfon.R;
 import com.android.casopisinterfon.interfon.activity.ArticleViewActivity;
 import com.android.casopisinterfon.interfon.data.DataManager;
 import com.android.casopisinterfon.interfon.internet.NetworkManager;
 import com.android.casopisinterfon.interfon.internet.events.ListDownloadedEvent;
+import com.android.casopisinterfon.interfon.model.Article;
 import com.android.casopisinterfon.interfon.model.Category;
+import com.android.casopisinterfon.interfon.utils.EndlessRecyclerViewScrollListener;
 
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
 
 
 public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemClickedCallbackInterface {
@@ -30,6 +36,8 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
     private DataManager mDataManager;
     private NetworkManager mNetManager;
     private ArticlesAdapter mAdapter;
+    private LinearLayoutManager linearLayoutManager;
+    private EndlessRecyclerViewScrollListener scrollListener;
     private int mFragPosition;
 
     private SwipeRefreshLayout srRootView;
@@ -76,12 +84,27 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         RecyclerView rv = (RecyclerView) srRootView.findViewById(R.id.rvArticles);
         mAdapter = new ArticlesAdapter(this);
         rv.setAdapter(mAdapter);
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        rv.setLayoutManager(linearLayoutManager);
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, final int totalItemsCount, RecyclerView view) {
+                final int curSize = mAdapter.getItemCount();
+                mNetManager.downloadArticles(0, true, Category.getCategory(mFragPosition));
+                view.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter.notifyItemRangeInserted(curSize, mDataManager.getArticlesForPosition(mFragPosition).size() -1);
+                    }
+                });
+            }
+        };
+       rv.addOnScrollListener(scrollListener);
 
         // Set mAdapter data
         Bundle a = getArguments();
         mFragPosition = a.getInt(POSITION_ARG);
         mAdapter.setData(mDataManager.getArticlesForPosition(mFragPosition));
-
         return srRootView;
     }
 

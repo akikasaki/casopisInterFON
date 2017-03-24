@@ -69,7 +69,7 @@ public class ArticlesParser {
     Article parseArticle(JSONObject jsonObject) throws IllegalArgumentException {
         if (jsonObject == null)
             throw new IllegalArgumentException("Cannot parse null as Article object.");
-        Article a = null;
+        Article a;
         try {
             a = new Article();
             long _id = jsonObject.getLong(KEY_POST_ID);
@@ -99,6 +99,7 @@ public class ArticlesParser {
             a.setArticleDate(date);
         } catch (JSONException e) {
             Log.e(TAG, "Failed to parse article: " + jsonObject.toString(), e);
+            a = null;
         }
 
         return a;

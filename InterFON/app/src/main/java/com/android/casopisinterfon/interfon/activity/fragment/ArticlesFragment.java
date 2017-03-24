@@ -11,22 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.casopisinterfon.interfon.ArticlesAdapter;
-import com.android.casopisinterfon.interfon.DummyData;
 import com.android.casopisinterfon.interfon.R;
 import com.android.casopisinterfon.interfon.activity.ArticleViewActivity;
+import com.android.casopisinterfon.interfon.activity.EndlessRecyclerViewScrollListener;
 import com.android.casopisinterfon.interfon.data.DataManager;
 import com.android.casopisinterfon.interfon.internet.NetworkManager;
 import com.android.casopisinterfon.interfon.internet.events.ListDownloadedEvent;
-import com.android.casopisinterfon.interfon.model.Article;
 import com.android.casopisinterfon.interfon.model.Category;
-import com.android.casopisinterfon.interfon.utils.EndlessRecyclerViewScrollListener;
-
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.List;
 
 
 public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemClickedCallbackInterface {
@@ -41,6 +36,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
     private int mFragPosition;
 
     private SwipeRefreshLayout srRootView;
+    private RecyclerView rvList;
 
     public ArticlesFragment() {
     }
@@ -81,25 +77,18 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         });
 
         // Setup list view and it's mAdapter
-        RecyclerView rv = (RecyclerView) srRootView.findViewById(R.id.rvArticles);
+        rvList = (RecyclerView) srRootView.findViewById(R.id.rvArticles);
         mAdapter = new ArticlesAdapter(this);
-        rv.setAdapter(mAdapter);
+        rvList.setAdapter(mAdapter);
         linearLayoutManager = new LinearLayoutManager(getContext());
-        rv.setLayoutManager(linearLayoutManager);
+        rvList.setLayoutManager(linearLayoutManager);
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, final int totalItemsCount, RecyclerView view) {
-                final int curSize = mAdapter.getItemCount();
-                mNetManager.downloadArticles(0, true, Category.getCategory(mFragPosition));
-                view.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mAdapter.notifyItemRangeInserted(curSize, mDataManager.getArticlesForPosition(mFragPosition).size() -1);
-                    }
-                });
+//                mNetManager.downloadArticles(page, false, Category.getCategory(mFragPosition));
             }
         };
-       rv.addOnScrollListener(scrollListener);
+        rvList.addOnScrollListener(scrollListener);
 
         // Set mAdapter data
         Bundle a = getArguments();
@@ -127,6 +116,13 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         EventBus.getDefault().register(this);
         // Try refreshing data if it's downloaded
         mAdapter.setData(mDataManager.getArticlesForPosition(mFragPosition));
+    }
+
+    @Override
+    public void onPause() {
+        if (scrollListener != null)
+            rvList.removeOnScrollListener(scrollListener);
+        super.onPause();
     }
 
     @Override

@@ -64,18 +64,18 @@ public class NetworkManager {
                 // Process and save response in background thread
                 TaskHandler.submitTask(new Runnable() {
 
-                                           @Override
-                                           public void run() {
-                                               // Save data
-                                               DataManager.getInstance().addData(
-                                                       // Parse data
-                                                       new ArticlesParser().parseAll(response),
-                                                       freshData);
-                                               // Notify UI
-                                               EventBus.getDefault().post(new ListDownloadedEvent(true));
-                                               // Log
-                                               Log.d(TAG, "Data download success, page number: " + pageIndex);
-                                           }
+                    @Override
+                    public void run() {
+                        // Save data
+                        DataManager.getInstance().addData(
+                                // Parse data
+                                new ArticlesParser().parseAll(response),
+                                freshData);
+                        // Notify UI
+                        EventBus.getDefault().post(new ListDownloadedEvent(true));
+                        // Log
+                        Log.d(TAG, "Data download success, page number: " + pageIndex);
+                    }
                 });
             }
         });
@@ -107,19 +107,19 @@ public class NetworkManager {
             public void onResponse(final JSONObject response) {
                 // Process and save response in background thread
                 TaskHandler.submitTask(new Runnable() {
-                                           @Override
-                                           public void run() {
-                                               // Save data
-                                               DataManager.getInstance().addData(
-                                                       // Parse data
-                                                       new ArticlesParser().parseAll(response),
-                                                       freshData);
-                                               // Notify UI
-                                               EventBus.getDefault().post(new ListDownloadedEvent(true));
-                                               // Log
-                                               Log.d(TAG, String.format("Articles download complete. Page num:%d, Category:%s", pageIndex, category));
+                    @Override
+                    public void run() {
+                        // Save data
+                        DataManager.getInstance().addData(
+                                // Parse data
+                                new ArticlesParser().parseAll(response),
+                                freshData);
+                        // Notify UI
+                        EventBus.getDefault().post(new ListDownloadedEvent(true));
+                        // Log
+                        Log.d(TAG, String.format("Articles download complete. Page num:%d, Category:%s", pageIndex, category));
 
-                                           }
+                    }
                 });
             }
         });

@@ -1,4 +1,4 @@
-package com.android.casopisinterfon.interfon.utils;
+package com.android.casopisinterfon.interfon.activity;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;

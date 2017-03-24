@@ -9,11 +9,9 @@ import java.util.Random;
  */
 public class Article {
 
-    Category category;
     private String pictureLink;
     private String articleTitle;
     private String articleDescription;
-    private Category articleCategory,articleCategory2,articleCategory3;
     private String articleDate;
     private long id;
     private String articleLink;

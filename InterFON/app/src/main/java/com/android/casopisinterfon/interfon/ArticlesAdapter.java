@@ -79,18 +79,14 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         if (holder.getItemViewType() == 0) {
            // holder.tvTitle.setText(Util.fromHtml(a.getArticleTitle()));
             holder.tvTitle.setText(a.getArticleTitle());
-            holder.tvCategory.setText(a.getArticleCategory().toString());
-            holder.tvCategory12.setText(a.getArticleCategory2().toString());
-            holder.tvCategory13.setText(a.getArticleCategory3().toString());
+            holder.tvCategory.setText(a.getArticleCategories().toString());
             holder.tvDate.setText(a.getArticleDate());
             holder.tvDescription.setText(Util.fromHtml(a.getArticleDescription()));
             holder.tvPicture.setText(a.getPictureLink());
         } else {
             //holder.tvTitle.setText(Util.fromHtml(a.getArticleTitle()));
             holder.tvTitle2.setText(a.getArticleTitle());
-            holder.tvCategory2.setText(a.getArticleCategory().toString());
-            holder.tvCategory22.setText(a.getArticleCategory2().toString());
-            holder.tvCategory23.setText(a.getArticleCategory3().toString());
+            holder.tvCategory2.setText(a.getArticleCategories().toString());
             holder.tvDate2.setText(a.getArticleDate());
             holder.tvDescription2.setText(Util.fromHtml(a.getArticleDescription()));
             holder.tvPicture2.setText(a.getPictureLink());
@@ -139,8 +135,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         }
 
         CardView mCardView, mCardView2;
-        private TextView tvCategory, tvCategory12, tvCategory13, tvTitle, tvDate, tvPicture, tvDescription;
-        private TextView tvCategory2, tvCategory22, tvCategory23, tvTitle2, tvDate2, tvPicture2, tvDescription2;
+        private TextView tvCategory, tvTitle, tvDate, tvPicture, tvDescription;
+        private TextView tvCategory2,tvTitle2, tvDate2, tvPicture2, tvDescription2;
         private ViewHolderClickListener viewHolderClickListener;
 
         MyViewHolder(View v, ViewHolderClickListener viewHolderClickListener) {
@@ -150,16 +146,12 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             tvTitle = (TextView) v.findViewById(R.id.tvTitle);
             mCardView = (CardView) v.findViewById(R.id.card_view);
             tvCategory = (TextView) v.findViewById(R.id.tvCategory);
-            tvCategory12 = (TextView) v.findViewById(R.id.tvCategory12);
-            tvCategory13 = (TextView) v.findViewById(R.id.tvCategory13);
             tvDate = (TextView) v.findViewById(R.id.tvDate);
             tvDescription = (TextView) v.findViewById(R.id.tvDescription);
             tvPicture = (TextView) v.findViewById(R.id.tvPicture);
             tvTitle2 = (TextView) v.findViewById(R.id.tvTitle2);
             mCardView2 = (CardView) v.findViewById(R.id.card_view2);
             tvCategory2 = (TextView) v.findViewById(R.id.tvCategory2);
-            tvCategory22 = (TextView) v.findViewById(R.id.tvCategory22);
-            tvCategory23 = (TextView) v.findViewById(R.id.tvCategory23);
             tvDate2 = (TextView) v.findViewById(R.id.tvDate2);
             tvDescription2 = (TextView) v.findViewById(R.id.tvDescription2);
             tvPicture2 = (TextView) v.findViewById(R.id.tvPicture2);

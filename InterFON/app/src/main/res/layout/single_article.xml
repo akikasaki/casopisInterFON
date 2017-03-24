@@ -46,22 +46,8 @@
             android:paddingStart="3dp"
             android:paddingRight="3dp"
         android:id="@+id/tvSingleCategory" />
-        <com.android.casopisinterfon.interfon.UnderlinedTextView2
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="3dp"
-            android:paddingStart="3dp"
-            android:paddingRight="3dp"
-            android:id="@+id/tvSingleCategory2" />
-        <com.android.casopisinterfon.interfon.UnderlinedTextView3
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="3dp"
-            android:paddingStart="3dp"
-            android:paddingRight="3dp"
-            android:id="@+id/tvSingleCategory3" />
 
-    <TextView
+        <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvSingleDate"

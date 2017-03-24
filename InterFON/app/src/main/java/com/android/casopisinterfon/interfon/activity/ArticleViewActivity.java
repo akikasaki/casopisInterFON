@@ -44,8 +44,6 @@ public class ArticleViewActivity extends AppCompatActivity {
         mDataManager = DataManager.getInstance();
         tvTitle = (TextView) findViewById(R.id.tvSingleTitle);
         tvCategory = (TextView) findViewById(R.id.tvSingleCategory);
-        tvCategory2 = (TextView) findViewById(R.id.tvSingleCategory2);
-        tvCategory3 = (TextView) findViewById(R.id.tvSingleCategory3);
         tvDate = (TextView) findViewById(R.id.tvSingleDate);
         tvDescription = (TextView) findViewById(R.id.tvSingleDescription);
         tvPicture = (TextView) findViewById(R.id.tvSinglePicture);
@@ -84,24 +82,18 @@ public class ArticleViewActivity extends AppCompatActivity {
     private void setArticle(Article a) {
         SharedPreferences fonts = getSharedPreferences(SettingsActivity.FONTS, MODE_PRIVATE);
 
-        float fontSize = fonts.getFloat(SettingsActivity.GET_A_FONT, 12);
-
-        float size = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, getResources().getDisplayMetrics());
+        float size = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, fonts.getFloat(SettingsActivity.GET_A_FONT, 12), getResources().getDisplayMetrics());
 
         tvTitle.setText(a.getArticleTitle());
-        tvCategory.setText(a.getArticleCategory().name());
-        tvCategory2.setText(a.getArticleCategory2().name());
-        tvCategory3.setText(a.getArticleCategory3().name());
+        tvCategory.setText(a.getArticleCategories().toString());
         tvDescription.setText(a.getArticleDescription());
         tvDate.setText(a.getArticleDate());
         tvPicture.setText(a.getPictureLink());
-        tvTitle.setTextSize(fontSize);
-        tvCategory.setTextSize(fontSize);
-        tvCategory2.setTextSize(fontSize);
-        tvCategory3.setTextSize(fontSize);
-        tvDescription.setTextSize(fontSize);
-        tvDate.setTextSize(fontSize);
-        tvPicture.setTextSize(fontSize);
+        tvTitle.setTextSize(size);
+        tvCategory.setTextSize(size);
+        tvDescription.setTextSize(size);
+        tvDate.setTextSize(size);
+        tvPicture.setTextSize(size);
     }
 
     @Override

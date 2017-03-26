@@ -34,6 +34,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
     private LinearLayoutManager linearLayoutManager;
     private EndlessRecyclerViewScrollListener scrollListener;
     private int mFragPosition;
+    private int mLastPage=0;
 
     private SwipeRefreshLayout srRootView;
     private RecyclerView rvList;
@@ -85,7 +86,10 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, final int totalItemsCount, RecyclerView view) {
-//                mNetManager.downloadArticles(page, false, Category.getCategory(mFragPosition));
+                page=mLastPage;
+              mNetManager.downloadArticles(page, false, Category.getCategory(mFragPosition));
+                mLastPage=page+12;
+                resetState();
             }
         };
         rvList.addOnScrollListener(scrollListener);

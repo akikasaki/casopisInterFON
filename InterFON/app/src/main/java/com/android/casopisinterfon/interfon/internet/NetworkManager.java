@@ -115,7 +115,7 @@ public class NetworkManager {
                                 new ArticlesParser().parseAll(response),
                                 freshData);
                         // Notify UI
-                        EventBus.getDefault().post(new ListDownloadedEvent(true));
+                        EventBus.getDefault().post(new ListDownloadedEvent(true, category));
                         // Log
                         Log.d(TAG, String.format("Articles download complete. Page num:%d, Category:%s", pageIndex, category));
 

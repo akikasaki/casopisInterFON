@@ -53,6 +53,7 @@ public class DataManager {
      * @param isFreshData boolean that indicates if this list of data is fresh and old one should be cleared first.
      */
     public void addData(List<Article> data, boolean isFreshData) {
+        // TODO - refactor adding data
         if (isFreshData && data.size() > 0) {
             mData.clear();
             mData.addAll(data);

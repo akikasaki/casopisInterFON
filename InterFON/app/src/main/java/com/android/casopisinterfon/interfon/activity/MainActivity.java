@@ -68,9 +68,18 @@ public class MainActivity extends AppCompatActivity {
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
         }
+        
         adapterViewPager = new CategoryPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(adapterViewPager);
         mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    /**
+     * Method for retrieving current active fragment position.
+     * @return fragment position.
+     */
+    public int getActiveFragPosition(){
+        return mViewPager.getCurrentItem();
     }
 
 
@@ -99,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public class CategoryPagerAdapter extends FragmentStatePagerAdapter {
+
         public CategoryPagerAdapter(FragmentManager fm) {
             super(fm);
         }

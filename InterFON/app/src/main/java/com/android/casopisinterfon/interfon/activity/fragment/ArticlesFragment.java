@@ -1,5 +1,6 @@
 package com.android.casopisinterfon.interfon.activity.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import com.android.casopisinterfon.interfon.ArticlesAdapter;
 import com.android.casopisinterfon.interfon.R;
 import com.android.casopisinterfon.interfon.activity.ArticleViewActivity;
 import com.android.casopisinterfon.interfon.activity.EndlessRecyclerViewScrollListener;
+import com.android.casopisinterfon.interfon.activity.MainActivity;
 import com.android.casopisinterfon.interfon.data.DataManager;
 import com.android.casopisinterfon.interfon.internet.NetworkManager;
 import com.android.casopisinterfon.interfon.internet.events.ListDownloadedEvent;
@@ -28,13 +30,13 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
 
     public static final String POSITION_ARG = "page_position";
 
+    private MainActivity mActivity;
     private DataManager mDataManager;
     private NetworkManager mNetManager;
     private ArticlesAdapter mAdapter;
     private LinearLayoutManager linearLayoutManager;
     private EndlessRecyclerViewScrollListener scrollListener;
     private int mFragPosition;
-    private int mLastPage=0;
 
     private SwipeRefreshLayout srRootView;
     private RecyclerView rvList;
@@ -54,6 +56,12 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mActivity = (MainActivity) context;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -69,6 +77,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         srRootView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                scrollListener.resetState();
                 if (mFragPosition != 0)
                     mNetManager.downloadArticles(0, true, Category.getCategory(mFragPosition));
                 else
@@ -86,10 +95,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, final int totalItemsCount, RecyclerView view) {
-                page=mLastPage;
-              mNetManager.downloadArticles(page, false, Category.getCategory(mFragPosition));
-                mLastPage=page+12;
-                resetState();
+                mNetManager.downloadArticles(page, false, Category.getCategory(mFragPosition));
             }
         };
         rvList.addOnScrollListener(scrollListener);
@@ -110,8 +116,10 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onListDownloadEvent(ListDownloadedEvent event) {
-        mAdapter.setData(mDataManager.getArticlesForPosition(mFragPosition));
-        srRootView.setRefreshing(false);
+        if (event.eventType == null || event.eventType.equals(Category.getCategory(mActivity == null ? null : mActivity.getActiveFragPosition()))) {
+            mAdapter.setData(mDataManager.getArticlesForPosition(mFragPosition));
+            srRootView.setRefreshing(false);
+        }
     }
 
     @Override

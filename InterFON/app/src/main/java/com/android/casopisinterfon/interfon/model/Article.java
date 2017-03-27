@@ -17,15 +17,7 @@ public class Article {
     private String articleLink;
     private List<Category> articleCategories;
 
-    public Article() {
-        randomArticle();
-    }
-
-    private void randomArticle() {
-        Random rand = new Random();
-        int articleNum = rand.nextInt(35);
-        id = articleNum; // TODO - implement id
-    }
+    public Article() {}
 
     public long getId() {
         return id;

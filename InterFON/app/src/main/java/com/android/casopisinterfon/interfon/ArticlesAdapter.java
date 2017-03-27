@@ -1,6 +1,5 @@
 package com.android.casopisinterfon.interfon;
 
-import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,14 +18,6 @@ import java.util.List;
 
 
 public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyViewHolder> {
-    public static final String TITLE_KEY = "Title";
-    public static final String DESCRIPTION_KEY = "description";
-    public static final String DATE_KEY = "Date";
-    public static final String PICTURE_KEY = "Picture";
-    public static final String CATEGORY_KEY = "Category";
-
-    int type = 0;
-
     View vw;
     /**
      * Used for notifying fragment that item has been clicked.
@@ -81,7 +72,6 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Article a = mCurrentData.get(position);
-        // TODO Change underline color depending on category - TRAMPA
         if (holder.getItemViewType() == 0) {
            // holder.tvTitle.setText(Util.fromHtml(a.getArticleTitle()));
             holder.tvTitle.setText(a.getArticleTitle());
@@ -142,8 +132,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
 
         CardView mCardView, mCardView2;
         private ImageView ivPicture,ivPicture2;
-        private TextView tvCategory, tvTitle, tvDate, tvPicture, tvDescription;
-        private TextView tvCategory2,tvTitle2, tvDate2, tvPicture2, tvDescription2;
+        private TextView tvCategory, tvTitle, tvDate, tvDescription;
+        private TextView tvCategory2,tvTitle2, tvDate2, tvDescription2;
         private ViewHolderClickListener viewHolderClickListener;
 
         MyViewHolder(View v, ViewHolderClickListener viewHolderClickListener) {

@@ -42,13 +42,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //For getting Context to pass into classes via getAppContext Method
         MainActivity.context = getApplicationContext();
         downloadFreshData();
         init();
-    }
-
-    public static Context getAppContext(){
-        return MainActivity.context;
     }
 
     private void downloadFreshData() {
@@ -140,6 +137,11 @@ public class MainActivity extends AppCompatActivity {
             startService(notificationStarter);
         }
     }
+
+    public static Context getAppContext(){
+        return MainActivity.context;
+    }
+
 }
 
 

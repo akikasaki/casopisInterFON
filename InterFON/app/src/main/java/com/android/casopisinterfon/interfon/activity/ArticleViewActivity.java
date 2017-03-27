@@ -28,8 +28,6 @@ public class ArticleViewActivity extends AppCompatActivity {
 
     private DataManager mDataManager;
     private ProgressDialog mProgressDialog;
-
-    private Article mCurArticle;
     ImageView ivSingleArticlePicture;
     TextView tvTitle, tvDescription, tvPicture, tvCategory, tvDate;
 
@@ -45,11 +43,10 @@ public class ArticleViewActivity extends AppCompatActivity {
     private void initialize() {
         mDataManager = DataManager.getInstance();
         tvTitle = (TextView) findViewById(R.id.tvSingleTitle);
+        ivSingleArticlePicture = (ImageView) findViewById(R.id.ivSingleArticlePicture);
         tvCategory = (TextView) findViewById(R.id.tvSingleCategory);
         tvDate = (TextView) findViewById(R.id.tvSingleDate);
         tvDescription = (TextView) findViewById(R.id.tvSingleDescription);
-        tvPicture = (TextView) findViewById(R.id.tvSinglePicture);
-        ivSingleArticlePicture = (ImageView) findViewById(R.id.ivSingleArticlePicture);
 
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setTitle(null);
@@ -88,15 +85,15 @@ public class ArticleViewActivity extends AppCompatActivity {
         float size = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, fonts.getFloat(SettingsActivity.GET_A_FONT, 12), getResources().getDisplayMetrics());
 
         Glide.with(MainActivity.getAppContext()).load(a.getPictureLink()).into(ivSingleArticlePicture);
-        tvCategory.setText(a.getArticleCategories().toString());
-        tvDescription.setText(a.getArticleDescription());
-        tvDate.setText(a.getArticleDate());
         tvTitle.setText(a.getArticleTitle());
+        tvCategory.setText(a.getArticleCategories().toString());
+        tvDate.setText(a.getArticleDate());
+        tvDescription.setText(a.getArticleDescription());
+
         tvTitle.setTextSize(size);
         tvCategory.setTextSize(size);
         tvDescription.setTextSize(size);
         tvDate.setTextSize(size);
-        tvPicture.setTextSize(size);
     }
 
     @Override

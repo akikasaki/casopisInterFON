@@ -19,7 +19,7 @@
             <ImageView
                 android:id="@+id/ivPicture2"
                 android:layout_width="80dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center" >
             </ImageView>
             <TextView

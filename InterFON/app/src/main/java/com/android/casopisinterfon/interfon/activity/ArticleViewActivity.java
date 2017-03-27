@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +15,8 @@ import com.android.casopisinterfon.interfon.data.DataManager;
 import com.android.casopisinterfon.interfon.NotificationService;
 import com.android.casopisinterfon.interfon.R;
 import com.android.casopisinterfon.interfon.model.Article;
+import com.bumptech.glide.Glide;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 
 public class ArticleViewActivity extends AppCompatActivity {
@@ -28,8 +31,8 @@ public class ArticleViewActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
 
     private Article mCurArticle;
-
-    TextView tvTitle, tvDescription, tvPicture, tvCategory,tvCategory2,tvCategory3, tvDate;
+    ImageView ivSingleArticlePicture;
+    TextView tvTitle, tvDescription, tvPicture, tvCategory, tvDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,7 @@ public class ArticleViewActivity extends AppCompatActivity {
         tvDate = (TextView) findViewById(R.id.tvSingleDate);
         tvDescription = (TextView) findViewById(R.id.tvSingleDescription);
         tvPicture = (TextView) findViewById(R.id.tvSinglePicture);
+        ivSingleArticlePicture = (ImageView) findViewById(R.id.ivSingleArticlePicture);
 
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setTitle(null);
@@ -84,11 +88,11 @@ public class ArticleViewActivity extends AppCompatActivity {
 
         float size = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, fonts.getFloat(SettingsActivity.GET_A_FONT, 12), getResources().getDisplayMetrics());
 
-        tvTitle.setText(a.getArticleTitle());
+        Glide.with(MainActivity.getAppContext()).load(a.getPictureLink()).into(ivSingleArticlePicture);
         tvCategory.setText(a.getArticleCategories().toString());
         tvDescription.setText(a.getArticleDescription());
         tvDate.setText(a.getArticleDate());
-        tvPicture.setText(a.getPictureLink());
+        tvTitle.setText(a.getArticleTitle());
         tvTitle.setTextSize(size);
         tvCategory.setTextSize(size);
         tvDescription.setTextSize(size);

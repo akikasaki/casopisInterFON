@@ -18,17 +18,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tvPicture"
+            <ImageView
+                android:id="@+id/ivPicture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center" >
-            </TextView>
+            </ImageView>
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvPicture">
+                android:layout_below="@+id/ivPicture">
 
             </TextView>
             <TextView

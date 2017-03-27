@@ -1,14 +1,19 @@
 package com.android.casopisinterfon.interfon;
 
+import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.casopisinterfon.interfon.activity.MainActivity;
 import com.android.casopisinterfon.interfon.model.Article;
 import com.android.casopisinterfon.interfon.utils.Util;
+import com.bumptech.glide.Glide;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +27,13 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     public static final String CATEGORY_KEY = "Category";
 
     int type = 0;
+
     View vw;
     /**
      * Used for notifying fragment that item has been clicked.
      */
     private ItemClickedCallbackInterface mListener;
+
 
     /**
      * Classes that use {@link ArticlesAdapter}, must implement this listener for item list interaction.
@@ -82,14 +89,14 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             holder.tvCategory.setText(a.getArticleCategories().toString());
             holder.tvDate.setText(a.getArticleDate());
             holder.tvDescription.setText(Util.fromHtml(a.getArticleDescription()));
-            holder.tvPicture.setText(a.getPictureLink());
+            Glide.with(MainActivity.getAppContext()).load(a.getPictureLink()).into(holder.ivPicture);
         } else {
             //holder.tvTitle.setText(Util.fromHtml(a.getArticleTitle()));
             holder.tvTitle2.setText(a.getArticleTitle());
             holder.tvCategory2.setText(a.getArticleCategories().toString());
             holder.tvDate2.setText(a.getArticleDate());
             holder.tvDescription2.setText(Util.fromHtml(a.getArticleDescription()));
-            holder.tvPicture2.setText(a.getPictureLink());
+            Glide.with(MainActivity.getAppContext()).load(a.getPictureLink()).into(holder.ivPicture2);
         }
     }
 
@@ -135,6 +142,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         }
 
         CardView mCardView, mCardView2;
+        private ImageView ivPicture,ivPicture2;
         private TextView tvCategory, tvTitle, tvDate, tvPicture, tvDescription;
         private TextView tvCategory2,tvTitle2, tvDate2, tvPicture2, tvDescription2;
         private ViewHolderClickListener viewHolderClickListener;
@@ -142,19 +150,18 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         MyViewHolder(View v, ViewHolderClickListener viewHolderClickListener) {
             super(v);
             this.viewHolderClickListener = viewHolderClickListener;
-
             tvTitle = (TextView) v.findViewById(R.id.tvTitle);
             mCardView = (CardView) v.findViewById(R.id.card_view);
             tvCategory = (TextView) v.findViewById(R.id.tvCategory);
             tvDate = (TextView) v.findViewById(R.id.tvDate);
             tvDescription = (TextView) v.findViewById(R.id.tvDescription);
-            tvPicture = (TextView) v.findViewById(R.id.tvPicture);
+            ivPicture = (ImageView) v.findViewById(R.id.ivPicture);
             tvTitle2 = (TextView) v.findViewById(R.id.tvTitle2);
             mCardView2 = (CardView) v.findViewById(R.id.card_view2);
             tvCategory2 = (TextView) v.findViewById(R.id.tvCategory2);
             tvDate2 = (TextView) v.findViewById(R.id.tvDate2);
             tvDescription2 = (TextView) v.findViewById(R.id.tvDescription2);
-            tvPicture2 = (TextView) v.findViewById(R.id.tvPicture2);
+            ivPicture2 = (ImageView) v.findViewById(R.id.ivPicture2);
 
             v.setOnClickListener(this);
         }

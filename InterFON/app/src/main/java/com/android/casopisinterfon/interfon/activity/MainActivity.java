@@ -1,5 +1,6 @@
 package com.android.casopisinterfon.interfon.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -33,15 +34,21 @@ public class MainActivity extends AppCompatActivity {
     TabLayout mTabLayout;
     Toolbar mToolbar;
 
+   private static Context context;
+
 //    private DataManager mDataManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        MainActivity.context = getApplicationContext();
         downloadFreshData();
         init();
+    }
+
+    public static Context getAppContext(){
+        return MainActivity.context;
     }
 
     private void downloadFreshData() {

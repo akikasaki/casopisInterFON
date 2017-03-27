@@ -62,7 +62,9 @@ public class Article {
         this.articleTitle = articleTitle;
     }
 
+    //PictureLink should be passed from ArticleParser Class
     public String getPictureLink() {
+        pictureLink="https://cdn.pixabay.com/photo/2016/12/29/16/12/eiskristalle-1938842_960_720.jpg";
         return pictureLink;
     }
     public void setPictureLink(String pictureLink) {

@@ -16,18 +16,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tvPicture2"
-                android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/ivPicture2"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:gravity="center" >
-            </TextView>
+            </ImageView>
             <TextView
                 android:id="@+id/tvTitle2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/tvPicture2"
-                android:layout_toEndOf="@+id/tvPicture2">
+                android:layout_toRightOf="@+id/ivPicture2"
+                android:layout_toEndOf="@+id/ivPicture2">
 
             </TextView>
             <TextView
@@ -36,8 +36,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvTitle2"
-                android:layout_toRightOf="@+id/tvPicture2"
-                android:layout_toEndOf="@+id/tvPicture2"
+                android:layout_toRightOf="@+id/ivPicture2"
+                android:layout_toEndOf="@+id/ivPicture2"
                 android:gravity="center" >
             </TextView>
             <TextView
@@ -46,8 +46,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvDescription2"
-                android:layout_toRightOf="@+id/tvPicture2"
-                android:layout_toEndOf="@+id/tvPicture2"
+                android:layout_toRightOf="@+id/ivPicture2"
+                android:layout_toEndOf="@+id/ivPicture2"
                 android:gravity="center" >
             </TextView>
             <com.android.casopisinterfon.interfon.UnderlinedTextView3

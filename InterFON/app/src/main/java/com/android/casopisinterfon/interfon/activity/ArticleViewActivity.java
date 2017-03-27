@@ -16,7 +16,6 @@ import com.android.casopisinterfon.interfon.NotificationService;
 import com.android.casopisinterfon.interfon.R;
 import com.android.casopisinterfon.interfon.model.Article;
 import com.bumptech.glide.Glide;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 
 public class ArticleViewActivity extends AppCompatActivity {

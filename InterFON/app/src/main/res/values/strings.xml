@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">InterFON</string>
-
+<string name="star">Favorites</string>
+<string name="share">Share</string>
     <!-- Settings related -->
     <string name="notification_label">Notifikacije</string>
+    <string name="settings">Settings</string>
 </resources>

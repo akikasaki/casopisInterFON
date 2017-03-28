@@ -11,14 +11,18 @@
         android:layout_height="?android:attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:elevation="4dp"
-        android:paddingLeft="16dp"
+        android:paddingLeft="4dp"
+        android:theme="@style/AppTheme"
         app:contentInsetStart="0dp">
 
-        <ImageView
-            android:layout_width="130dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_logo" />
     </android.support.v7.widget.Toolbar>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -66,5 +70,8 @@
         android:id="@+id/tvSingleDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Beogradska berza je jako malo i nerazvijeno tržište i sa te strane nema sličnosti. U filmu se govori o milionima i velikim prevarama, što kod nas nije slučaj.  Međutim, svako nerazvijeno tržište sa sobom nosi dozu neregularnosti. Postoji lažno informisanje. U svetu je zabranjeno da brokeri ulažu u berzu, međutim, kod nas se to pravilo često krši. Mene finansijsko tržište i sama berza jako privlače. Počelo je kao hobi, ali sam kasnije to počeo da povezujem sa naukom tj. oblašću kojom se bavim, kao i sada sa svojim doktorskim radom. Na berzi me privalači ta igra u kojoj svakoga dana pokušavaš da pobediš tržište, što je poprilično teško, u teoriji bi rekli nemoguće, ali veoma motivišuće. Mnogi ljudi koriste insajderske informacije, dok ja pokušavam da korišćenjem naućnuh tehnika dobijem informacije koje bi mi pomogle. Ja na taj način ispitujem teorijske postavke i da li one stvarno funkcionišu u praksi. "
         android:layout_margin="5dp" />
+    </LinearLayout>
+</ScrollView>
 </LinearLayout>

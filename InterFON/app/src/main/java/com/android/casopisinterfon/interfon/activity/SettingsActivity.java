@@ -22,6 +22,10 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
     public final static String GET_A_FONT ="getAFont";
     public final static String GET_LAST_TOGGLED_STATE ="ToggledState";
 
+    public final static int SMALL_FONT_SIZE =10;
+    public final static int MEDIUM_FONT_SIZE =14;
+    public final static int LARGE_FONT_SIZE =18;
+
     ToggleButton tbNotifications;
     RadioGroup fontGroup;
     TextView tvFont;
@@ -30,7 +34,6 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
         initialize();
-
     }
 
     private void initialize() {
@@ -66,12 +69,33 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
             editor.putBoolean(NOTIFICATION_STATE, true);
             editor.apply();
         }
-
         else {
             editor.putBoolean(NOTIFICATION_STATE, false);
             editor.apply();
         }
+    }
 
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        SharedPreferences.Editor fonts = getSharedPreferences(FONTS, MODE_PRIVATE).edit();
+        switch(checkedId) {
+
+            case R.id.rbSmall:
+                fonts.putFloat(GET_A_FONT, SMALL_FONT_SIZE); // TODO - store values in DIP - TRAMPA
+                fonts.putInt(GET_LAST_TOGGLED_STATE,0);
+                fonts.apply();
+                break;
+            case R.id.rbMedium:
+                fonts.putFloat(GET_A_FONT, MEDIUM_FONT_SIZE);
+                fonts.putInt(GET_LAST_TOGGLED_STATE,1);
+                fonts.apply();
+                    break;
+            case R.id.rbLarge:
+                fonts.putFloat(GET_A_FONT, LARGE_FONT_SIZE);
+                fonts.putInt(GET_LAST_TOGGLED_STATE,2);
+                fonts.apply();
+                    break;
+        }
     }
     @Override
     protected void onDestroy() {
@@ -89,30 +113,6 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
         SharedPreferences prefs = getSharedPreferences(NOTIFICATION_TOGGLE, MODE_PRIVATE);
         if(prefs.getBoolean(NOTIFICATION_STATE, true)){
             stopService(notificationStarter);
-        }
-    }
-
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        SharedPreferences.Editor fonts = getSharedPreferences(FONTS, MODE_PRIVATE).edit();
-        switch(checkedId) {
-
-            case R.id.rbSmall:
-                fonts.putFloat(GET_A_FONT, 10); // TODO - store values in DIP - TRAMPA
-                fonts.putInt(GET_LAST_TOGGLED_STATE,0);
-                fonts.apply();
-                break;
-            case R.id.rbMedium:
-                fonts.putFloat(GET_A_FONT, 20);
-                fonts.putInt(GET_LAST_TOGGLED_STATE,1);
-                fonts.apply();
-                    break;
-            case R.id.rbLarge:
-                fonts.putFloat(GET_A_FONT, 30);
-                fonts.putInt(GET_LAST_TOGGLED_STATE,2);
-                fonts.apply();
-                    break;
-            // TODO Method for setting a font
         }
     }
 }

@@ -4,9 +4,15 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,8 +34,9 @@ public class ArticleViewActivity extends AppCompatActivity {
 
     private DataManager mDataManager;
     private ProgressDialog mProgressDialog;
+    Toolbar mToolbar;
     ImageView ivSingleArticlePicture;
-    TextView tvTitle, tvDescription, tvPicture, tvCategory, tvDate;
+    TextView tvTitle, tvDescription, tvCategory, tvDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,14 @@ public class ArticleViewActivity extends AppCompatActivity {
     }
 
     private void initialize() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar2);
+        if (mToolbar != null) {
+            setSupportActionBar(mToolbar);
+        }
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayShowTitleEnabled(false);
+        ab.setDisplayHomeAsUpEnabled(true);
+
         mDataManager = DataManager.getInstance();
         tvTitle = (TextView) findViewById(R.id.tvSingleTitle);
         ivSingleArticlePicture = (ImageView) findViewById(R.id.ivSingleArticlePicture);
@@ -91,6 +106,31 @@ public class ArticleViewActivity extends AppCompatActivity {
        // tvDescription.setText(a.getArticleDescription());
 
         tvDescription.setTextSize(size);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_single_article, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_star:
+                tvDate.setText("1");
+                return true;
+            case R.id.action_share:
+                tvDate.setText("2");
+                return true;
+            case R.id.action_settings:
+                Intent openSettings = new Intent(this, SettingsActivity.class);
+                startActivity(openSettings);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

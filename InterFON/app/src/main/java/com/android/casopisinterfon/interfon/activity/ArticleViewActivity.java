@@ -88,12 +88,9 @@ public class ArticleViewActivity extends AppCompatActivity {
         tvTitle.setText(a.getArticleTitle());
         tvCategory.setText(a.getArticleCategories().toString());
         tvDate.setText(a.getArticleDate());
-        tvDescription.setText(a.getArticleDescription());
+       // tvDescription.setText(a.getArticleDescription());
 
-        tvTitle.setTextSize(size);
-        tvCategory.setTextSize(size);
         tvDescription.setTextSize(size);
-        tvDate.setTextSize(size);
     }
 
     @Override

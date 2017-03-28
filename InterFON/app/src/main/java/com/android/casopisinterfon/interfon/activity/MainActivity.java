@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         adapterViewPager = new CategoryPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(adapterViewPager);
         mTabLayout.setupWithViewPager(mViewPager);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     /**

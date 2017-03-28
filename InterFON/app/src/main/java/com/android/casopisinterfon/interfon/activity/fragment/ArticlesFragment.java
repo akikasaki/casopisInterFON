@@ -41,8 +41,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
     private SwipeRefreshLayout srRootView;
     private RecyclerView rvList;
 
-    public ArticlesFragment() {
-    }
+    public ArticlesFragment() {}
 
     public static ArticlesFragment getInstance(int position) {
         Bundle b = new Bundle();

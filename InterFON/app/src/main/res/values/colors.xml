@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#a4a8bd</color>
+    <color name="colorPrimary">#4f5b9c</color>
     <color name="colorPrimaryDark">#4f505a</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="cardview_background">#e7e7e7</color>
+    <color name="cardview_background_darker">#dbdbdb</color>
+    <color name="white">#FFF7F7F7</color>
+    <color name="tab_text_color">#a8b3c8</color>
+
 </resources>

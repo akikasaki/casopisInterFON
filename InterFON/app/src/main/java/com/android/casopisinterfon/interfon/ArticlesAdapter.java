@@ -77,14 +77,12 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             holder.tvTitle.setText(a.getArticleTitle());
             holder.tvCategory.setText(a.getArticleCategories().toString());
             holder.tvDate.setText(a.getArticleDate());
-            holder.tvDescription.setText(Util.fromHtml(a.getArticleDescription()));
             Glide.with(MainActivity.getAppContext()).load(a.getPictureLink()).into(holder.ivPicture);
         } else {
             //holder.tvTitle.setText(Util.fromHtml(a.getArticleTitle()));
             holder.tvTitle2.setText(a.getArticleTitle());
             holder.tvCategory2.setText(a.getArticleCategories().toString());
             holder.tvDate2.setText(a.getArticleDate());
-            holder.tvDescription2.setText(Util.fromHtml(a.getArticleDescription()));
             Glide.with(MainActivity.getAppContext()).load(a.getPictureLink()).into(holder.ivPicture2);
         }
     }
@@ -130,26 +128,21 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             void onItemClicked(int position);
         }
 
-        CardView mCardView, mCardView2;
         private ImageView ivPicture,ivPicture2;
-        private TextView tvCategory, tvTitle, tvDate, tvDescription;
-        private TextView tvCategory2,tvTitle2, tvDate2, tvDescription2;
+        private TextView tvCategory, tvTitle, tvDate;
+        private TextView tvCategory2,tvTitle2, tvDate2;
         private ViewHolderClickListener viewHolderClickListener;
 
         MyViewHolder(View v, ViewHolderClickListener viewHolderClickListener) {
             super(v);
             this.viewHolderClickListener = viewHolderClickListener;
             tvTitle = (TextView) v.findViewById(R.id.tvTitle);
-            mCardView = (CardView) v.findViewById(R.id.card_view);
             tvCategory = (TextView) v.findViewById(R.id.tvCategory);
             tvDate = (TextView) v.findViewById(R.id.tvDate);
-            tvDescription = (TextView) v.findViewById(R.id.tvDescription);
             ivPicture = (ImageView) v.findViewById(R.id.ivPicture);
             tvTitle2 = (TextView) v.findViewById(R.id.tvTitle2);
-            mCardView2 = (CardView) v.findViewById(R.id.card_view2);
             tvCategory2 = (TextView) v.findViewById(R.id.tvCategory2);
             tvDate2 = (TextView) v.findViewById(R.id.tvDate2);
-            tvDescription2 = (TextView) v.findViewById(R.id.tvDescription2);
             ivPicture2 = (ImageView) v.findViewById(R.id.ivPicture2);
 
             v.setOnClickListener(this);

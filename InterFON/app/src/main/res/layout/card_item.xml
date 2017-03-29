@@ -3,18 +3,16 @@
     xmlns:app="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/cardview_background">
 
-    <android.support.v7.widget.CardView
+    <RelativeLayout
         android:id="@+id/card_view"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:background="@color/cardview_light_background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        card_view:elevation="14dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="28dp">
 
             <ImageView
                 android:id="@+id/ivPicture"
@@ -61,6 +59,5 @@
 
 
         </RelativeLayout>
-    </android.support.v7.widget.CardView>
 
 </LinearLayout>

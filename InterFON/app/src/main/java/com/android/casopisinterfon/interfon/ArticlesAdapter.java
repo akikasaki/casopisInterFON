@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.casopisinterfon.interfon.activity.MainActivity;
@@ -55,7 +57,12 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         if (viewType == 0) {
             vw = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.card_item, parent, false);
-        } else {
+        }
+        else if(viewType==1){
+            vw = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.card_item, parent, false);
+        }
+        else if(viewType==2){
             vw = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.card_item2, parent, false);
         }
@@ -78,7 +85,21 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             holder.tvCategory.setText(a.getArticleCategories().toString());
             holder.tvDate.setText(a.getArticleDate());
             Glide.with(MainActivity.getAppContext()).load(a.getPictureLink()).into(holder.ivPicture);
-        } else {
+
+        }
+        else if(holder.getItemViewType()==1){
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            params.setMargins(0, 0, 0, 25);
+            holder.rlCardView.setLayoutParams(params);
+            holder.tvTitle.setText(a.getArticleTitle());
+            holder.tvCategory.setText(a.getArticleCategories().toString());
+            holder.tvDate.setText(a.getArticleDate());
+            Glide.with(MainActivity.getAppContext()).load(a.getPictureLink()).into(holder.ivPicture);
+        }
+        else if(holder.getItemViewType()==2){
             //holder.tvTitle.setText(Util.fromHtml(a.getArticleTitle()));
             holder.tvTitle2.setText(a.getArticleTitle());
             holder.tvCategory2.setText(a.getArticleCategories().toString());
@@ -92,10 +113,12 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     public int getItemViewType(int position) {
         // Today news will be diferent from others
         // TODO - finsih method
-        if (position < 4)
+        if (position < 3)
             return 0;
-        else {
+        if(position==3)
             return 1;
+        else {
+            return 2;
         }
     }
 
@@ -131,11 +154,13 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         private ImageView ivPicture,ivPicture2;
         private TextView tvCategory, tvTitle, tvDate;
         private TextView tvCategory2,tvTitle2, tvDate2;
+        private RelativeLayout rlCardView;
         private ViewHolderClickListener viewHolderClickListener;
 
         MyViewHolder(View v, ViewHolderClickListener viewHolderClickListener) {
             super(v);
             this.viewHolderClickListener = viewHolderClickListener;
+            rlCardView = (RelativeLayout) v.findViewById(R.id.card_view);
             tvTitle = (TextView) v.findViewById(R.id.tvTitle);
             tvCategory = (TextView) v.findViewById(R.id.tvCategory);
             tvDate = (TextView) v.findViewById(R.id.tvDate);

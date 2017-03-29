@@ -8,7 +8,7 @@
             android:background="@color/cardview_light_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="12dp">
             <View style="@style/Divider"
                 android:id="@+id/view1"
                 android:layout_below="@+id/ivPicture2"
@@ -20,8 +20,8 @@
                 android:background="@color/cardview_background_darker" />
             <ImageView
                 android:id="@+id/ivPicture2"
-                android:layout_width="110dp"
-                android:layout_height="110dp"
+                android:layout_width="115dp"
+                android:layout_height="100dp"
                 android:adjustViewBounds="true"
                 android:cropToPadding="false"
                 android:scaleType="centerCrop">
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/ivPicture2"
                 android:layout_toEndOf="@+id/ivPicture2"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp">
 

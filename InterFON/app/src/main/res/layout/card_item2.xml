@@ -20,7 +20,7 @@
                 android:background="@color/cardview_background_darker" />
             <ImageView
                 android:id="@+id/ivPicture2"
-                android:layout_width="115dp"
+                android:layout_width="110dp"
                 android:layout_height="100dp"
                 android:adjustViewBounds="true"
                 android:cropToPadding="false"

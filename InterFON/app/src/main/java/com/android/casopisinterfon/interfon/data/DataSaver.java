@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,12 +22,15 @@ public class DataSaver {
 
     /**
      * Method for saving all articles into a txt JSON Object
+     * @param bookmarkedArticles List of previous bookmarks
+     * @param singleArticle Article to be saved into bookmarks List
      */
-    public void saveData(){
+    public void saveData(Article singleArticle,List<Article> bookmarkedArticles){
 
-        List<Article> articles = DummyData.createDummyData();
+    //  Gets previously saved Articles and adds the one we wish to bookmark
+        bookmarkedArticles.add(singleArticle);
         Gson gson = new Gson();
-        String json = gson.toJson(articles);
+        String json = gson.toJson(bookmarkedArticles);
 
     try {
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("articles.txt", Context.MODE_PRIVATE));

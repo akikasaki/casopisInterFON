@@ -56,11 +56,6 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
 //        mDataManager = DataManager.getInstance();
 
-//        //for fetching DummyArticles for debugging
-//        DataSaver datasaver = new DataSaver(getApplicationContext());
-//        datasaver.saveData();
-//        DataLoader dataLoader = new DataLoader(getApplicationContext());
-//        mDataManager.setData(dataLoader.readData());
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mViewPager = (ViewPager) findViewById(R.id.vpCategory);

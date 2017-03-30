@@ -17,16 +17,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.casopisinterfon.interfon.data.DataLoader;
 import com.android.casopisinterfon.interfon.data.DataManager;
 import com.android.casopisinterfon.interfon.NotificationService;
 import com.android.casopisinterfon.interfon.R;
+import com.android.casopisinterfon.interfon.data.DataSaver;
 import com.android.casopisinterfon.interfon.model.Article;
 import com.bumptech.glide.Glide;
 
 
 public class ArticleViewActivity extends AppCompatActivity {
     private static final String TAG = ArticleViewActivity.class.getSimpleName();
-
     /**
      * Parameter for intent's extra that contains id of article that is being opened.
      */
@@ -70,8 +71,9 @@ public class ArticleViewActivity extends AppCompatActivity {
         mProgressDialog.show();
     }
 
-    private void getArticle() {
+    private Article getArticle() {
         final long id = getIntent().getLongExtra(EXTRA_ARTICLE_ID,0);
+
 
         if (id == -1) { // Should not happen
             Log.e(TAG, "No article data has been passed.");
@@ -92,6 +94,7 @@ public class ArticleViewActivity extends AppCompatActivity {
                 });
             }
         }).start();
+        return mDataManager.getArticle(id);
     }
 
     private void setArticle(Article a) {
@@ -120,6 +123,11 @@ public class ArticleViewActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_star:
                 tvDate.setText("1");
+
+                //Saves Article into Bookmarks
+                DataSaver saveSingleArticle = new DataSaver(getApplicationContext());
+                DataLoader loadBookmarks=new DataLoader(getApplicationContext());
+                saveSingleArticle.saveData(getArticle(),loadBookmarks.readData());
                 return true;
             case R.id.action_share:
                 tvDate.setText("2");

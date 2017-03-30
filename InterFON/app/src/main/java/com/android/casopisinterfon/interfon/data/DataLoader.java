@@ -14,14 +14,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.List;
-
-/**
- * Created by Aleksa on 14.3.2017.
- */
-
 public class DataLoader {
-    static final int READ_BLOCK_SIZE=100;
     Context context;
+
+    /**
+     * Method for reading saved article data
+     * @return List of bookmarked Articles
+     */
     public  List<Article> readData(){
         String ret = "";
             try {
@@ -50,9 +49,6 @@ public class DataLoader {
         Type type = new TypeToken<List<Article>>() {}.getType();
         List<Article> fromJson = gson.fromJson(ret,type);
         return fromJson;
-       /* for (Article task : fromJson) {
-            System.out.println(task.getArticleCategory());
-        }*/
     }
     public DataLoader(Context context) {
         this.context=context;

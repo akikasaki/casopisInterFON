@@ -92,7 +92,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
-            params.setMargins(0, 0, 0, 25);
+            params.setMargins(0, 0, 0, 15);
             holder.rlCardView.setLayoutParams(params);
             holder.tvTitle.setText(a.getArticleTitle());
             holder.tvCategory.setText(a.getArticleCategories().toString());

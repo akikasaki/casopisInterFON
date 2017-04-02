@@ -8,16 +8,8 @@
             android:background="@color/cardview_light_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:elevation="4dp"
             android:layout_marginTop="10dp">
-            <View style="@style/Divider"
-                android:id="@+id/view1"
-                android:layout_below="@+id/ivPicture2"
-                android:background="@color/cardview_shadow_start_color"
-                android:layout_height="3dp" />
-            <View style="@style/Divider"
-                android:layout_below="@+id/view1"
-                android:layout_height="3dp"
-                android:background="@color/cardview_background_darker" />
             <ImageView
                 android:id="@+id/ivPicture2"
                 android:layout_width="110dp"

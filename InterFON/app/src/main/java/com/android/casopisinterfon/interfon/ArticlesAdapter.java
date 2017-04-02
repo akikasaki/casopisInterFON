@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -83,20 +84,22 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
            // holder.tvTitle.setText(Util.fromHtml(a.getArticleTitle()));
             holder.tvTitle.setText(a.getArticleTitle());
             holder.tvCategory.setText(a.getArticleCategories().toString());
-            holder.tvDate.setText(a.getArticleDate());
+            String cutDate = a.getArticleDate().split(" ")[0];
+            holder.tvDate.setText(cutDate);
             Glide.with(MainActivity.getAppContext()).load(a.getPictureLink()).into(holder.ivPicture);
 
         }
         else if(holder.getItemViewType()==1){
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.WRAP_CONTENT,
+                    FrameLayout.LayoutParams.WRAP_CONTENT
             );
             params.setMargins(0, 0, 0, 15);
             holder.rlCardView.setLayoutParams(params);
             holder.tvTitle.setText(a.getArticleTitle());
             holder.tvCategory.setText(a.getArticleCategories().toString());
-            holder.tvDate.setText(a.getArticleDate());
+            String cutDate = a.getArticleDate().split(" ")[0];
+            holder.tvDate.setText(cutDate);
             Glide.with(MainActivity.getAppContext()).load(a.getPictureLink()).into(holder.ivPicture);
         }
         else if(holder.getItemViewType()==2){

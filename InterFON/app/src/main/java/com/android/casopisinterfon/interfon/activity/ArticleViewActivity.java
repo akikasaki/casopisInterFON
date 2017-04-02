@@ -105,9 +105,9 @@ public class ArticleViewActivity extends AppCompatActivity {
         Glide.with(MainActivity.getAppContext()).load(a.getPictureLink()).into(ivSingleArticlePicture);
         tvTitle.setText(a.getArticleTitle());
         tvCategory.setText(a.getArticleCategories().toString());
-        tvDate.setText(a.getArticleDate());
+        String cutDate = a.getArticleDate().split(" ")[0];
+        tvDate.setText(cutDate);
        // tvDescription.setText(a.getArticleDescription());
-
         tvDescription.setTextSize(size);
     }
 

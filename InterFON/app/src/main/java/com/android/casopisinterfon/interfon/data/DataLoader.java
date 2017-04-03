@@ -52,6 +52,12 @@ public class DataLoader {
         return fromJson;
     }
 
+    /**
+     * Checks if the passed article is within a certain List
+     * @param singleArticle the article we are checking
+     * @param bookmarks The List we are checking in
+     * @return true if the article is in the List
+     */
     public boolean isBookmarked(Article singleArticle,List<Article> bookmarks){
             Iterator<Article> iter = bookmarks.iterator();
 

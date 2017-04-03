@@ -48,7 +48,7 @@ public class DataSaver {
     }
 
     /**
-     * Method for removing a bookmark if its already bookmarked
+     * Method for removing a bookmark
      *
      * @param singleArticle      the article we want to remove if present
      * @param bookmarkedArticles the List of bookmarked Articles

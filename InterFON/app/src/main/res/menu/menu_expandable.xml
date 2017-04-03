@@ -8,4 +8,6 @@
         android:id="@+id/miAboutUs" />
     <item android:title="Contacts"
         android:id="@+id/miContacts" />
+    <item android:title="Bookmarks"
+        android:id="@+id/miBookmarks" />
 </menu>

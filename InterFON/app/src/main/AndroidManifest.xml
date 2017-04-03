@@ -33,6 +33,7 @@
         </activity>
 
         <activity android:name=".activity.SettingsActivity"/>
+        <activity android:name=".activity.BookmarksActivity"/>
     </application>
 
 </manifest>

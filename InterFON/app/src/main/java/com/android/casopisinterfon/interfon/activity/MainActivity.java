@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //For getting Context to pass into classes via getAppContext Method
         MainActivity.context = getApplicationContext();
+
         downloadFreshData();
         init();
     }
@@ -97,6 +98,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.miAboutUs:
                 return true;
             case R.id.miContacts:
+                return true;
+            case R.id.miBookmarks:
+                Intent openBookmarks = new Intent(this, BookmarksActivity.class);
+                startActivity(openBookmarks);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

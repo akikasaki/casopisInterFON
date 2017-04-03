@@ -90,9 +90,9 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
 
         }
         else if(holder.getItemViewType()==1){
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.WRAP_CONTENT,
-                    FrameLayout.LayoutParams.WRAP_CONTENT
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
             );
             params.setMargins(0, 0, 0, 15);
             holder.rlCardView.setLayoutParams(params);

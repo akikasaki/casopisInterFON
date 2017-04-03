@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_star"
-        android:icon="@drawable/ic_star"
+        android:icon="@drawable/ic_star_white"
         android:title="@string/star"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_share"
-        android:icon="@drawable/ic_share"
+        android:icon="@drawable/ic_share_white"
         android:title="@string/share"
         app:showAsAction="ifRoom"/>
     <item android:id="@+id/action_settings"

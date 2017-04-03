@@ -4,6 +4,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:background="@color/cardview_background"
     android:layout_height="wrap_content">
     <!-- TODO Shadow effect for API version below 21 -->
     <RelativeLayout

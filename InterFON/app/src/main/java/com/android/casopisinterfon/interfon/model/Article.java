@@ -13,8 +13,9 @@ public class Article {
     private String articleTitle;
     private String articleDescription;
     private String articleDate;
-    private long id;
     private String articleLink;
+    private boolean articleIsBookmarked;
+    private long id;
     private List<Category> articleCategories;
 
     public Article() {}
@@ -65,6 +66,14 @@ public class Article {
 
     public void setArticleLink(String articleLink) {
         this.articleLink = articleLink;
+    }
+
+    public boolean getArticleIsBookmarked() {
+        return articleIsBookmarked;
+    }
+
+    public boolean setArticleIsBookmarked(boolean articleIsBookmarked) {
+        return this.articleIsBookmarked = articleIsBookmarked;
     }
 
 }

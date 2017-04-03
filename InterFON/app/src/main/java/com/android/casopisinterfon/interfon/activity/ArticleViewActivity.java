@@ -12,7 +12,6 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -99,9 +98,11 @@ public class ArticleViewActivity extends AppCompatActivity {
 
     private void setArticle(Article a) {
         SharedPreferences fonts = getSharedPreferences(SettingsActivity.FONTS, MODE_PRIVATE);
-
         float size = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, fonts.getFloat(SettingsActivity.GET_A_FONT, 12), getResources().getDisplayMetrics());
 
+        if(a.getArticleIsBookmarked()){
+          // TODO change star icon on click
+        }
         Glide.with(MainActivity.getAppContext()).load(a.getPictureLink()).into(ivSingleArticlePicture);
         tvTitle.setText(a.getArticleTitle());
         tvCategory.setText(a.getArticleCategories().toString());
@@ -122,12 +123,16 @@ public class ArticleViewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_star:
-                tvDate.setText("1");
-
                 //Saves Article into Bookmarks
                 DataSaver saveSingleArticle = new DataSaver(getApplicationContext());
                 DataLoader loadBookmarks=new DataLoader(getApplicationContext());
-                saveSingleArticle.saveData(getArticle(),loadBookmarks.readData());
+                Article a = getArticle();
+                if(loadBookmarks.isBookmarked(a,loadBookmarks.readData())){
+                    saveSingleArticle.removeData(a,loadBookmarks.readData());
+                }
+                else {
+                    saveSingleArticle.saveData(a,loadBookmarks.readData());
+                }
                 return true;
             case R.id.action_share:
                 tvDate.setText("2");

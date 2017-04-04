@@ -17,10 +17,6 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Aleksa on 3.4.2017.
- */
-
 public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.MyViewHolder> {
     View vw;
     /**
@@ -73,8 +69,9 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.MyVi
         Article singleBookmarkedArticle = mBookmarkData.get(position);
         holder.tvTitle2.setText(singleBookmarkedArticle.getArticleTitle());
         holder.tvCategory2.setText(singleBookmarkedArticle.getArticleCategories().toString());
-        holder.tvDate2.setText(singleBookmarkedArticle.getArticleDescription());
-        Glide.with(MainActivity.getAppContext()).load("https://cdn.pixabay.com/photo/2016/12/29/16/12/eiskristalle-1938842_960_720.jpg").into(holder.ivPicture2);
+        String cutDate = singleBookmarkedArticle.getArticleDate().split(" ")[0];
+        holder.tvDate2.setText(cutDate);
+        Glide.with(MainActivity.getAppContext()).load(singleBookmarkedArticle.getPictureLink()).into(holder.ivPicture2);
     }
 
     @Override

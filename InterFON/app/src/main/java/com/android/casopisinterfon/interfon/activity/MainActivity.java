@@ -64,18 +64,18 @@ public class MainActivity extends AppCompatActivity {
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
         }
-        
+
         adapterViewPager = new CategoryPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(adapterViewPager);
         mTabLayout.setupWithViewPager(mViewPager);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-    }
 
-    /**
-     * Method for retrieving current active fragment position.
-     * @return fragment position.
-     */
-    public int getActiveFragPosition(){
+        /**
+         * Method for retrieving current active fragment position.
+         * @return fragment position.
+         */
+    }
+    public int getActiveFragPosition() {
         return mViewPager.getCurrentItem();
     }
 
@@ -89,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
         switch (item.getItemId()) {
             case R.id.miSettings:
                 Intent openSettings = new Intent(this, SettingsActivity.class);

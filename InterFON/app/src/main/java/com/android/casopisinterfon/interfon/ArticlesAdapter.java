@@ -106,7 +106,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             //holder.tvTitle.setText(Util.fromHtml(a.getArticleTitle()));
             holder.tvTitle2.setText(a.getArticleTitle());
             holder.tvCategory2.setText(a.getArticleCategories().toString());
-            holder.tvDate2.setText(a.getArticleDate());
+            String cutDate = a.getArticleDate().split(" ")[0];
+            holder.tvDate2.setText(cutDate);
             Glide.with(MainActivity.getAppContext()).load(a.getPictureLink()).into(holder.ivPicture2);
         }
     }

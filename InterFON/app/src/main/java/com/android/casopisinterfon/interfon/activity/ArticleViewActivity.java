@@ -37,6 +37,7 @@ public class ArticleViewActivity extends AppCompatActivity {
     Toolbar mToolbar;
     ImageView ivSingleArticlePicture;
     TextView tvTitle, tvDescription, tvCategory, tvDate;
+    boolean bookmarked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +63,11 @@ public class ArticleViewActivity extends AppCompatActivity {
         tvCategory = (TextView) findViewById(R.id.tvSingleCategory);
         tvDate = (TextView) findViewById(R.id.tvSingleDate);
         tvDescription = (TextView) findViewById(R.id.tvSingleDescription);
+
+
+        DataLoader loadBookmarks=new DataLoader(getApplicationContext());
+        Article a = getArticle();
+        bookmarked=loadBookmarks.isBookmarked(a,loadBookmarks.readData());
 
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setTitle(null);
@@ -100,9 +106,6 @@ public class ArticleViewActivity extends AppCompatActivity {
         SharedPreferences fonts = getSharedPreferences(SettingsActivity.FONTS, MODE_PRIVATE);
         float size = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, fonts.getFloat(SettingsActivity.GET_A_FONT, 12), getResources().getDisplayMetrics());
 
-        if(a.getArticleIsBookmarked()){
-          // TODO change star icon on click
-        }
         Glide.with(MainActivity.getAppContext()).load(a.getPictureLink()).into(ivSingleArticlePicture);
         tvTitle.setText(a.getArticleTitle());
         tvCategory.setText(a.getArticleCategories().toString());
@@ -115,8 +118,17 @@ public class ArticleViewActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_single_article, menu);
+        DataLoader loadBookmarks=new DataLoader(getApplicationContext());
+        Article a = getArticle();
+        //Gets a different Menu depending on if the article is bookmarked
+        if(loadBookmarks.isBookmarked(a,loadBookmarks.readData())) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu_single_article_bookmarked, menu);
+        }
+        else {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu_single_article, menu);
+        }
         return true;
     }
     @Override
@@ -127,11 +139,15 @@ public class ArticleViewActivity extends AppCompatActivity {
                 DataSaver saveSingleArticle = new DataSaver(getApplicationContext());
                 DataLoader loadBookmarks=new DataLoader(getApplicationContext());
                 Article a = getArticle();
-                if(loadBookmarks.isBookmarked(a,loadBookmarks.readData())){
+                if(bookmarked){
                     saveSingleArticle.removeData(a,loadBookmarks.readData());
+                    item.setIcon(R.drawable.ic_star_white);
+                    bookmarked=false;
                 }
                 else {
                     saveSingleArticle.saveData(a,loadBookmarks.readData());
+                    item.setIcon(R.drawable.ic_star_yellow);
+                    bookmarked=true;
                 }
                 return true;
             case R.id.action_share:

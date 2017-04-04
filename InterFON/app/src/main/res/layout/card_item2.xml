@@ -38,10 +38,10 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/ivPicture2"
                 android:layout_toEndOf="@+id/ivPicture2"
-                android:layout_marginBottom="14dp"
+                android:layout_alignParentBottom="true"
+                android:paddingBottom="14dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_above="@+id/view1"
                 android:textSize="12sp">
             </TextView>
             <TextView
@@ -49,10 +49,10 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/view1"
-                android:layout_marginBottom="14dp"
+                android:paddingBottom="14dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:textSize="12sp">

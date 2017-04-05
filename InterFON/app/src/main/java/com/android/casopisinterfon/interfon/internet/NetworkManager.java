@@ -142,8 +142,13 @@ public class NetworkManager {
                         EventBus.getDefault().post(new ListDownloadedEvent(false));
                         // Parsing an error
                         NetworkResponse response = error.networkResponse;
-                        String errorData = new String(response.data);
-                        int statusCode = response.statusCode;
+                        String errorData = "";
+                        int statusCode = -1;
+                        try {
+                            errorData = new String(response.data);
+                            statusCode = response.statusCode;
+                        } catch (Exception e) {
+                        }
                         // Log
                         Log.e(TAG, String.format("Error downloading data, code:%d, msg:%s", statusCode, errorData));
                     }

@@ -49,7 +49,7 @@ public class ArticleViewActivity extends AppCompatActivity {
     }
 
     private void initialize() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar2);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
         }

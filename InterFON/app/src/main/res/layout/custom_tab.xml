@@ -9,8 +9,8 @@
         android:background="@android:color/black"
 
         android:gravity="center"
-        android:textSize="16dip"
-        android:textColor="#d02424"
+        android:textSize="@dimen/tab_text_size"
+        android:textColor="@color/tab_text_color"
         android:singleLine="true"
         />
 </LinearLayout>

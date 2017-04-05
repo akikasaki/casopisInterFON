@@ -14,18 +14,17 @@
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:background="@color/colorPrimary"
-        android:paddingLeft="16dp"
-        app:contentInsetStart="0dp">
+        android:paddingLeft="@dimen/toolbar_padding_left">
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="@dimen/toolbar_logo_width"
             android:layout_height="match_parent"
             android:src="@drawable/ic_logo1" />
     </android.support.v7.widget.Toolbar>
     <FrameLayout style="@style/Divider"
         android:id="@+id/toolbarDivider"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="@dimen/main_divider_margin_left"
+        android:layout_marginRight="@dimen/main_divider_margin_right"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/toolbar_divider_color1" />
@@ -34,7 +33,7 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMinWidth="150dp"
+        app:tabMinWidth="@dimen/main_tab_min_width"
         app:tabMode="scrollable"
         app:tabGravity="fill"
         android:background="@color/colorPrimary"

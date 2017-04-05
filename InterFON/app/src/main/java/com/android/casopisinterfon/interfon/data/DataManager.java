@@ -6,22 +6,27 @@ import com.android.casopisinterfon.interfon.model.Article;
 import com.android.casopisinterfon.interfon.model.Category;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Used for storing and accessing articles data
  */
 public class DataManager {
     private static final String TAG = DataManager.class.getSimpleName();
-
-    /**
-     * Array for storing whole articles data retrieved from the server.
-     */
-    private List<Article> mData;
     /**
      * Contains single instance of this class.
      */
     private static DataManager mInstance;
+    /**
+     * Array for storing whole articles data retrieved from the server.
+     */
+    private Map<Long, Article> mData;
+
+    private DataManager() {
+        mData = new LinkedHashMap<>(100);
+    }
 
     public synchronized static DataManager getInstance() {
         if (mInstance == null) {
@@ -30,19 +35,18 @@ public class DataManager {
         return mInstance;
     }
 
-    private DataManager() {
-        mData = new ArrayList<>();
-    }
-
     /**
      * Sets list of articles.
      *
      * @param data list which will replace old data.
      */
     public void setData(List<Article> data) {
-        if (data != null)
-            mData = data;
-        else
+        if (data != null) {
+            mData.clear();
+            for (Article a : data) {
+                mData.put(a.getId(), a);
+            }
+        } else
             Log.e(TAG, "Cannot pass null parameter as list of articles.");
     }
 
@@ -55,10 +59,11 @@ public class DataManager {
     public void addData(List<Article> data, boolean isFreshData) {
         // TODO - refactor adding data
         if (isFreshData && data.size() > 0) {
-            mData.clear();
-            mData.addAll(data);
+            setData(data);
         } else {
-            mData.addAll(data);
+            for (Article a : data) {
+                mData.put(a.getId(), a);
+            }
         }
     }
 
@@ -71,7 +76,7 @@ public class DataManager {
     public List<Article> getArticlesForPosition(int position) {
         // TODO - maybe refactor this
         // this method if coupling DataManager and Category class
-        return ArticlesFilter.filterArticles(Category.getCategory(position), mData);
+        return ArticlesFilter.filterArticles(Category.getCategory(position), new ArrayList<>(mData.values()));
     }
 
     /**
@@ -83,12 +88,13 @@ public class DataManager {
      */
     public Article getArticle(long id) {
 
-        for (Article a :
-                mData) {
-            if (a.getId()==id)
-                return a;
-        }
-
-        return null;
+//        for (Article a :
+//                mData) {
+//            if (a.getId() == id)
+//                return a;
+//        }
+//
+//        return null;
+        return mData.get(id);
     }
 }

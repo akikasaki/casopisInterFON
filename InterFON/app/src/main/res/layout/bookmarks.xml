@@ -9,11 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:background="@color/colorPrimary"
-        android:paddingLeft="16dp"
-        app:contentInsetStart="0dp">
+        android:paddingLeft="@dimen/toolbar_padding_left">
 
         <ImageView
-            android:layout_width="130dp"
+            android:layout_width="@dimen/toolbar_logo_width"
             android:layout_height="match_parent"
             android:src="@drawable/ic_logo1" />
     </android.support.v7.widget.Toolbar>

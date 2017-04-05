@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int CATEGORY_COUNT = 9;
     // private static final String NOTIFY = "notify";
     public String tabTitles[] = {"Sve", "Vesti", "Interesantno", "Nauka", "Kultura", "Intervjui", "Kolumne", "Prakse", "Sport"};
-    public static boolean notification;
     CategoryPagerAdapter adapterViewPager;
     ViewPager mViewPager;
     TabLayout mTabLayout;

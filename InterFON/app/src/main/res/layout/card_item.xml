@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="4dp"
-        android:layout_marginBottom="28dp">
+        android:layout_marginBottom="@dimen/card_item_margin_bottom">
 
 
             <ImageView
@@ -26,36 +26,36 @@
             </ImageView>
             <TextView
                 android:id="@+id/tvTitle"
-                android:textSize="18sp"
+                android:textSize="@dimen/card_item_title_text_size"
                 android:textStyle="normal|bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="11dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginTop="@dimen/card_item_title_margin_top"
+                android:layout_marginLeft="@dimen/card_item_title_margin_left"
+                android:layout_marginRight="@dimen/card_item_title_margin_right"
                 android:layout_below="@+id/ivPicture">
 
             </TextView>
             <TextView
                 android:id="@+id/tvDate"
-                android:textSize="12sp"
+                android:textSize="@dimen/card_item_date_text_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/card_item_date_margin_top"
+                android:layout_marginLeft="@dimen/card_item_date_margin_left"
+                android:layout_marginRight="@dimen/card_item_date_margin_right"
+                android:layout_marginBottom="@dimen/card_item_date_margin_bottom"
                 android:layout_below="@+id/tvTitle">
             </TextView>
             <TextView
                 android:id="@+id/tvCategory"
-                android:textSize="12sp"
+                android:textSize="@dimen/card_item_category_text_size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="@dimen/card_item_category_margin_top"
+                android:layout_marginEnd="@dimen/card_item_category_margin_end"
+                android:layout_marginRight="@dimen/card_item_category_margin_right"
+                android:layout_marginBottom="@dimen/card_item_category_margin_bottom"
                 android:layout_below="@+id/tvTitle"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true">

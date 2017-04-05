@@ -59,4 +59,6 @@
     <dimen name="article_text_margin_bottom">10dp</dimen>
     <dimen name="article_text_margin_right">15dp</dimen>
     <dimen name="article_text_margin_end">15dp</dimen>
+    <dimen name="article_title_margin_left">20dp</dimen>
+    <dimen name="article_title_margin_right">20dp</dimen>
 </resources>

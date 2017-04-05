@@ -38,6 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/article_title_margin_top"
+        android:layout_marginLeft="@dimen/article_title_margin_left"
+        android:layout_marginRight="@dimen/article_title_margin_right"
         android:textAlignment="center" />
 </LinearLayout>
     <LinearLayout
@@ -63,7 +65,9 @@
             android:layout_marginLeft="@dimen/article_date_margin_left"
             android:layout_marginBottom="@dimen/article_date_margin_bottom"/>
 </LinearLayout>
-    <View style="@style/Divider"/>
+    <FrameLayout style="@style/Divider"
+        android:layout_marginLeft="@dimen/main_divider_margin_left"
+        android:layout_marginRight="@dimen/main_divider_margin_right"/>
 
     <TextView
         android:id="@+id/tvSingleDescription"

@@ -22,9 +22,9 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
     public final static String GET_A_FONT ="getAFont";
     public final static String GET_LAST_TOGGLED_STATE ="ToggledState";
 
-    public final static int SMALL_FONT_SIZE =10;
-    public final static int MEDIUM_FONT_SIZE =14;
-    public final static int LARGE_FONT_SIZE =18;
+    public final static int SMALL_FONT_SIZE =8;
+    public final static int MEDIUM_FONT_SIZE =10;
+    public final static int LARGE_FONT_SIZE =12;
 
     ToggleButton tbNotifications;
     RadioGroup fontGroup;

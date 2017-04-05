@@ -41,7 +41,8 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
     private SwipeRefreshLayout srRootView;
     private RecyclerView rvList;
 
-    public ArticlesFragment() {}
+    public ArticlesFragment() {
+    }
 
     public static ArticlesFragment getInstance(int position) {
         Bundle b = new Bundle();
@@ -66,22 +67,25 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
 
         mDataManager = DataManager.getInstance();
         mNetManager = NetworkManager.getInstance(getContext());
+
+        Bundle a = getArguments();
+        mFragPosition = a.getInt(POSITION_ARG);
+        downloadArticles(0, true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Update frag pos
+        Bundle a = getArguments();
+        mFragPosition = a.getInt(POSITION_ARG);
+
         // Inflate the layout for this fragment
         srRootView = (SwipeRefreshLayout) inflater.inflate(R.layout.content_view, container, false);
         srRootView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                scrollListener.resetState();
-                if (mFragPosition != 0)
-                    mNetManager.downloadArticles(0, true, Category.getCategory(mFragPosition));
-                else
-                    mNetManager.downloadArticles(0, true, null);
-
+                downloadArticles(0, true);
             }
         });
 
@@ -94,16 +98,28 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, final int totalItemsCount, RecyclerView view) {
-                mNetManager.downloadArticles(page, false, Category.getCategory(mFragPosition));
+                downloadArticles(page, false);
             }
         };
         rvList.addOnScrollListener(scrollListener);
 
         // Set mAdapter data
-        Bundle a = getArguments();
-        mFragPosition = a.getInt(POSITION_ARG);
         mAdapter.setData(mDataManager.getArticlesForPosition(mFragPosition));
         return srRootView;
+    }
+
+    /**
+     * Helper method for download list of articles for current fragment category based on {@link #mFragPosition}.
+     *
+     * @param page        page number of articles
+     * @param isFreshData indicates if data should be cleared first.
+     */
+    private void downloadArticles(int page, boolean isFreshData) {
+        if (isFreshData && scrollListener != null) scrollListener.resetState();
+        if (mFragPosition != 0)
+            mNetManager.downloadArticles(page, isFreshData, Category.getCategory(mFragPosition));
+        else
+            mNetManager.downloadArticles(page, isFreshData, null);
     }
 
     @Override
@@ -131,8 +147,8 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
 
     @Override
     public void onPause() {
-        if (scrollListener != null)
-            rvList.removeOnScrollListener(scrollListener);
+//        if (scrollListener != null)
+//            rvList.removeOnScrollListener(scrollListener);
         super.onPause();
     }
 

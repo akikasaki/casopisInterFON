@@ -6,6 +6,7 @@ import com.android.casopisinterfon.interfon.model.Article;
 import com.android.casopisinterfon.interfon.model.Category;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,7 @@ public class DataManager {
     private Map<Long, Article> mData;
 
     private DataManager() {
-        mData = new LinkedHashMap<>(100);
+        mData = Collections.synchronizedMap(new LinkedHashMap<Long, Article>(100));
     }
 
     public synchronized static DataManager getInstance() {

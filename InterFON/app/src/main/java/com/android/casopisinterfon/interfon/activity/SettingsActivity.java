@@ -1,6 +1,5 @@
 package com.android.casopisinterfon.interfon.activity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +9,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.android.casopisinterfon.interfon.NotificationService;
 import com.android.casopisinterfon.interfon.R;
 
 
@@ -97,22 +95,22 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
                     break;
         }
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Intent notificationStarter= new Intent(this,NotificationService.class);
-        SharedPreferences prefs = getSharedPreferences(NOTIFICATION_TOGGLE, MODE_PRIVATE);
-        if(prefs.getBoolean(NOTIFICATION_STATE, true)){
-            startService(notificationStarter);}
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Intent notificationStarter= new Intent(this,NotificationService.class);
-        SharedPreferences prefs = getSharedPreferences(NOTIFICATION_TOGGLE, MODE_PRIVATE);
-        if(prefs.getBoolean(NOTIFICATION_STATE, true)){
-            stopService(notificationStarter);
-        }
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        Intent notificationStarter= new Intent(this,NotificationService.class);
+//        SharedPreferences prefs = getSharedPreferences(NOTIFICATION_TOGGLE, MODE_PRIVATE);
+//        if(prefs.getBoolean(NOTIFICATION_STATE, true)){
+//            startService(notificationStarter);}
+//    }
+//
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        Intent notificationStarter= new Intent(this,NotificationService.class);
+//        SharedPreferences prefs = getSharedPreferences(NOTIFICATION_TOGGLE, MODE_PRIVATE);
+//        if(prefs.getBoolean(NOTIFICATION_STATE, true)){
+//            stopService(notificationStarter);
+//        }
+//    }
 }

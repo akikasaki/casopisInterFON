@@ -16,10 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.casopisinterfon.interfon.R;
 import com.android.casopisinterfon.interfon.data.DataLoader;
 import com.android.casopisinterfon.interfon.data.DataManager;
-import com.android.casopisinterfon.interfon.NotificationService;
-import com.android.casopisinterfon.interfon.R;
 import com.android.casopisinterfon.interfon.data.DataSaver;
 import com.android.casopisinterfon.interfon.model.Article;
 import com.bumptech.glide.Glide;
@@ -39,16 +38,20 @@ public class ArticleViewActivity extends AppCompatActivity {
     TextView tvTitle, tvDescription, tvCategory, tvDate;
     boolean bookmarked;
 
+    // Holds reference to the current viewing article
+    private Article mCurArticle = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.single_article);
 
         initialize();
-        getArticle();
+        setArticle();
     }
 
     private void initialize() {
+        // Init toolbar
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
@@ -57,28 +60,29 @@ public class ArticleViewActivity extends AppCompatActivity {
         ab.setDisplayShowTitleEnabled(false);
         ab.setDisplayHomeAsUpEnabled(true);
 
+        // Get current article
         mDataManager = DataManager.getInstance();
+        mCurArticle = getArticle();
+        // Init views
         tvTitle = (TextView) findViewById(R.id.tvSingleTitle);
         ivSingleArticlePicture = (ImageView) findViewById(R.id.ivSingleArticlePicture);
         tvCategory = (TextView) findViewById(R.id.tvSingleCategory);
         tvDate = (TextView) findViewById(R.id.tvSingleDate);
         tvDescription = (TextView) findViewById(R.id.tvSingleDescription);
 
+//        DataLoader loadBookmarks = new DataLoader(getApplicationContext());
+//        bookmarked = loadBookmarks.isBookmarked(a, loadBookmarks.readData());
 
-        DataLoader loadBookmarks=new DataLoader(getApplicationContext());
-        Article a = getArticle();
-        bookmarked=loadBookmarks.isBookmarked(a,loadBookmarks.readData());
-
+        // Show progress dialog
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setTitle(null);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setMessage("Loading article");
-        mProgressDialog.show();
+//        mProgressDialog.show();
     }
 
     private Article getArticle() {
-        final long id = getIntent().getLongExtra(EXTRA_ARTICLE_ID,0);
-
+        final long id = getIntent().getLongExtra(EXTRA_ARTICLE_ID, 0);
 
         if (id == -1) { // Should not happen
             Log.e(TAG, "No article data has been passed.");
@@ -86,68 +90,68 @@ public class ArticleViewActivity extends AppCompatActivity {
             finish();
         }
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final Article article = mDataManager.getArticle(id);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        setArticle(article);
-                        mProgressDialog.dismiss();
-                    }
-                });
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                final Article article = mDataManager.getArticle(id);
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        setArticle(article);
+//                        mProgressDialog.dismiss();
+//                    }
+//                });
+//            }
+//        }).start();
         return mDataManager.getArticle(id);
     }
 
-    private void setArticle(Article a) {
-        SharedPreferences fonts = getSharedPreferences(SettingsActivity.FONTS, MODE_PRIVATE);
-        float size = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, fonts.getFloat(SettingsActivity.GET_A_FONT, 12), getResources().getDisplayMetrics());
-
-        Glide.with(MainActivity.getAppContext()).load(a.getPictureLink()).into(ivSingleArticlePicture);
-        tvTitle.setText(a.getArticleTitle());
-        tvCategory.setText(a.getArticleCategories().toString());
-        String cutDate = a.getArticleDate().split(" ")[0];
-        tvDate.setText(cutDate);
-       // tvDescription.setText(a.getArticleDescription());
-        tvDescription.setTextSize(size);
+    private void setArticle() {
+        if (mCurArticle != null) {
+            // Get font size
+            SharedPreferences fonts = getSharedPreferences(SettingsActivity.FONTS, MODE_PRIVATE);
+            float size = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, fonts.getFloat(SettingsActivity.GET_A_FONT, 12), getResources().getDisplayMetrics());
+            // Load pic
+            Glide.with(this).load(mCurArticle.getPictureLink()).into(ivSingleArticlePicture);
+            // Set data to view
+            tvTitle.setText(mCurArticle.getArticleTitle());
+            tvCategory.setText(mCurArticle.getArticleCategories().toString());
+            // Format date
+            tvDate.setText(mCurArticle.getArticleDateString());
+            tvDescription.setTextSize(size);
+        }
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        DataLoader loadBookmarks=new DataLoader(getApplicationContext());
-        Article a = getArticle();
+        DataLoader loadBookmarks = new DataLoader();
         //Gets a different Menu depending on if the article is bookmarked
-        if(loadBookmarks.isBookmarked(a,loadBookmarks.readData())) {
+        if (loadBookmarks.isBookmarked(mCurArticle, loadBookmarks.readData(this))) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_single_article_bookmarked, menu);
-        }
-        else {
+        } else {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_single_article, menu);
         }
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_star:
                 //Saves Article into Bookmarks
                 DataSaver saveSingleArticle = new DataSaver(getApplicationContext());
-                DataLoader loadBookmarks=new DataLoader(getApplicationContext());
-                Article a = getArticle();
-                if(bookmarked){
-                    saveSingleArticle.removeData(a,loadBookmarks.readData());
+                DataLoader loadBookmarks = new DataLoader();
+                if (bookmarked) {
+                    saveSingleArticle.removeData(mCurArticle, loadBookmarks.readData(this));
                     item.setIcon(R.drawable.ic_star_white);
-                    bookmarked=false;
-                }
-                else {
-                    saveSingleArticle.saveData(a,loadBookmarks.readData());
+                    bookmarked = false;
+                } else {
+                    saveSingleArticle.saveData(mCurArticle, loadBookmarks.readData(this));
                     item.setIcon(R.drawable.ic_star_yellow);
-                    bookmarked=true;
+                    bookmarked = true;
                 }
                 return true;
             case R.id.action_share:
@@ -165,21 +169,21 @@ public class ArticleViewActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Intent notificationStarter = new Intent(this, NotificationService.class);
-        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
-        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
-            startService(notificationStarter);
-        }
+//        Intent notificationStarter = new Intent(this, NotificationService.class);
+//        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
+//        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
+//            startService(notificationStarter);
+//        }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Intent notificationStarter = new Intent(this, NotificationService.class);
-        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
-        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
-            stopService(notificationStarter);
-        }
+//        Intent notificationStarter = new Intent(this, NotificationService.class);
+//        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
+//        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
+//            stopService(notificationStarter);
+//        }
     }
 }
 

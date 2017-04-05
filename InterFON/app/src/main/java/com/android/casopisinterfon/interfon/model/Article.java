@@ -1,8 +1,10 @@
 package com.android.casopisinterfon.interfon.model;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Model representing one article
@@ -12,7 +14,7 @@ public class Article {
     private String pictureLink;
     private String articleTitle;
     private String articleDescription;
-    private String articleDate;
+    private Date articleDate;
     private String articleLink;
     private boolean articleIsBookmarked;
     private long id;
@@ -34,10 +36,26 @@ public class Article {
         this.articleCategories = articleCategories;
     }
 
-    public String getArticleDate() {
+    public String getArticleDateString(){
+        SimpleDateFormat format = new SimpleDateFormat("dd. MMM yyyy.");
+
+        return format.format(this.articleDate);
+    }
+
+    public Date getArticleDate() {
         return articleDate;
     }
     public void setArticleDate(String articleDate) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+        try {
+            this.articleDate = format.parse(articleDate);
+        } catch (ParseException e) {
+            this.articleDate = new Date();
+        }
+    }
+
+    public void setArticleDate(Date articleDate) {
         this.articleDate = articleDate;
     }
 

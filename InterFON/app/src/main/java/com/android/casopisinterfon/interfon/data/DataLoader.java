@@ -15,64 +15,70 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.Iterator;
 import java.util.List;
+
 public class DataLoader {
-    Context context;
+
+    public DataLoader() {}
 
     /**
      * Method for reading saved article data
+     *
      * @return List of bookmarked Articles
      */
-    public  List<Article> readData(){
+    public List<Article> readData(Context context) {
         String ret = "";
-            try {
-                InputStream inputStream = context.openFileInput("articles.txt");
+        try {
+            InputStream inputStream = context.openFileInput("articles.txt");
 
-                if (inputStream != null) {
-                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                    String receiveString = "";
-                    StringBuilder stringBuilder = new StringBuilder();
+            if (inputStream != null) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
 
-                    while ((receiveString = bufferedReader.readLine()) != null) {
-                        stringBuilder.append(receiveString);
-                    }
-
-                    inputStream.close();
-                    ret = stringBuilder.toString();
+                while ((receiveString = bufferedReader.readLine()) != null) {
+                    stringBuilder.append(receiveString);
                 }
-            } catch (FileNotFoundException e) {
-                Log.e("login activity", "File not found: " + e.toString());
-            } catch (IOException e) {
-                Log.e("login activity", "Can not read file: " + e.toString());
+
+                inputStream.close();
+                ret = stringBuilder.toString();
             }
+        } catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        }
 
         Gson gson = new Gson();
-        Type type = new TypeToken<List<Article>>() {}.getType();
-        List<Article> fromJson = gson.fromJson(ret,type);
+        Type type = new TypeToken<List<Article>>() {
+        }.getType();
+        List<Article> fromJson = gson.fromJson(ret, type);
         return fromJson;
     }
 
     /**
      * Checks if the passed article is within a certain List
+     *
      * @param singleArticle the article we are checking
-     * @param bookmarks The List we are checking in
+     * @param bookmarks     The List we are checking in
      * @return true if the article is in the List
      */
-    public boolean isBookmarked(Article singleArticle,List<Article> bookmarks){
-            Iterator<Article> iter = bookmarks.iterator();
+    public boolean isBookmarked(Article singleArticle, List<Article> bookmarks) {
+        if (bookmarks == null) return false;
 
-            while (iter.hasNext()) {
-                Article a = iter.next();
+        Iterator<Article> iter = bookmarks.iterator();
 
-                if (singleArticle.getId() == a.getId()) {
-                   return true;
-                }
+        while (iter.hasNext()) {
+            Article a = iter.next();
+
+            if (singleArticle.getId() == a.getId()) {
+                return true;
             }
+        }
         return false;
     }
-    public DataLoader(Context context) {
-        this.context=context;
-    }
+
+
 
 
 }

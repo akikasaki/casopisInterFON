@@ -1,8 +1,6 @@
 package com.android.casopisinterfon.interfon.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.android.casopisinterfon.interfon.NotificationService;
 import com.android.casopisinterfon.interfon.R;
 import com.android.casopisinterfon.interfon.activity.fragment.ArticlesFragment;
 import com.android.casopisinterfon.interfon.internet.NetworkManager;
@@ -33,16 +30,12 @@ public class MainActivity extends AppCompatActivity {
     TabLayout mTabLayout;
     Toolbar mToolbar;
 
-   private static Context context;
-
 //    private DataManager mDataManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //For getting Context to pass into classes via getAppContext Method
-        MainActivity.context = getApplicationContext();
 
         downloadFreshData();
         init();
@@ -130,27 +123,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Intent notificationStarter = new Intent(this, NotificationService.class);
-        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
-        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
-            stopService(notificationStarter);
-        }
+//        Intent notificationStarter = new Intent(this, NotificationService.class);
+//        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
+//        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
+//            stopService(notificationStarter);
+//        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Intent notificationStarter = new Intent(this, NotificationService.class);
-        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
-        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
-            startService(notificationStarter);
-        }
+//        Intent notificationStarter = new Intent(this, NotificationService.class);
+//        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
+//        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
+//            startService(notificationStarter);
+//        }
     }
-
-    public static Context getAppContext(){
-        return MainActivity.context;
-    }
-
 }
 
 

@@ -91,7 +91,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
 
         // Setup list view and it's mAdapter
         rvList = (RecyclerView) srRootView.findViewById(R.id.rvArticles);
-        mAdapter = new ArticlesAdapter(this);
+        mAdapter = new ArticlesAdapter(this, getContext());
         rvList.setAdapter(mAdapter);
         linearLayoutManager = new LinearLayoutManager(getContext());
         rvList.setLayoutManager(linearLayoutManager);
@@ -144,6 +144,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         // Try refreshing data if it's downloaded
         mAdapter.setData(mDataManager.getArticlesForPosition(mFragPosition));
     }
+
 
     @Override
     public void onPause() {

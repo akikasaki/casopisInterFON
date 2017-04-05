@@ -9,10 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import com.android.casopisinterfon.interfon.ArticlesAdapter;
 import com.android.casopisinterfon.interfon.BookmarksAdapter;
 import com.android.casopisinterfon.interfon.R;
+import com.android.casopisinterfon.interfon.data.DataLoader;
 
 public class BookmarksActivity extends AppCompatActivity implements ArticlesAdapter.ItemClickedCallbackInterface{
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private BookmarksAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
@@ -24,7 +25,8 @@ public class BookmarksActivity extends AppCompatActivity implements ArticlesAdap
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new BookmarksAdapter(this);
+        mAdapter = new BookmarksAdapter(this, this);
+        mAdapter.setData(new DataLoader().readData(this));
         mRecyclerView.setAdapter(mAdapter);
     }
 

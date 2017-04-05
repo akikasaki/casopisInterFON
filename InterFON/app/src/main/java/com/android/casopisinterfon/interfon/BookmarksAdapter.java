@@ -1,16 +1,14 @@
 package com.android.casopisinterfon.interfon;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.android.casopisinterfon.interfon.activity.MainActivity;
-import com.android.casopisinterfon.interfon.data.DataLoader;
 import com.android.casopisinterfon.interfon.model.Article;
 import com.bumptech.glide.Glide;
 
@@ -18,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.MyViewHolder> {
+    private final Context mContext;
     View vw;
     /**
      * Used for notifying fragment that item has been clicked.
@@ -42,12 +41,11 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.MyVi
      */
     private List<Article> mBookmarkData;
 
-    public BookmarksAdapter(ArticlesAdapter.ItemClickedCallbackInterface listener) {
+    public BookmarksAdapter(ArticlesAdapter.ItemClickedCallbackInterface listener, Context context) {
         this.mListener = listener;
+        this.mContext = context;
         mBookmarkData = new ArrayList<>();
-        DataLoader dataLoader= new DataLoader(MainActivity.getAppContext());
-        mBookmarkData= dataLoader.readData();
-    }
+     }
 
     // Create new views (invoked by the layout manager)
     @Override
@@ -69,9 +67,8 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.MyVi
         Article singleBookmarkedArticle = mBookmarkData.get(position);
         holder.tvTitle2.setText(singleBookmarkedArticle.getArticleTitle());
         holder.tvCategory2.setText(singleBookmarkedArticle.getArticleCategories().toString());
-        String cutDate = singleBookmarkedArticle.getArticleDate().split(" ")[0];
-        holder.tvDate2.setText(cutDate);
-        Glide.with(MainActivity.getAppContext()).load(singleBookmarkedArticle.getPictureLink()).into(holder.ivPicture2);
+        holder.tvDate2.setText(singleBookmarkedArticle.getArticleDateString());
+        Glide.with(mContext).load(singleBookmarkedArticle.getPictureLink()).into(holder.ivPicture2);
     }
 
     @Override

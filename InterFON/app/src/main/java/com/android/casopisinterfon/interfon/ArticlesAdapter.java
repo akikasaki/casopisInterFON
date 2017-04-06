@@ -56,13 +56,13 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         // create a new view
         if (viewType == 0) {
             vw = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.card_item, parent, false);
+                    .inflate(R.layout.article_item, parent, false);
         } else if (viewType == 1) {
             vw = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.card_item, parent, false);
+                    .inflate(R.layout.article_item, parent, false);
         } else if (viewType == 2) {
             vw = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.card_item2, parent, false);
+                    .inflate(R.layout.article_item_small, parent, false);
         }
 
 

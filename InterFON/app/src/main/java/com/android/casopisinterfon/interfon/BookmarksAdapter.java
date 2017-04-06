@@ -52,7 +52,7 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.MyVi
     public BookmarksAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                            int viewType) {
         vw = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_item2, parent, false);
+                .inflate(R.layout.article_item_small, parent, false);
 
         return new BookmarksAdapter.MyViewHolder(vw, new BookmarksAdapter.MyViewHolder.ViewHolderClickListener() {
             @Override

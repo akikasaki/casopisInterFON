@@ -90,6 +90,7 @@ public class ArticlesParser {
             }
             String date = jsonObject.getString(KEY_POST_DATE_C);
             List<Category> categories = parseCategories(jsonObject.getJSONArray(KEY_POST_CATEGORIES));
+            String picUrl = jsonObject.getJSONObject("thumbnail_images").getJSONObject("large").getString("url");
 
             a.setId(_id);
             a.setArticleLink(url);
@@ -97,6 +98,7 @@ public class ArticlesParser {
             a.setArticleDescription(description);
             a.setArticleCategories(categories);
             a.setArticleDate(date);
+            a.setPictureLink(picUrl);
         } catch (JSONException e) {
             Log.e(TAG, "Failed to parse article: " + jsonObject.toString(), e);
             a = null;

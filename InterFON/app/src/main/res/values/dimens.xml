@@ -1,4 +1,11 @@
 <resources>
+    <!-- General app related -->
+    <dimen name="textSize_heading">20dp</dimen>
+    <dimen name="textSize_smallHeading">18dp</dimen>
+    <dimen name="textSize_subHeading">16dp</dimen>
+    <dimen name="textSize_body">14dp</dimen>
+    <dimen name="textSize_info">12dp</dimen>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
@@ -11,10 +18,14 @@
     <dimen name="toolbar_padding_left">16dp</dimen>
     <dimen name="toolbar_logo_width">130dp</dimen>
     <dimen name="card_item_margin_bottom">28dp</dimen>
-    <dimen name="card_item_title_text_size">18sp</dimen>
-    <dimen name="card_item_title_margin_top">11dp</dimen>
-    <dimen name="card_item_title_margin_left">15dp</dimen>
-    <dimen name="card_item_title_margin_right">15dp</dimen>
+
+    <!-- Article item related -->
+    <dimen name="article_item_title_margin_left">16dp</dimen>
+    <dimen name="article_item_title_margin_right">@dimen/article_item_title_margin_left</dimen>
+    <dimen name="article_item_title_margin_top">@dimen/article_item_title_margin_left</dimen>
+    <!-- Article item text size related -->
+    <dimen name="article_item_title_textSize">22dp</dimen>
+
     <dimen name="card_item_date_text_size">12sp</dimen>
     <dimen name="card_item_date_margin_top">10dp</dimen>
     <dimen name="card_item_date_margin_left">15dp</dimen>

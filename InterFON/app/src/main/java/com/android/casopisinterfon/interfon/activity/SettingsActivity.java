@@ -3,6 +3,7 @@ package com.android.casopisinterfon.interfon.activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -20,9 +21,13 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
     public final static String GET_A_FONT ="getAFont";
     public final static String GET_LAST_TOGGLED_STATE ="ToggledState";
 
-    public final static int SMALL_FONT_SIZE =8;
-    public final static int MEDIUM_FONT_SIZE =10;
-    public final static int LARGE_FONT_SIZE =12;
+    public final static float SMALL_FONT_SIZE =8;
+    public final static float MEDIUM_FONT_SIZE =10;
+    public final static float LARGE_FONT_SIZE =12;
+
+    public final static int SMALL_BUTTON_TOGGLED_STATE =0;
+    public final static int MEDIUM_BUTTON_TOGGLED_STATE =1;
+    public final static int LARGE_BUTTON_TOGGLED_STATE =2;
 
     ToggleButton tbNotifications;
     RadioGroup fontGroup;
@@ -42,15 +47,15 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
         SharedPreferences buttonState = getSharedPreferences(FONTS, MODE_PRIVATE);
         int i=buttonState.getInt(GET_LAST_TOGGLED_STATE,1);
         switch(i){
-            case 0:
+            case SMALL_BUTTON_TOGGLED_STATE:
                 RadioButton rbSmall = (RadioButton) findViewById(R.id.rbSmall);
                 rbSmall.setChecked(true);
                 break;
-            case 1:
+            case MEDIUM_BUTTON_TOGGLED_STATE:
                 RadioButton rbMedium = (RadioButton) findViewById(R.id.rbMedium);
                 rbMedium.setChecked(true);
                 break;
-            case 2:
+            case LARGE_BUTTON_TOGGLED_STATE:
                 RadioButton rbLarge = (RadioButton) findViewById(R.id.rbLarge);
                 rbLarge.setChecked(true);
                 break;
@@ -62,6 +67,10 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+        /**
+         * For setting Notifications toggle
+         */
         SharedPreferences.Editor editor = getSharedPreferences(NOTIFICATION_TOGGLE, MODE_PRIVATE).edit();
         if(isChecked){
             editor.putBoolean(NOTIFICATION_STATE, true);
@@ -75,25 +84,36 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-        SharedPreferences.Editor fonts = getSharedPreferences(FONTS, MODE_PRIVATE).edit();
+
+        /**
+         * For setting Font Size
+         */
         switch(checkedId) {
 
             case R.id.rbSmall:
-                fonts.putFloat(GET_A_FONT, SMALL_FONT_SIZE); // TODO - store values in DIP - TRAMPA
-                fonts.putInt(GET_LAST_TOGGLED_STATE,0);
-                fonts.apply();
+                setFont(SMALL_FONT_SIZE,SMALL_BUTTON_TOGGLED_STATE);
                 break;
             case R.id.rbMedium:
-                fonts.putFloat(GET_A_FONT, MEDIUM_FONT_SIZE);
-                fonts.putInt(GET_LAST_TOGGLED_STATE,1);
-                fonts.apply();
+                setFont(MEDIUM_FONT_SIZE,MEDIUM_BUTTON_TOGGLED_STATE);
                     break;
             case R.id.rbLarge:
-                fonts.putFloat(GET_A_FONT, LARGE_FONT_SIZE);
-                fonts.putInt(GET_LAST_TOGGLED_STATE,2);
-                fonts.apply();
+                setFont(LARGE_FONT_SIZE,LARGE_BUTTON_TOGGLED_STATE);
                     break;
         }
+
+    }
+
+    /**
+     * Method for setting a Font and remembering toggled state
+     * @param size size of the font
+     * @param lastState Currently toggled button
+     */
+    public void setFont(float size, int lastState){
+        float dipSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, size, getResources().getDisplayMetrics());
+        SharedPreferences.Editor fonts = getSharedPreferences(FONTS, MODE_PRIVATE).edit();
+        fonts.putFloat(GET_A_FONT, dipSize);
+        fonts.putInt(GET_LAST_TOGGLED_STATE,lastState);
+        fonts.apply();
     }
 //    @Override
 //    protected void onDestroy() {

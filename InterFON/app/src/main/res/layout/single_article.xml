@@ -33,7 +33,7 @@
     <TextView
         android:id="@+id/tvSingleTitle"
         android:textStyle="normal|bold"
-        android:textSize="@dimen/article_title_text_size"
+        android:textSize="@dimen/article_title_textSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -48,7 +48,7 @@
         android:orientation="horizontal">
         <TextView
             android:id="@+id/tvSingleCategory"
-            android:textSize="@dimen/article_category_text_size"
+            android:textSize="@dimen/article_category_textSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/article_category_margin_top"
@@ -57,7 +57,7 @@
             android:layout_marginBottom="@dimen/article_category_margin_bottom" />
         <TextView
             android:id="@+id/tvSingleDate"
-            android:textSize="@dimen/article_date_text_size"
+            android:textSize="@dimen/article_date_textSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/article_date_margin_top"

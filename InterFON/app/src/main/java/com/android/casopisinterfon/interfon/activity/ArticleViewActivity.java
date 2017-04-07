@@ -110,7 +110,6 @@ public class ArticleViewActivity extends AppCompatActivity {
         if (mCurArticle != null) {
             // Get font size
             SharedPreferences fonts = getSharedPreferences(SettingsActivity.FONTS, MODE_PRIVATE);
-            float size = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, fonts.getFloat(SettingsActivity.GET_A_FONT, 12), getResources().getDisplayMetrics());
             // Load pic
             Glide.with(this).load(mCurArticle.getPictureLink()).into(ivSingleArticlePicture);
             // Set data to view
@@ -118,7 +117,8 @@ public class ArticleViewActivity extends AppCompatActivity {
             tvCategory.setText(mCurArticle.getArticleCategories().toString());
             // Format date
             tvDate.setText(mCurArticle.getArticleDateString());
-            tvDescription.setTextSize(size);
+            //Set font size
+            tvDescription.setTextSize(fonts.getFloat(SettingsActivity.GET_A_FONT, 12));
         }
     }
 

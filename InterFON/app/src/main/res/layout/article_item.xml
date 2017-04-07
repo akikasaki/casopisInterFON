@@ -3,7 +3,7 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/card_item_margin_bottom"
+    android:layout_marginBottom="@dimen/article_item_margin_bottom"
     android:background="@color/cardview_light_background"
     android:elevation="4dp">
 
@@ -36,9 +36,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvTitle"
-            android:layout_marginTop="@dimen/card_item_date_margin_top"
+            android:layout_marginTop="@dimen/article_item_date_margin_top"
             android:text="Lorem Ipsum"
-            android:textSize="@dimen/card_item_date_text_size" />
+            android:textSize="@dimen/article_item_date_textSize" />
 
         <TextView
             android:id="@+id/tvCategory"
@@ -47,9 +47,9 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/tvTitle"
-            android:layout_marginTop="@dimen/card_item_category_margin_top"
+            android:layout_marginTop="@dimen/article_item_category_margin_top"
             android:text="Lorem Ipsum"
-            android:textSize="@dimen/card_item_category_text_size" />
+            android:textSize="@dimen/article_item_category_textSize" />
 
 
     </RelativeLayout>

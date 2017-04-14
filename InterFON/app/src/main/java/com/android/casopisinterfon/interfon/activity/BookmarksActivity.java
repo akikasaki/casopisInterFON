@@ -26,7 +26,7 @@ public class BookmarksActivity extends AppCompatActivity implements ArticlesAdap
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mAdapter = new BookmarksAdapter(this, this);
-        mAdapter.setData(new DataLoader().readData(this, ArticleViewActivity.ARTICLES_FILE));
+        mAdapter.setData(new DataLoader(this).readData(ArticleViewActivity.ARTICLES_FILE));
         mRecyclerView.setAdapter(mAdapter);
     }
 

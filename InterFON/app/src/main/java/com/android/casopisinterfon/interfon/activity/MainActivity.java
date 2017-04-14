@@ -30,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
     TabLayout mTabLayout;
     Toolbar mToolbar;
 
-//    private DataManager mDataManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

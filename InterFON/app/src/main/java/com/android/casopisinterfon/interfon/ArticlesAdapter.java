@@ -95,6 +95,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             holder.tvCategory.setText(a.getArticleCategories().toString());
             holder.tvDate.setText(a.getArticleDateString());
             Glide.with(mContext).load(a.getPictureLink()).into(holder.ivPicture);
+
         } else if (holder.getItemViewType() == 2) {
             //holder.tvTitle.setText(Util.fromHtml(a.getArticleTitle()));
             holder.tvTitle2.setText(a.getArticleTitle());

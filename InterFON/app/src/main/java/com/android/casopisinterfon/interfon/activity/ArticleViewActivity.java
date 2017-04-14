@@ -30,7 +30,7 @@ public class ArticleViewActivity extends AppCompatActivity {
      */
     public static final String EXTRA_ARTICLE_ID = "extra_parameter_id";
     /**
-     * Parameters for boookmarking files
+     * Parameters for bookmarking files
      */
     public static final String ARTICLES_FILE = "articles.txt";
     public static final String BOOKAMRKS__ID_FILE = "bookmarks.txt";
@@ -73,9 +73,6 @@ public class ArticleViewActivity extends AppCompatActivity {
         tvCategory = (TextView) findViewById(R.id.tvSingleCategory);
         tvDate = (TextView) findViewById(R.id.tvSingleDate);
         tvDescription = (TextView) findViewById(R.id.tvSingleDescription);
-
-//        DataLoader loadBookmarks = new DataLoader(getApplicationContext());
-//        bookmarked = loadBookmarks.isBookmarked(a, loadBookmarks.readData());
 
         // Show progress dialog
         mProgressDialog = new ProgressDialog(this);
@@ -129,9 +126,9 @@ public class ArticleViewActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        DataLoader loadBookmarks = new DataLoader();
+        DataLoader loadBookmarks = new DataLoader(this);
         //Gets a different Menu depending on if the article is bookmarked
-        if (loadBookmarks.isBookmarked(mCurArticle.getId(), loadBookmarks.readId(this, BOOKAMRKS__ID_FILE))) {
+        if (loadBookmarks.isBookmarked(mCurArticle.getId(), loadBookmarks.readId(BOOKAMRKS__ID_FILE))) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_single_article_bookmarked, menu);
             bookmarked=true;
@@ -146,29 +143,33 @@ public class ArticleViewActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+
             case R.id.action_star:
                 //Saves Article into Bookmarks
                 DataSaver saveSingleArticle = new DataSaver(this);
-                DataLoader loadBookmarks = new DataLoader();
+                DataLoader loadBookmarks = new DataLoader(this);
                 if (bookmarked) {
-                    saveSingleArticle.removeData(mCurArticle, loadBookmarks.readData(this, ARTICLES_FILE), ARTICLES_FILE);
-                    saveSingleArticle.removeId(mCurArticle.getId(), loadBookmarks.readId(this,BOOKAMRKS__ID_FILE), BOOKAMRKS__ID_FILE);
+                    saveSingleArticle.removeData(mCurArticle, loadBookmarks.readData( ARTICLES_FILE), ARTICLES_FILE);
+                    saveSingleArticle.removeId(mCurArticle.getId(), loadBookmarks.readId(BOOKAMRKS__ID_FILE), BOOKAMRKS__ID_FILE);
                     item.setIcon(R.drawable.ic_star_white);
                     bookmarked = false;
                 } else {
-                    saveSingleArticle.saveData(mCurArticle, loadBookmarks.readData(this, ARTICLES_FILE), ARTICLES_FILE);
-                    saveSingleArticle.saveId(mCurArticle.getId(), loadBookmarks.readId(this,BOOKAMRKS__ID_FILE), BOOKAMRKS__ID_FILE);
+                    saveSingleArticle.saveData(mCurArticle, loadBookmarks.readData( ARTICLES_FILE), ARTICLES_FILE);
+                    saveSingleArticle.saveId(mCurArticle.getId(), loadBookmarks.readId(BOOKAMRKS__ID_FILE), BOOKAMRKS__ID_FILE);
                     item.setIcon(R.drawable.ic_star_yellow);
                     bookmarked = true;
                 }
                 return true;
+
             case R.id.action_share:
                 tvDate.setText("2");
                 return true;
+
             case R.id.action_settings:
                 Intent openSettings = new Intent(this, SettingsActivity.class);
                 startActivity(openSettings);
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

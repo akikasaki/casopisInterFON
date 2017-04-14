@@ -43,7 +43,9 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
         tbNotifications=(ToggleButton) findViewById(R.id.tbNotifications);
         tvFont= (TextView) findViewById(R.id.tvFont);
         fontGroup=(RadioGroup) findViewById(R.id.rgFont);
+        //previous notification toggled state
         SharedPreferences prefs = getSharedPreferences(NOTIFICATION_TOGGLE, MODE_PRIVATE);
+        //previous font button state
         SharedPreferences buttonState = getSharedPreferences(FONTS, MODE_PRIVATE);
         int i=buttonState.getInt(GET_LAST_TOGGLED_STATE,1);
         switch(i){

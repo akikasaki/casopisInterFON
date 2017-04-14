@@ -1,89 +1,56 @@
 package com.android.casopisinterfon.interfon.data;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.android.casopisinterfon.interfon.model.Article;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.Iterator;
 import java.util.List;
 
 public class DataLoader {
 
-    public DataLoader() {}
+    private String ret;
+    private Gson mGson;
+
+    Context context;
+    public DataLoader(Context context) {
+        this.context=context;
+    }
 
     /**
      * Method for reading saved article data
      *
      * @return List of bookmarked Articles
      */
-    public List<Article> readData(Context context, String file) {
-        String ret = "";
-        try {
-            InputStream inputStream = context.openFileInput(file);
+    public List<Article> readData(String file) {
+        ret = "";
+        FileRead readArticles = new FileRead();
+        ret= readArticles.readFile(context,file);
 
-            if (inputStream != null) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ((receiveString = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(receiveString);
-                }
-
-                inputStream.close();
-                ret = stringBuilder.toString();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        }
-
-        Gson gson = new Gson();
+        mGson = new Gson();
         Type type = new TypeToken<List<Article>>() {
         }.getType();
-        List<Article> fromJson = gson.fromJson(ret, type);
+        List<Article> fromJson = mGson.fromJson(ret, type);
         return fromJson;
     }
 
-    public List<Long> readId(Context context, String file){
-        String ret = "";
-        try {
-            InputStream inputStream = context.openFileInput(file);
+    /**
+     * Method for reading saved article id's
+     * @param file from what file we are reading the id's
+     * @return list of bookmarked id's
+     */
+    public List<Long> readId(String file){
+        ret = "";
+        FileRead readIds = new FileRead();
+        ret= readIds.readFile(context,file);
 
-            if (inputStream != null) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ((receiveString = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(receiveString);
-                }
-
-                inputStream.close();
-                ret = stringBuilder.toString();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        }
-
-        Gson gson = new Gson();
+        mGson = new Gson();
         Type type = new TypeToken<List<Long>>() {
         }.getType();
-        List<Long> fromJson = gson.fromJson(ret, type);
+        List<Long> fromJson = mGson.fromJson(ret, type);
         return fromJson;
     }
 

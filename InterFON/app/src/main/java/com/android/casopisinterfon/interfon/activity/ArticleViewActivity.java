@@ -8,7 +8,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,6 +29,11 @@ public class ArticleViewActivity extends AppCompatActivity {
      * Parameter for intent's extra that contains id of article that is being opened.
      */
     public static final String EXTRA_ARTICLE_ID = "extra_parameter_id";
+    /**
+     * Parameters for boookmarking files
+     */
+    public static final String ARTICLES_FILE = "articles.txt";
+    public static final String BOOKAMRKS__ID_FILE = "bookmarks.txt";
 
     private DataManager mDataManager;
     private ProgressDialog mProgressDialog;
@@ -127,12 +131,14 @@ public class ArticleViewActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         DataLoader loadBookmarks = new DataLoader();
         //Gets a different Menu depending on if the article is bookmarked
-        if (loadBookmarks.isBookmarked(mCurArticle, loadBookmarks.readData(this))) {
+        if (loadBookmarks.isBookmarked(mCurArticle.getId(), loadBookmarks.readId(this, BOOKAMRKS__ID_FILE))) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_single_article_bookmarked, menu);
+            bookmarked=true;
         } else {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_single_article, menu);
+            bookmarked=false;
         }
         return true;
     }
@@ -142,14 +148,16 @@ public class ArticleViewActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_star:
                 //Saves Article into Bookmarks
-                DataSaver saveSingleArticle = new DataSaver(getApplicationContext());
+                DataSaver saveSingleArticle = new DataSaver(this);
                 DataLoader loadBookmarks = new DataLoader();
                 if (bookmarked) {
-                    saveSingleArticle.removeData(mCurArticle, loadBookmarks.readData(this));
+                    saveSingleArticle.removeData(mCurArticle, loadBookmarks.readData(this, ARTICLES_FILE), ARTICLES_FILE);
+                    saveSingleArticle.removeId(mCurArticle.getId(), loadBookmarks.readId(this,BOOKAMRKS__ID_FILE), BOOKAMRKS__ID_FILE);
                     item.setIcon(R.drawable.ic_star_white);
                     bookmarked = false;
                 } else {
-                    saveSingleArticle.saveData(mCurArticle, loadBookmarks.readData(this));
+                    saveSingleArticle.saveData(mCurArticle, loadBookmarks.readData(this, ARTICLES_FILE), ARTICLES_FILE);
+                    saveSingleArticle.saveId(mCurArticle.getId(), loadBookmarks.readId(this,BOOKAMRKS__ID_FILE), BOOKAMRKS__ID_FILE);
                     item.setIcon(R.drawable.ic_star_yellow);
                     bookmarked = true;
                 }

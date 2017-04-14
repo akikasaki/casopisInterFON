@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.android.casopisinterfon.interfon.DummyData;
+import com.android.casopisinterfon.interfon.activity.ArticleViewActivity;
 import com.android.casopisinterfon.interfon.model.Article;
 import com.google.gson.Gson;
 
@@ -27,15 +28,70 @@ public class DataSaver {
      * @param bookmarkedArticles List of previous bookmarks
      * @param singleArticle      Article to be saved into bookmarks List
      */
-    public void saveData(Article singleArticle, List<Article> bookmarkedArticles) {
+    public void saveData(Article singleArticle, List<Article> bookmarkedArticles, String file) {
+
+        Gson gson = new Gson();
+        String json;
+        //  Gets previously saved Articles and adds the one we wish to bookmark
+        if(bookmarkedArticles!=null) {
+            bookmarkedArticles.add(singleArticle);
+            json = gson.toJson(bookmarkedArticles);
+        }
+        else{
+            List<Article> firstBookmark = new ArrayList<>();
+            firstBookmark.add(singleArticle);
+            json = gson.toJson(firstBookmark);
+        }
+
+        System.out.println(json);
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(file, Context.MODE_PRIVATE));
+            outputStreamWriter.write(json);
+            outputStreamWriter.close();
+        } catch (IOException e) {
+            Log.e(TAG, "File write failed: " + e.toString());
+        }
+    }
+    public void saveId(long articleId, List<Long> bookmarkedArticlesId, String file){
+        Gson gson = new Gson();
+        String json;
 
         //  Gets previously saved Articles and adds the one we wish to bookmark
-        bookmarkedArticles.add(singleArticle);
+        if(bookmarkedArticlesId!=null) {
+            bookmarkedArticlesId.add(articleId);
+            json = gson.toJson(bookmarkedArticlesId);
+        }
+        else{
+            List<Long> firstBookmark = new ArrayList<>();
+            firstBookmark.add(articleId);
+            json = gson.toJson(firstBookmark);
+        }
+
+        System.out.println(json);
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(file, Context.MODE_PRIVATE));
+            outputStreamWriter.write(json);
+            outputStreamWriter.close();
+        } catch (IOException e) {
+            Log.e(TAG, "File write failed: " + e.toString());
+        }
+    }
+    public void removeId(long articleId, List<Long> bookmarkedArticles, String file) {
+        Iterator<Long> iter = bookmarkedArticles.iterator();
+
+        while (iter.hasNext()) {
+            Long a = iter.next();
+
+            if (articleId == a) {
+                iter.remove();
+                break;
+            }
+        }
         Gson gson = new Gson();
         String json = gson.toJson(bookmarkedArticles);
         System.out.println(json);
         try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("articles.txt", Context.MODE_PRIVATE));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(file, Context.MODE_PRIVATE));
             outputStreamWriter.write(json);
             outputStreamWriter.close();
         } catch (IOException e) {
@@ -53,7 +109,7 @@ public class DataSaver {
      * @param singleArticle      the article we want to remove if present
      * @param bookmarkedArticles the List of bookmarked Articles
      */
-    public void removeData(Article singleArticle, List<Article> bookmarkedArticles) {
+    public void removeData(Article singleArticle, List<Article> bookmarkedArticles, String file) {
         Iterator<Article> iter = bookmarkedArticles.iterator();
 
         while (iter.hasNext()) {
@@ -68,7 +124,7 @@ public class DataSaver {
         String json = gson.toJson(bookmarkedArticles);
         System.out.println(json);
         try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("articles.txt", Context.MODE_PRIVATE));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(file, Context.MODE_PRIVATE));
             outputStreamWriter.write(json);
             outputStreamWriter.close();
         } catch (IOException e) {

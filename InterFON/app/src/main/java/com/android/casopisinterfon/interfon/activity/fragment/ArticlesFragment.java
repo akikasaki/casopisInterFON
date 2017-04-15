@@ -25,6 +25,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import static java.security.AccessController.getContext;
+
 
 public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemClickedCallbackInterface {
 

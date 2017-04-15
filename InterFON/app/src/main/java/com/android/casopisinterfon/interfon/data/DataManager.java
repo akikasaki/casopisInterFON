@@ -93,7 +93,7 @@ public class DataManager {
     /**
      * Return {@link Article} object from database based on provided article id.
      *
-     * @param id id of wanted article.
+     * @param id       id of wanted article.
      * @param category category of wanted article.
      * @return newly created article object if found, null otherwise.
      */

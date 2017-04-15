@@ -8,4 +8,5 @@
 
     <string name="single_article_heading">Sačuvani artikli</string>
     <string name="settings_activity_heading">Podešavanja</string>
+    <string name="filter_title_linkInterFON">LinkInterFON</string>
 </resources>

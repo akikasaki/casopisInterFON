@@ -3,6 +3,7 @@ package com.android.casopisinterfon.interfon.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
@@ -55,6 +56,11 @@ public class ArticleViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.article_view_activity);
 
+        //Sould be used if the Activity was started via Link
+       /* Intent intent = getIntent();
+        String action = intent.getAction();
+        Uri data = intent.getData();*/
+
         initialize();
         setArticle();
     }
@@ -71,8 +77,9 @@ public class ArticleViewActivity extends AppCompatActivity {
 
 
         // Get current article
-        mDataManager = DataManager.getInstance();
-        mCurArticle = getArticle();
+
+            mDataManager = DataManager.getInstance();
+            mCurArticle = getArticle();
 
         // Init views
         tvTitle = (TextView) findViewById(R.id.tvArticleTitle);
@@ -88,6 +95,7 @@ public class ArticleViewActivity extends AppCompatActivity {
         mProgressDialog.setMessage("Loading article");
 //        mProgressDialog.show();
     }
+
 
     private Article getArticle() {
         final long id = getIntent().getLongExtra(EXTRA_ARTICLE_ID, 0);

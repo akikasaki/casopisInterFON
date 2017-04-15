@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/article_item_margin_bottom"
+    android:foreground="?android:attr/selectableItemBackground"
     android:background="@color/cardview_light_background"
+
     android:elevation="2dp">
 
 
@@ -19,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ivThumbnail"
+
         android:padding="@dimen/article_item_content_padding">
 
         <TextView

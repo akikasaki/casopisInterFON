@@ -32,6 +32,36 @@ public enum Category {
         return this.catId;
     }
 
+    public String getName() {
+        switch (this.catId) {
+            default: // Ostalo je par kategorija - http://casopisinterfon.org/api/get_category_index/
+            case 45:
+                return "Vesti";
+            case 2085:
+                return "Vesti sa FONa";
+            case 37:
+                return "IntraFON";
+            case 38:
+                return "Interesantno";
+            case 960:
+                return "Nauka";
+            case 1371:
+                return "Kultura";
+            case 1370:
+                return "Intervjui";
+            case 758:
+                return "Kolumne";
+            case 3759:
+                return "Prakse";
+            case 48:
+                return "Sport";
+            case 4422:
+                return "Poetski kutak";
+        }
+    }
+
+
+
     public static Category getCategory(int pagePosition) {
 
         switch (pagePosition) {
@@ -85,6 +115,8 @@ public enum Category {
                 return POETS;
         }
     }
+
+
 
 
 }

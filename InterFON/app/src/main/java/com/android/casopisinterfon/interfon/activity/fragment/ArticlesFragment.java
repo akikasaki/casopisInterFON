@@ -131,10 +131,10 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onListDownloadEvent(ListDownloadedEvent event) {
-        if (event.eventType == null || event.eventType.equals(Category.getCategory(mActivity == null ? null : mActivity.getActiveFragPosition()))) {
+//        if (event.eventType == null || event.eventType.equals(Category.getCategory(mActivity == null ? null : mActivity.getActiveFragPosition()))) {
             mAdapter.setData(mDataManager.getArticlesForPosition(mFragPosition));
             srRootView.setRefreshing(false);
-        }
+//        }
     }
 
     @Override

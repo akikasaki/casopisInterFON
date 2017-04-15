@@ -2,9 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.casopisinterfon.interfon">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,19 +22,21 @@
         </activity>
 
         <service
-            android:enabled="true"
-            android:name=".NotificationService" />
+            android:name=".NotificationService"
+            android:enabled="true" />
 
         <activity
             android:name=".activity.ArticleViewActivity"
             android:parentActivityName="com.android.casopisinterfon.interfon.activity.MainActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.android.casopisinterfon.interfon.activity.MainActivity" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.android.casopisinterfon.interfon.activity.MainActivity" />
         </activity>
 
-        <activity android:name=".activity.SettingsActivity"/>
-        <activity android:name=".activity.BookmarksActivity"/>
+        <activity android:name=".activity.SettingsActivity" />
+        <activity
+            android:name=".activity.BookmarksActivity"
+            android:parentActivityName=".activity.MainActivity" />
     </application>
 
 </manifest>

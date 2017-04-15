@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivSingleArticlePicture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/article_thumbnail_bottom_margin" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/article_content_padding"
+                android:paddingRight="@dimen/article_content_padding">
+
+                <TextView
+                    android:id="@+id/tvArticleTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/article_title_bottom_margin"
+                    android:text="Lorem Ipsum"
+                    android:textAlignment="center"
+                    android:textColor="@color/primary_black_text"
+                    android:textSize="@dimen/article_title_textSize" />
+
+                <TextView
+                    android:id="@+id/tvArticleCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvArticleTitle"
+                    android:layout_marginBottom="@dimen/article_info_bottom_margin"
+                    android:text="Lorem Ipsum"
+                    android:textColor="@color/secondary_black_text"
+                    android:textSize="@dimen/article_category_textSize" />
+
+                <TextView
+                    android:id="@+id/tvArticleDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@id/tvArticleCategory"
+                    android:layout_below="@id/tvArticleTitle"
+                    android:layout_toEndOf="@id/tvArticleCategory"
+                    android:layout_toRightOf="@id/tvArticleCategory"
+                    android:text="Lorem Ipsum"
+                    android:textColor="@color/hint_black_text"
+                    android:textSize="@dimen/article_date_textSize" />
+
+                <FrameLayout
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@id/tvArticleCategory"
+                    android:layout_marginBottom="@dimen/article_divider_bottom_margin"
+                    android:background="@color/article_view_divider_color" />
+
+                <TextView
+                    android:id="@+id/tvSingleDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/divider"
+                    android:text="Beogradska berza je jako malo i nerazvijeno tržište i sa te strane nema sličnosti. U filmu se govori o milionima i velikim prevarama, što kod nas nije slučaj.  Međutim, svako nerazvijeno tržište sa sobom nosi dozu neregularnosti. Postoji lažno informisanje. U svetu je zabranjeno da brokeri ulažu u berzu, međutim, kod nas se to pravilo često krši. Mene finansijsko tržište i sama berza jako privlače. Počelo je kao hobi, ali sam kasnije to počeo da povezujem sa naukom tj. oblašću kojom se bavim, kao i sada sa svojim doktorskim radom. Na berzi me privalači ta igra u kojoj svakoga dana pokušavaš da pobediš tržište, što je poprilično teško, u teoriji bi rekli nemoguće, ali veoma motivišuće. Mnogi ljudi koriste insajderske informacije, dok ja pokušavam da korišćenjem naućnuh tehnika dobijem informacije koje bi mi pomogle. Ja na taj način ispitujem teorijske postavke i da li one stvarno funkcionišu u praksi. " />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

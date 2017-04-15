@@ -5,27 +5,35 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import com.android.casopisinterfon.interfon.ArticlesAdapter;
-import com.android.casopisinterfon.interfon.BookmarksAdapter;
 import com.android.casopisinterfon.interfon.R;
 import com.android.casopisinterfon.interfon.data.DataLoader;
 
-public class BookmarksActivity extends AppCompatActivity implements ArticlesAdapter.ItemClickedCallbackInterface{
+public class BookmarksActivity extends AppCompatActivity implements ArticlesAdapter.ItemClickedCallbackInterface {
     private RecyclerView mRecyclerView;
-    private BookmarksAdapter mAdapter;
+    private ArticlesAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bookmarks);
-        mRecyclerView = (RecyclerView) findViewById(R.id.rvBookmarks);
+        setContentView(R.layout.bookmarks_activity);
 
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        ((TextView)findViewById(R.id.tvHeading)).setText(R.string.single_article_heading);
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.rvBookmarks);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new BookmarksAdapter(this, this);
+        mAdapter = new ArticlesAdapter(this, this);
+        mAdapter.setIsOnlySmallItems(true);
         mAdapter.setData(new DataLoader(this).readData(ArticleViewActivity.ARTICLES_FILE));
         mRecyclerView.setAdapter(mAdapter);
     }

@@ -90,6 +90,8 @@ public class ArticlesParser {
             }
             String date = jsonObject.getString(KEY_POST_DATE_C);
             List<Category> categories = parseCategories(jsonObject.getJSONArray(KEY_POST_CATEGORIES));
+
+            // TODO - add the code to chose the right image to display
             String picUrl = jsonObject.getJSONObject("thumbnail_images").getJSONObject("large").getString("url");
 
             a.setId(_id);

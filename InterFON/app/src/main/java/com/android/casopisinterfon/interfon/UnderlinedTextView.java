@@ -1,95 +1,103 @@
 package com.android.casopisinterfon.interfon;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.text.Layout;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
-/**
- * Created by Aleksa on 18.3.2017.
- */
+import static com.android.casopisinterfon.interfon.utils.Util.dp;
+import static com.android.casopisinterfon.interfon.utils.Util.sp;
 
-public class UnderlinedTextView extends TextView {
-    private Rect mRect;
-    private Paint mPaint;
-    private int mColor;
-    private float density;
-    private float mStrokeWidth;
+public class UnderlinedTextView extends android.support.v7.widget.AppCompatTextView {
+
+    private int borderWidthLeft = dp(4, getResources());
+
+    private int borderWidthRight = dp(4, getResources());
+
+    private int borderWidthTop = dp(4, getResources());
+
+    private int borderWidthBottom = dp(4, getResources());
+
+    private int boderColor = Color.BLACK;
+
+    private int backgroundColor = Color.BLUE;
+
+    private int textColor = Color.WHITE;
+
+    private int textSize = sp(30, getResources());
+
+    private Paint backgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
+
+    private Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
+
+    private int backgroundRectWidth = dp(35, getResources());
+
+    private int backgroundRectHeight = dp(35, getResources());
+
+    private Rect textBgRect = new Rect();
+
 
     public UnderlinedTextView(Context context) {
         this(context, null, 0);
     }
 
     public UnderlinedTextView(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+        super(context, attrs, 0);
     }
 
     public UnderlinedTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs, defStyleAttr);
+        init(context);
     }
 
-    private void init(Context context, AttributeSet attributeSet, int defStyle) {
-
-        density = context.getResources().getDisplayMetrics().density;
-
-        TypedArray typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.UnderlinedTextView, defStyle, 0);
-        mColor = typedArray.getColor(R.styleable.UnderlinedTextView_underlineColor, Color.BLUE);
-        mStrokeWidth = typedArray.getDimension(R.styleable.UnderlinedTextView_underlineWidth, density * 2);
-        typedArray.recycle();
-
-        mRect = new Rect();
-        mPaint = new Paint();
-        mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setColor(mColor); //line mColor
-        mPaint.setStrokeWidth(mStrokeWidth);
-    }
-
-    public int getUnderLineColor() {
-        return mColor;
-    }
-
-    public void setUnderLineColor(int mColor) {
-        this.mColor = mColor;
-        invalidate();
-    }
-
-    public float getUnderlineWidth() {
-        return mStrokeWidth;
-    }
-
-    public void setUnderlineWidth(float mStrokeWidth) {
-        this.mStrokeWidth = mStrokeWidth;
-        invalidate();
+    private void init(Context context) {
+        backgroundPaint.setColor(backgroundColor);
+        textPaint.setColor(textColor);
+        textPaint.setTextAlign(Paint.Align.CENTER);
+        textPaint.setTextSize(textSize);
+        textPaint.setFakeBoldText(true);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-
-        int count = getLineCount();
-
-        final Layout layout = getLayout();
-        float x_start, x_stop, x_diff;
-        int firstCharInLine, lastCharInLine;
-
-        for (int i = 0; i < count; i++) {
-            int baseline = getLineBounds(i, mRect);
-            firstCharInLine = layout.getLineStart(i);
-            lastCharInLine = layout.getLineEnd(i);
-
-            x_start = layout.getPrimaryHorizontal(firstCharInLine);
-            x_diff = layout.getPrimaryHorizontal(firstCharInLine + 1) - x_start;
-            x_stop = layout.getPrimaryHorizontal(lastCharInLine - 1) + x_diff;
-
-            canvas.drawLine(x_start, baseline + mStrokeWidth, x_stop, baseline + mStrokeWidth, mPaint);
-        }
-
         super.onDraw(canvas);
+        drawBackground(canvas);
+//        drawText(canvas);
     }
 
+    private void drawBackground(Canvas canvas) {
+//        canvas.drawColor(boderColor);
+//        int left = borderWidthLeft;
+//        int top = borderWidthTop;
+//        int right = borderWidthLeft + backgroundRectWidth;
+//        int bottom = borderWidthTop + backgroundRectHeight;
+//        textBgRect.set(left, top, right, bottom);
+//        canvas.save();
+//        canvas.clipRect(textBgRect, Region.Op.REPLACE);
+//        canvas.drawRect(textBgRect, backgroundPaint);
+//        canvas.restore();
+        canvas.drawLine(0,100,0,100,textPaint);
+    }
+
+    private void drawText(Canvas canvas) {
+        int bgCenterX = borderWidthLeft + backgroundRectWidth / 2;
+        int bgCenterY = borderWidthTop + backgroundRectHeight / 2;
+        Paint.FontMetrics metric = textPaint.getFontMetrics();
+        int textHeight = (int) Math.ceil(metric.descent - metric.ascent);
+        int x = bgCenterX;
+        int y = (int) (bgCenterY + textHeight / 2 - metric.descent);
+        System.out.println(textHeight);
+        System.out.println(y);
+        System.out.println(bgCenterY);
+        canvas.drawText(null, x, y, textPaint);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//        setMeasuredDimension(backgroundRectWidth + borderWidthLeft + borderWidthRight,
+//                backgroundRectHeight + borderWidthTop + borderWidthBottom);
+    }
 }

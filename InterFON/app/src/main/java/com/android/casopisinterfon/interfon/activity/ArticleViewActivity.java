@@ -22,6 +22,7 @@ import com.android.casopisinterfon.interfon.data.DataLoader;
 import com.android.casopisinterfon.interfon.data.DataManager;
 import com.android.casopisinterfon.interfon.data.DataSaver;
 import com.android.casopisinterfon.interfon.model.Article;
+import com.android.casopisinterfon.interfon.model.Category;
 import com.bumptech.glide.Glide;
 
 
@@ -31,6 +32,10 @@ public class ArticleViewActivity extends AppCompatActivity {
      * Parameter for intent's extra that contains id of article that is being opened.
      */
     public static final String EXTRA_ARTICLE_ID = "extra_parameter_id";
+    /**
+     * Params for intent's extra that contains id of article category.
+     */
+    public static final String EXTRA_ARTICLE_CAT_ID = "extra_parameter_category_id";
     /**
      * Parameters for bookmarking files
      */
@@ -90,9 +95,10 @@ public class ArticleViewActivity extends AppCompatActivity {
     }
 
     private Article getArticle() {
-        final long id = getIntent().getLongExtra(EXTRA_ARTICLE_ID, 0);
+        final long id = getIntent().getLongExtra(EXTRA_ARTICLE_ID, -1);
+        final int catId = getIntent().getIntExtra(EXTRA_ARTICLE_CAT_ID, -1);
 
-        if (id == -1) { // Should not happen
+        if (id == -1 || catId == -1) { // Should not happen
             Log.e(TAG, "No article data has been passed.");
             Toast.makeText(this, "Sorry, an error has occurred :(", Toast.LENGTH_SHORT).show();
             finish();
@@ -111,7 +117,7 @@ public class ArticleViewActivity extends AppCompatActivity {
 //                });
 //            }
 //        }).start();
-        return mDataManager.getArticle(id);
+        return mDataManager.getArticle(id, Category.getCategoryById(catId));
     }
 
     private void setArticle() {

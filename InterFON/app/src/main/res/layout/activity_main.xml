@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/cardview_background"
+    android:orientation="vertical"
     tools:context="com.android.casopisinterfon.interfon.activity.MainActivity">
 
     <android.support.v7.widget.Toolbar
@@ -14,50 +14,50 @@
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:background="@color/colorPrimary"
-        android:paddingLeft="@dimen/toolbar_padding_left">
+        android:elevation="@dimen/main_elevation"
+        android:paddingLeft="@dimen/toolbar_padding_left"
+        android:paddingStart="@dimen/toolbar_padding_left">
 
         <ImageView
             android:layout_width="@dimen/toolbar_logo_width"
             android:layout_height="match_parent"
             android:src="@drawable/ic_logo1" />
     </android.support.v7.widget.Toolbar>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/colorPrimary">
-        <LinearLayout
-            android:orientation="horizontal"
-            style="@style/Divider"
-            android:id="@+id/toolbarDivider"
-            android:layout_marginLeft="@dimen/main_divider_margin_left"
-            android:layout_marginRight="@dimen/main_divider_margin_right"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/toolbar_divider_color1" />
 
-    </LinearLayout>
     <android.support.design.widget.TabLayout
 
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:background="@color/colorPrimary"
+        android:elevation="@dimen/main_elevation"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@android:color/transparent"
         app:tabMinWidth="@dimen/main_tab_min_width"
         app:tabMode="scrollable"
-        app:tabGravity="fill"
-        android:elevation="4dp"
-        android:background="@color/colorPrimary"
-        app:tabTextColor="@color/tab_text_color"
         app:tabSelectedTextColor="@android:color/white"
-        app:tabIndicatorColor="@android:color/transparent">
+        app:tabTextColor="@color/tab_text_color">
 
     </android.support.design.widget.TabLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vpCategory"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/tab_layout">
 
     </android.support.v4.view.ViewPager>
 
-</LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@id/toolbar"
+        android:layout_marginLeft="@dimen/main_divider_padding"
+        android:layout_marginRight="@dimen/main_divider_padding"
+        android:background="@color/main_toolbar_divider_color"
+        android:elevation="@dimen/main_elevation">
+
+    </FrameLayout>
+
+</RelativeLayout>

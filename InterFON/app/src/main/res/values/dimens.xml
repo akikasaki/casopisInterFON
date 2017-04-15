@@ -13,28 +13,18 @@
     <dimen name="main_tab_min_width">150dp</dimen>
     <dimen name="toolbar_padding_left">16dp</dimen>
     <dimen name="toolbar_logo_width">130dp</dimen>
+    <dimen name="main_divider_padding">12dp</dimen>
+    <dimen name="main_elevation">4dp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-
     <!-- Article item related -->
-    <dimen name="article_item_margin_bottom">28dp</dimen>
-    <!-- Title related -->
-    <dimen name="article_item_title_margin_left">16dp</dimen>
-    <dimen name="article_item_title_margin_right">16dp</dimen>
-    <dimen name="article_item_title_margin_top">16dp</dimen>
-    <!-- Date related -->
+    <dimen name="article_item_margin_bottom">16dp</dimen>
+    <dimen name="article_item_content_padding">16dp</dimen>
     <dimen name="article_item_date_margin_top">10dp</dimen>
-    <dimen name="article_item_date_margin_left">15dp</dimen>
-    <dimen name="article_item_date_margin_right">15dp</dimen>
-    <dimen name="article_item_date_margin_bottom">10dp</dimen>
-    <!-- Category related -->
-    <dimen name="article_item_category_margin_top">10dp</dimen>
-    <dimen name="article_item_category_margin_end">20dp</dimen>
-    <dimen name="article_item_category_margin_right">20dp</dimen>
-    <dimen name="article_item_category_margin_bottom">10dp</dimen>
+    <dimen name="article_item_category_margin_top">@dimen/article_item_date_margin_top</dimen>
     <!-- Text size related -->
     <dimen name="article_item_title_textSize">22dp</dimen>
     <dimen name="article_item_date_textSize">12sp</dimen>
@@ -42,22 +32,13 @@
 
 
     <!-- Article item Small related -->
-    <dimen name="article_item_small_margin_top">10dp</dimen>
+    <dimen name="article_item_small_margin_bottom">16dp</dimen>
+    <dimen name="article_item_small_padding">16dp</dimen>
+    <dimen name="article_item_small_top_padding">10dp</dimen>
     <!-- Picture related -->
     <dimen name="article_item_small_picture_width">110dp</dimen>
     <dimen name="article_item_small_picture_height">100dp</dimen>
-    <!-- Title related -->
-    <dimen name="article_item_small_title_margin_top">10dp</dimen>
-    <dimen name="article_item_small_title_margin_left">15dp</dimen>
-    <dimen name="article_item_small_title_margin_right">15dp</dimen>
-    <!-- Date related -->
-    <dimen name="article_item_small_date_margin_left">15dp</dimen>
-    <dimen name="article_item_small_date_margin_right">15dp</dimen>
-    <dimen name="article_item_small_date_padding_bottom">14dp</dimen>
-    <!-- Category related -->
-    <dimen name="article_item_small_category_margin_left">15dp</dimen>
-    <dimen name="article_item_small_category_margin_right">15dp</dimen>
-    <dimen name="article_item_small_category_padding_bottom">14dp</dimen>
+    <dimen name="article_item_small_picture_margin_right">15dp</dimen>
     <!-- Text size related -->
     <dimen name="article_item_small_title_textSize">16sp</dimen>
     <dimen name="article_item_small_date_textSize">12sp</dimen>

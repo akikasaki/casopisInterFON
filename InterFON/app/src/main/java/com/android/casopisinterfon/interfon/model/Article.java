@@ -12,6 +12,7 @@ import java.util.List;
 public class Article {
 
     private String pictureLink;
+    private int pictureWidth, pictureHeight;
     private String articleTitle;
     private String articleDescription;
     private Date articleDate;
@@ -20,11 +21,13 @@ public class Article {
     private long id;
     private List<Category> articleCategories;
 
-    public Article() {}
+    public Article() {
+    }
 
     public long getId() {
         return id;
     }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -32,11 +35,24 @@ public class Article {
     public List<Category> getArticleCategories() {
         return articleCategories;
     }
+
+    public String getArticleCategoriesString() {
+        StringBuilder builder = new StringBuilder();
+        int size = articleCategories.size();
+        for (int i = 0; i < size; i++) {
+            builder.append(articleCategories.get(i).getName());
+            if (i + 1 != size)
+                builder.append(", ");
+        }
+
+        return builder.toString();
+    }
+
     public void setArticleCategories(List<Category> articleCategories) {
         this.articleCategories = articleCategories;
     }
 
-    public String getArticleDateString(){
+    public String getArticleDateString() {
         SimpleDateFormat format = new SimpleDateFormat("dd. MMM yyyy.");
 
         return format.format(this.articleDate);
@@ -45,6 +61,7 @@ public class Article {
     public Date getArticleDate() {
         return articleDate;
     }
+
     public void setArticleDate(String articleDate) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
@@ -62,6 +79,7 @@ public class Article {
     public String getArticleDescription() {
         return articleDescription;
     }
+
     public void setArticleDescription(String articleDescription) {
         this.articleDescription = articleDescription;
     }
@@ -69,6 +87,7 @@ public class Article {
     public String getArticleTitle() {
         return articleTitle;
     }
+
     public void setArticleTitle(String articleTitle) {
         this.articleTitle = articleTitle;
     }
@@ -78,6 +97,7 @@ public class Article {
 //        pictureLink="https://cdn.pixabay.com/photo/2016/12/29/16/12/eiskristalle-1938842_960_720.jpg";
         return pictureLink;
     }
+
     public void setPictureLink(String pictureLink) {
         this.pictureLink = pictureLink;
     }

@@ -9,4 +9,7 @@
     <color name="tab_text_color">#a8b3c8</color>
     <color name="toolbar_divider_color1">#7f8ca7</color>
     <color name="toolbar_divider_color2">#586989</color>
+
+    <color name="main_toolbar_divider_color">#9affffff</color>
+
 </resources>

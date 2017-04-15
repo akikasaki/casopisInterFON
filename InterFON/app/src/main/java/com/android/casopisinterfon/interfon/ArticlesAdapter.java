@@ -6,11 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.casopisinterfon.interfon.model.Article;
+import com.android.casopisinterfon.interfon.utils.Util;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -18,14 +17,6 @@ import java.util.List;
 
 
 public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyViewHolder> {
-    private final Context mContext;
-    View vw;
-    /**
-     * Used for notifying fragment that item has been clicked.
-     */
-    private ItemClickedCallbackInterface mListener;
-
-
     /**
      * Classes that use {@link ArticlesAdapter}, must implement this listener for item list interaction.
      */
@@ -37,6 +28,16 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
          */
         void onItemClicked(long articleId);
     }
+
+    private static final int LARGE_ITEM_TYPE = 0;
+    private static final int SMALL_ITEM_TYPE = 1;
+
+    private final Context mContext;
+
+    /**
+     * Used for notifying fragment that item has been clicked.
+     */
+    private ItemClickedCallbackInterface mListener;
 
     /**
      * List for storing appropriate data for current page fragment position that will be shown in recycle view.
@@ -51,22 +52,18 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
 
     // Create new views (invoked by the layout manager)
     @Override
-    public ArticlesAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                           int viewType) {
+    public ArticlesAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View rootView;
         // create a new view
-        if (viewType == 0) {
-            vw = LayoutInflater.from(parent.getContext())
+        if (viewType == LARGE_ITEM_TYPE) {
+            rootView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.article_item, parent, false);
-        } else if (viewType == 1) {
-            vw = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.article_item, parent, false);
-        } else if (viewType == 2) {
-            vw = LayoutInflater.from(parent.getContext())
+        } else
+            rootView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.article_item_small, parent, false);
-        }
 
 
-        return new MyViewHolder(vw, new MyViewHolder.ViewHolderClickListener() {
+        return new MyViewHolder(rootView, new MyViewHolder.ViewHolderClickListener() {
             @Override
             public void onItemClicked(int position) {
                 mListener.onItemClicked(mCurrentData.get(position).getId());
@@ -77,46 +74,27 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Article a = mCurrentData.get(position);
-        if (holder.getItemViewType() == 0) {
-            // holder.tvTitle.setText(Util.fromHtml(a.getArticleTitle()));
-            holder.tvTitle.setText(a.getArticleTitle());
-            holder.tvCategory.setText(a.getArticleCategories().toString());
-            holder.tvDate.setText(a.getArticleDateString());
-            Glide.with(mContext).load(a.getPictureLink()).into(holder.ivPicture);
+         holder.tvTitle.setText(Util.fromHtml(a.getArticleTitle()));
+//        holder.tvTitle.setText(a.getArticleTitle());
+        holder.tvCategory.setText(a.getArticleCategoriesString());
+        holder.tvDate.setText(a.getArticleDateString());
 
-        } else if (holder.getItemViewType() == 1) {
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-            );
-            params.setMargins(0, 0, 0, 15);
-            holder.rlCardView.setLayoutParams(params);
-            holder.tvTitle.setText(a.getArticleTitle());
-            holder.tvCategory.setText(a.getArticleCategories().toString());
-            holder.tvDate.setText(a.getArticleDateString());
-            Glide.with(mContext).load(a.getPictureLink()).into(holder.ivPicture);
-
-        } else if (holder.getItemViewType() == 2) {
-            //holder.tvTitle.setText(Util.fromHtml(a.getArticleTitle()));
-            holder.tvTitle2.setText(a.getArticleTitle());
-            holder.tvCategory2.setText(a.getArticleCategories().toString());
-            holder.tvDate2.setText(a.getArticleDateString());
-            Glide.with(mContext).load(a.getPictureLink()).into(holder.ivPicture2);
-        }
+        Glide
+                .with(mContext)
+                .load(a.getPictureLink())
+                .placeholder(R.drawable.placeholder)
+                .crossFade()
+                .into(holder.ivThumbnail);
     }
-
 
     @Override
     public int getItemViewType(int position) {
         // Today news will be diferent from others
         // TODO - finsih method
-        if (position < 3)
-            return 0;
-        if (position == 3)
-            return 1;
-        else {
-            return 2;
-        }
+        if (position < 5)
+            return LARGE_ITEM_TYPE;
+        else
+            return SMALL_ITEM_TYPE;
     }
 
     @Override
@@ -141,31 +119,24 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
 
         @Override
         public void onClick(View v) {
-            viewHolderClickListener.onItemClicked(getAdapterPosition());
+            mListener.onItemClicked(getAdapterPosition());
         }
 
         public interface ViewHolderClickListener {
             void onItemClicked(int position);
         }
 
-        private ImageView ivPicture, ivPicture2;
-        private TextView tvCategory, tvTitle, tvDate;
-        private TextView tvCategory2, tvTitle2, tvDate2;
-        private RelativeLayout rlCardView;
-        private ViewHolderClickListener viewHolderClickListener;
+        private ImageView ivThumbnail;
+        private TextView  tvTitle, tvDate,tvCategory;
+        private ViewHolderClickListener mListener;
 
-        MyViewHolder(View v, ViewHolderClickListener viewHolderClickListener) {
+        MyViewHolder(View v, ViewHolderClickListener listener) {
             super(v);
-            this.viewHolderClickListener = viewHolderClickListener;
-            rlCardView = (RelativeLayout) v.findViewById(R.id.card_view);
+            this.mListener = listener;
             tvTitle = (TextView) v.findViewById(R.id.tvTitle);
             tvCategory = (TextView) v.findViewById(R.id.tvCategory);
             tvDate = (TextView) v.findViewById(R.id.tvDate);
-            ivPicture = (ImageView) v.findViewById(R.id.ivPicture);
-            tvTitle2 = (TextView) v.findViewById(R.id.tvTitle2);
-            tvCategory2 = (TextView) v.findViewById(R.id.tvCategory2);
-            tvDate2 = (TextView) v.findViewById(R.id.tvDate2);
-            ivPicture2 = (ImageView) v.findViewById(R.id.ivPicture2);
+            ivThumbnail = (ImageView) v.findViewById(R.id.ivThumbnail);
 
             v.setOnClickListener(this);
         }

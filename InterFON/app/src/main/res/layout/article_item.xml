@@ -5,11 +5,11 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/article_item_margin_bottom"
     android:background="@color/cardview_light_background"
-    android:elevation="4dp">
+    android:elevation="2dp">
 
 
     <ImageView
-        android:id="@+id/ivPicture"
+        android:id="@+id/ivThumbnail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
@@ -18,8 +18,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ivPicture"
-        android:padding="16dp">
+        android:layout_below="@+id/ivThumbnail"
+        android:padding="@dimen/article_item_content_padding">
 
         <TextView
             android:id="@+id/tvTitle"

@@ -109,10 +109,10 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.MyVi
             super(v);
             this.viewHolderClickListener = viewHolderClickListener;
             rlCardView = (RelativeLayout) v.findViewById(R.id.card_view);
-            tvTitle2 = (TextView) v.findViewById(R.id.tvTitle2);
-            tvCategory2 = (TextView) v.findViewById(R.id.tvCategory2);
-            tvDate2 = (TextView) v.findViewById(R.id.tvDate2);
-            ivPicture2 = (ImageView) v.findViewById(R.id.ivPicture2);
+//            tvTitle2 = (TextView) v.findViewById(R.id.tvTitle2);
+//            tvCategory2 = (TextView) v.findViewById(R.id.tvCategory2);
+//            tvDate2 = (TextView) v.findViewById(R.id.tvDate2);
+            ivPicture2 = (ImageView) v.findViewById(R.id.ivThumbnail);
 
             v.setOnClickListener(this);
         }

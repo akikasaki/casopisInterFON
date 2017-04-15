@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         adapterViewPager = new CategoryPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(adapterViewPager);
         mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.getTabAt(0).setIcon(R.drawable.home_tab_icon).setText(null);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         /**

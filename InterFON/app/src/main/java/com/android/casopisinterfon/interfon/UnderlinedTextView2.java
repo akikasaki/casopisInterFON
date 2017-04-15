@@ -10,6 +10,10 @@ import android.text.Layout;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
+import com.android.casopisinterfon.interfon.model.Category;
+
+import java.util.List;
+
 /**
  * Created by Aleksa on 18.3.2017.
  */
@@ -20,6 +24,7 @@ public class UnderlinedTextView2 extends TextView {
     private int mColor;
     private float density;
     private float mStrokeWidth;
+    private List<Category> mCategoryList;
 
     public UnderlinedTextView2(Context context) {
         this(context, null, 0);
@@ -91,4 +96,10 @@ public class UnderlinedTextView2 extends TextView {
 
         super.onDraw(canvas);
     }
+
+    public void setCategories(List<Category> list){
+        this.mCategoryList = list;
+    }
+
+
 }

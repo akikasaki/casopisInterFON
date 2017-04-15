@@ -25,10 +25,13 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import static java.security.AccessController.getContext;
+
 
 public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemClickedCallbackInterface {
 
     public static final String POSITION_ARG = "page_position";
+
 
     private MainActivity mActivity;
     private DataManager mDataManager;
@@ -70,7 +73,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
 
         Bundle a = getArguments();
         mFragPosition = a.getInt(POSITION_ARG);
-        downloadArticles(0, true);
+        downloadArticles(NetworkManager.START_PAGE_INDEX, false);
     }
 
     @Override
@@ -85,7 +88,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         srRootView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                downloadArticles(0, true);
+                downloadArticles(NetworkManager.START_PAGE_INDEX, true);
             }
         });
 
@@ -126,15 +129,16 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
     public void onItemClicked(long articleId) {
         Intent intent = new Intent(getContext(), ArticleViewActivity.class);
         intent.putExtra(ArticleViewActivity.EXTRA_ARTICLE_ID, articleId);
+        intent.putExtra(ArticleViewActivity.EXTRA_ARTICLE_CAT_ID, Category.getCategory(mFragPosition).getCatId());
         startActivity(intent);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onListDownloadEvent(ListDownloadedEvent event) {
-//        if (event.eventType == null || event.eventType.equals(Category.getCategory(mActivity == null ? null : mActivity.getActiveFragPosition()))) {
+        if (event.eventType.equals(Category.getCategory(mFragPosition)) && event.isSuccess) {
             mAdapter.setData(mDataManager.getArticlesForPosition(mFragPosition));
             srRootView.setRefreshing(false);
-//        }
+        }
     }
 
     @Override
@@ -146,12 +150,12 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
     }
 
 
-    @Override
-    public void onPause() {
-//        if (scrollListener != null)
-//            rvList.removeOnScrollListener(scrollListener);
-        super.onPause();
-    }
+//    @Override
+//    public void onPause() {
+////        if (scrollListener != null)
+////            rvList.removeOnScrollListener(scrollListener);
+//        super.onPause();
+//    }
 
     @Override
     public void onStop() {

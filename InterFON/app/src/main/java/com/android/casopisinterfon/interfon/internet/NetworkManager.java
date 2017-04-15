@@ -29,6 +29,12 @@ import org.json.JSONObject;
 public class NetworkManager {
     private static final String TAG = NetworkManager.class.getSimpleName();
 
+    /**
+     * Starting index for article list on server
+     */
+    public static final int START_PAGE_INDEX = 1;
+
+
     private static NetworkManager mInstance;
     private RequestQueue mRequestQueue;
 
@@ -70,7 +76,7 @@ public class NetworkManager {
                         DataManager.getInstance().addData(
                                 // Parse data
                                 new ArticlesParser().parseAll(response),
-                                freshData);
+                                freshData, Category.ALL);
                         // Notify UI
                         EventBus.getDefault().post(new ListDownloadedEvent(true));
                         // Log
@@ -113,7 +119,7 @@ public class NetworkManager {
                         DataManager.getInstance().addData(
                                 // Parse data
                                 new ArticlesParser().parseAll(response),
-                                freshData);
+                                freshData, category);
                         // Notify UI
                         EventBus.getDefault().post(new ListDownloadedEvent(true, category));
                         // Log

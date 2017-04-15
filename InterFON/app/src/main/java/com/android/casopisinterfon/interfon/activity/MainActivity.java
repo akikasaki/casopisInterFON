@@ -22,13 +22,14 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Total number of categories on interFON casopis
      */
-    private static final int CATEGORY_COUNT = 9;
+    public static final int CATEGORY_COUNT = 9;
     // private static final String NOTIFY = "notify";
     public String tabTitles[] = {"Sve", "Vesti", "Interesantno", "Nauka", "Kultura", "Intervjui", "Kolumne", "Prakse", "Sport"};
-    CategoryPagerAdapter adapterViewPager;
-    ViewPager mViewPager;
-    TabLayout mTabLayout;
-    Toolbar mToolbar;
+
+    private CategoryPagerAdapter adapterViewPager;
+    private ViewPager mViewPager;
+    private TabLayout mTabLayout;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +63,13 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout.getTabAt(0).setIcon(R.drawable.home_tab_icon).setText(null);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        /**
-         * Method for retrieving current active fragment position.
-         * @return fragment position.
-         */
     }
+
+    /**
+     * Method for retrieving current active fragment position.
+     *
+     * @return fragment position.
+     */
     public int getActiveFragPosition() {
         return mViewPager.getCurrentItem();
     }
@@ -101,6 +104,28 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+//        Intent notificationStarter = new Intent(this, NotificationService.class);
+//        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
+//        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
+//            stopService(notificationStarter);
+//        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        Intent notificationStarter = new Intent(this, NotificationService.class);
+//        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
+//        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
+//            startService(notificationStarter);
+//        }
+    }
+
     public class CategoryPagerAdapter extends FragmentStatePagerAdapter {
 
         public CategoryPagerAdapter(FragmentManager fm) {
@@ -122,25 +147,7 @@ public class MainActivity extends AppCompatActivity {
             return tabTitles[position];
         }
     }
-    @Override
-    protected void onStart() {
-        super.onStart();
-//        Intent notificationStarter = new Intent(this, NotificationService.class);
-//        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
-//        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
-//            stopService(notificationStarter);
-//        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-//        Intent notificationStarter = new Intent(this, NotificationService.class);
-//        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
-//        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
-//            startService(notificationStarter);
-//        }
-    }
 }
+
 
 

@@ -60,11 +60,19 @@ public enum Category {
         }
     }
 
+//    /**
+//     * Method for returning position of category
+//     * @return can be 0 to {@link com.android.casopisinterfon.interfon.activity.MainActivity#CATEGORY_COUNT} - 1;
+//     */
+//    public int getPosition(){
+//
+//    }
 
 
     public static Category getCategory(int pagePosition) {
 
         switch (pagePosition) {
+            default:
             case 0:
                 return ALL;
             case 1:
@@ -83,16 +91,21 @@ public enum Category {
                 return PRACTICE;
             case 8:
                 return SPORT;
-            default:
-                return null;
+
         }
     }
 
+    /**
+     * Maps category to the server category based on server cat ID;
+     * @param id category id retrieved from the server;
+     */
     public static Category getCategoryById(int id) {
         switch (id) {
             default: // Ostalo je par kategorija - http://casopisinterfon.org/api/get_category_index/
             case 45:
                 return NEWS;
+            case 0:
+                return ALL;
             case 2085:
                 return FONNEWS;
             case 37:

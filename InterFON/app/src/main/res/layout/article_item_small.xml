@@ -19,26 +19,29 @@
         android:scaleType="centerCrop" />
 
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/tvArticleTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/article_item_small_top_padding"
         android:layout_toEndOf="@+id/ivThumbnail"
         android:layout_toRightOf="@+id/ivThumbnail"
-        android:textSize="@dimen/article_item_small_title_textSize"
-        android:textStyle="normal|bold">
+        android:text="Lorem Ipsum"
+        android:textColor="@color/primary_black_text"
+        android:textSize="@dimen/article_item_small_title_textSize">
 
     </TextView>
 
     <TextView
         android:id="@+id/tvDate"
-        android:layout_below="@id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:paddingBottom="@dimen/article_item_small_top_padding"
+        android:layout_below="@id/tvArticleTitle"
         android:layout_toEndOf="@+id/ivThumbnail"
         android:layout_toRightOf="@+id/ivThumbnail"
+        android:paddingBottom="@dimen/article_item_small_top_padding"
+        android:text="Lorem Ipsum"
+        android:textColor="@color/secondary_black_text"
         android:textSize="@dimen/article_item_small_date_textSize" />
 
     <TextView
@@ -49,6 +52,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:paddingBottom="@dimen/article_item_small_top_padding"
+        android:text="Lorem Ipsum"
+        android:textColor="@color/secondary_black_text"
         android:textSize="@dimen/article_item_small_category_textSize" />
 
 </RelativeLayout>

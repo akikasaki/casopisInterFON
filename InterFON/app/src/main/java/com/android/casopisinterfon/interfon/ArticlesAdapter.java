@@ -17,6 +17,7 @@ import java.util.List;
 
 
 public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyViewHolder> {
+
     /**
      * Classes that use {@link ArticlesAdapter}, must implement this listener for item list interaction.
      */
@@ -31,6 +32,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
 
     private static final int LARGE_ITEM_TYPE = 0;
     private static final int SMALL_ITEM_TYPE = 1;
+    private boolean mOnlySmallLayout = false;
 
     private final Context mContext;
 
@@ -74,7 +76,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Article a = mCurrentData.get(position);
-         holder.tvTitle.setText(Util.fromHtml(a.getArticleTitle()));
+        holder.tvTitle.setText(Util.fromHtml(a.getArticleTitle()));
 //        holder.tvTitle.setText(a.getArticleTitle());
         holder.tvCategory.setText(a.getArticleCategoriesString());
         holder.tvDate.setText(a.getArticleDateString());
@@ -91,6 +93,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     public int getItemViewType(int position) {
         // Today news will be diferent from others
         // TODO - finsih method
+        if (mOnlySmallLayout) return SMALL_ITEM_TYPE;
         if (position < 5)
             return LARGE_ITEM_TYPE;
         else
@@ -108,8 +111,18 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
      * @param data list of articles used by this adapter
      */
     public void setData(List<Article> data) {
+        if (data == null) return;
         mCurrentData = data;
         notifyDataSetChanged();
+    }
+
+    /**
+     * Sets the adapter so it displays only small item layout.
+     *
+     * @param onlySmallItems set to true if adapter should display only small layout.
+     */
+    public void setIsOnlySmallItems(boolean onlySmallItems) {
+        this.mOnlySmallLayout = true;
     }
 
     // Provide a reference to the views for each data item
@@ -127,13 +140,13 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         }
 
         private ImageView ivThumbnail;
-        private TextView  tvTitle, tvDate,tvCategory;
+        private TextView tvTitle, tvDate, tvCategory;
         private ViewHolderClickListener mListener;
 
         MyViewHolder(View v, ViewHolderClickListener listener) {
             super(v);
             this.mListener = listener;
-            tvTitle = (TextView) v.findViewById(R.id.tvTitle);
+            tvTitle = (TextView) v.findViewById(R.id.tvArticleTitle);
             tvCategory = (TextView) v.findViewById(R.id.tvCategory);
             tvDate = (TextView) v.findViewById(R.id.tvDate);
             ivThumbnail = (ImageView) v.findViewById(R.id.ivThumbnail);

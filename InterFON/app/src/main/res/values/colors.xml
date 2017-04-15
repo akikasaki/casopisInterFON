@@ -10,6 +10,15 @@
     <color name="toolbar_divider_color1">#7f8ca7</color>
     <color name="toolbar_divider_color2">#586989</color>
 
+    <!-- Main activity related -->
+    <color name="article_view_divider_color">#31000000</color>
+
+    <!-- Main activity related -->
     <color name="main_toolbar_divider_color">#9affffff</color>
 
+    <!-- Text colors -->
+    <color name="primary_white_text">#eaffffff</color>
+    <color name="primary_black_text">#db000000</color> <!-- 87% -->
+    <color name="secondary_black_text">#91000000</color> <!-- 54% -->
+    <color name="hint_black_text">#6e000000</color> <!-- 40% -->
 </resources>

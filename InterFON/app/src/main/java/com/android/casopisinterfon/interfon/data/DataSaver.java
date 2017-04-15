@@ -23,8 +23,8 @@ public class DataSaver {
     /**
      * Method for saving all articles into a txt JSON Object
      *
-     * @param bookmarkedArticles List of previous bookmarks
-     * @param singleArticle      Article to be saved into bookmarks List
+     * @param bookmarkedArticles List of previous bookmarks_activity
+     * @param singleArticle      Article to be saved into bookmarks_activity List
      */
     public void saveData(Article singleArticle, List<Article> bookmarkedArticles, String file) {
 

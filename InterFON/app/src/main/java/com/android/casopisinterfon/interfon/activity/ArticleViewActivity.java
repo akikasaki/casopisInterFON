@@ -33,7 +33,7 @@ public class ArticleViewActivity extends AppCompatActivity {
      * Parameters for bookmarking files
      */
     public static final String ARTICLES_FILE = "articles.txt";
-    public static final String BOOKAMRKS__ID_FILE = "bookmarks.txt";
+    public static final String BOOKAMRKS__ID_FILE = "bookmarks_activity.txt";
 
     private DataManager mDataManager;
     private ProgressDialog mProgressDialog;
@@ -48,7 +48,7 @@ public class ArticleViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.single_article);
+        setContentView(R.layout.article_view_activity);
 
         initialize();
         setArticle();
@@ -68,10 +68,10 @@ public class ArticleViewActivity extends AppCompatActivity {
         mDataManager = DataManager.getInstance();
         mCurArticle = getArticle();
         // Init views
-        tvTitle = (TextView) findViewById(R.id.tvSingleTitle);
+        tvTitle = (TextView) findViewById(R.id.tvArticleTitle);
         ivSingleArticlePicture = (ImageView) findViewById(R.id.ivSingleArticlePicture);
-        tvCategory = (TextView) findViewById(R.id.tvSingleCategory);
-        tvDate = (TextView) findViewById(R.id.tvSingleDate);
+        tvCategory = (TextView) findViewById(R.id.tvArticleCategory);
+        tvDate = (TextView) findViewById(R.id.tvArticleDate);
         tvDescription = (TextView) findViewById(R.id.tvSingleDescription);
 
         // Show progress dialog
@@ -115,7 +115,7 @@ public class ArticleViewActivity extends AppCompatActivity {
             Glide.with(this).load(mCurArticle.getPictureLink()).into(ivSingleArticlePicture);
             // Set data to view
             tvTitle.setText(mCurArticle.getArticleTitle());
-            tvCategory.setText(mCurArticle.getArticleCategories().toString());
+            tvCategory.setText(mCurArticle.getArticleCategoriesString() + " - ");
             // Format date
             tvDate.setText(mCurArticle.getArticleDateString());
             //Set font size

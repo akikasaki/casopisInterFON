@@ -21,19 +21,19 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <!-- Article item related -->
-    <dimen name="article_item_margin_bottom">16dp</dimen>
-    <dimen name="article_item_content_padding">16dp</dimen>
+    <dimen name="article_item_margin_bottom">@dimen/activity_vertical_margin</dimen>
+    <dimen name="article_item_content_padding">@dimen/activity_vertical_margin</dimen>
     <dimen name="article_item_date_margin_top">10dp</dimen>
     <dimen name="article_item_category_margin_top">@dimen/article_item_date_margin_top</dimen>
     <!-- Text size related -->
     <dimen name="article_item_title_textSize">22dp</dimen>
-    <dimen name="article_item_date_textSize">12sp</dimen>
-    <dimen name="article_item_category_textSize">12sp</dimen>
+    <dimen name="article_item_date_textSize">@dimen/textSize_info</dimen>
+    <dimen name="article_item_category_textSize">@dimen/textSize_info</dimen>
 
 
     <!-- Article item Small related -->
-    <dimen name="article_item_small_margin_bottom">16dp</dimen>
-    <dimen name="article_item_small_padding">16dp</dimen>
+    <dimen name="article_item_small_margin_bottom">@dimen/activity_vertical_margin</dimen>
+    <dimen name="article_item_small_padding">@dimen/activity_vertical_margin</dimen>
     <dimen name="article_item_small_top_padding">10dp</dimen>
     <!-- Picture related -->
     <dimen name="article_item_small_picture_width">110dp</dimen>
@@ -41,36 +41,21 @@
     <dimen name="article_item_small_picture_margin_right">15dp</dimen>
     <!-- Text size related -->
     <dimen name="article_item_small_title_textSize">16sp</dimen>
-    <dimen name="article_item_small_date_textSize">12sp</dimen>
-    <dimen name="article_item_small_category_textSize">12sp</dimen>
+    <dimen name="article_item_small_date_textSize">@dimen/textSize_info</dimen>
+    <dimen name="article_item_small_category_textSize">@dimen/textSize_info</dimen>
 
 
     <!-- Single article related -->
+    <dimen name="article_content_padding">@dimen/activity_vertical_margin</dimen>
     <dimen name="article_toolbar_padding_left">4dp</dimen>
-    <!-- Title related -->
-    <dimen name="article_title_margin_top">20dp</dimen>
-    <dimen name="article_title_margin_left">20dp</dimen>
-    <dimen name="article_title_margin_right">20dp</dimen>
-    <!-- Category related -->
-    <dimen name="article_category_margin_top">10dp</dimen>
-    <dimen name="article_category_margin_start">15dp</dimen>
-    <dimen name="article_category_margin_left">15dp</dimen>
-    <dimen name="article_category_margin_bottom">3dp</dimen>
-    <!-- Date related -->
-    <dimen name="article_date_margin_top">10dp</dimen>
-    <dimen name="article_date_margin_start">8dp</dimen>
-    <dimen name="article_date_margin_left">8dp</dimen>
-    <dimen name="article_date_margin_bottom">3dp</dimen>
-    <!-- Text/Description related -->
-    <dimen name="article_text_marginTop">10dp</dimen>
-    <dimen name="article_text_margin_start">15dp</dimen>
-    <dimen name="article_text_margin_end">15dp</dimen>
-    <dimen name="article_text_margin_left">15dp</dimen>
-    <dimen name="article_text_margin_right">15dp</dimen>
-    <dimen name="article_text_margin_bottom">10dp</dimen>
+    <dimen name="article_thumbnail_bottom_margin">16dp</dimen>
+    <dimen name="article_title_bottom_margin">@dimen/article_thumbnail_bottom_margin</dimen>
+    <dimen name="article_info_bottom_margin">6dp</dimen>
+    <dimen name="article_divider_bottom_margin">@dimen/activity_vertical_margin</dimen>
+    <dimen name="article_divider_side_margin">8dp</dimen>
     <!-- Text size related -->
-    <dimen name="article_title_textSize">18sp</dimen>
-    <dimen name="article_category_textSize">12sp</dimen>
-    <dimen name="article_date_textSize">12sp</dimen>
+    <dimen name="article_title_textSize">22dp</dimen>
+    <dimen name="article_category_textSize">@dimen/textSize_body</dimen>
+    <dimen name="article_date_textSize">@dimen/textSize_info</dimen>
 
 </resources>

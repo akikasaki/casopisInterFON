@@ -10,6 +10,11 @@ public class FileWrite {
 
     private final static String TAG = "FILE_WRITE_EXCEPTION";
 
+    /**
+     * Method for writting to a file
+     * @param file the file we are writting to
+     * @param data the data we want to write
+     */
     public void writeFile(Context context, String file, String data){
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(file, Context.MODE_PRIVATE));

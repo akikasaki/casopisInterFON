@@ -4,8 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -37,9 +39,12 @@ public class ArticleViewActivity extends AppCompatActivity {
 
     private DataManager mDataManager;
     private ProgressDialog mProgressDialog;
-    Toolbar mToolbar;
-    ImageView ivSingleArticlePicture;
-    TextView tvTitle, tvDescription, tvCategory, tvDate;
+    private ShareActionProvider mShareActionProvider;
+    private Toolbar mToolbar;
+    private ImageView ivSingleArticlePicture;
+    private TextView tvTitle, tvDescription, tvCategory, tvDate;
+    private SharedPreferences fonts;
+    private Intent sendIntent;
     boolean bookmarked;
 
     // Holds reference to the current viewing article
@@ -64,9 +69,11 @@ public class ArticleViewActivity extends AppCompatActivity {
         ab.setDisplayShowTitleEnabled(false);
         ab.setDisplayHomeAsUpEnabled(true);
 
+
         // Get current article
         mDataManager = DataManager.getInstance();
         mCurArticle = getArticle();
+
         // Init views
         tvTitle = (TextView) findViewById(R.id.tvSingleTitle);
         ivSingleArticlePicture = (ImageView) findViewById(R.id.ivSingleArticlePicture);
@@ -110,7 +117,7 @@ public class ArticleViewActivity extends AppCompatActivity {
     private void setArticle() {
         if (mCurArticle != null) {
             // Get font size
-            SharedPreferences fonts = getSharedPreferences(SettingsActivity.FONTS, MODE_PRIVATE);
+            fonts = getSharedPreferences(SettingsActivity.FONTS, MODE_PRIVATE);
             // Load pic
             Glide.with(this).load(mCurArticle.getPictureLink()).into(ivSingleArticlePicture);
             // Set data to view
@@ -127,16 +134,24 @@ public class ArticleViewActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         DataLoader loadBookmarks = new DataLoader(this);
-        //Gets a different Menu depending on if the article is bookmarked
+
+        /**
+         *  Gets a different Menu depending on if the article is bookmarked
+         */
         if (loadBookmarks.isBookmarked(mCurArticle.getId(), loadBookmarks.readId(BOOKAMRKS__ID_FILE))) {
+            //Toolbar with white Share star
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_single_article_bookmarked, menu);
             bookmarked=true;
         } else {
+            //toolbar with yellow Share star
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_single_article, menu);
             bookmarked=false;
         }
+        //Set the share button to provide a ShareAction
+        MenuItem item = menu.findItem(R.id.action_share);
+        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
         return true;
     }
 
@@ -149,11 +164,13 @@ public class ArticleViewActivity extends AppCompatActivity {
                 DataSaver saveSingleArticle = new DataSaver(this);
                 DataLoader loadBookmarks = new DataLoader(this);
                 if (bookmarked) {
+                    //If the article is bookmarked remove the bookmark and set star to white
                     saveSingleArticle.removeData(mCurArticle, loadBookmarks.readData( ARTICLES_FILE), ARTICLES_FILE);
                     saveSingleArticle.removeId(mCurArticle.getId(), loadBookmarks.readId(BOOKAMRKS__ID_FILE), BOOKAMRKS__ID_FILE);
                     item.setIcon(R.drawable.ic_star_white);
                     bookmarked = false;
                 } else {
+                    //If the article is not bookmarked save to bookmarks and set star to yellow
                     saveSingleArticle.saveData(mCurArticle, loadBookmarks.readData( ARTICLES_FILE), ARTICLES_FILE);
                     saveSingleArticle.saveId(mCurArticle.getId(), loadBookmarks.readId(BOOKAMRKS__ID_FILE), BOOKAMRKS__ID_FILE);
                     item.setIcon(R.drawable.ic_star_yellow);
@@ -162,7 +179,14 @@ public class ArticleViewActivity extends AppCompatActivity {
                 return true;
 
             case R.id.action_share:
-                tvDate.setText("2");
+                //Intent for sharing an article via the share Action
+                sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                //Set the article link to be sent
+                sendIntent.putExtra(Intent.EXTRA_TEXT, mCurArticle.getArticleLink());
+                sendIntent.setType("text/plain");
+                //Choose where to share
+                startActivity(Intent.createChooser(sendIntent, "Send Via"));
                 return true;
 
             case R.id.action_settings:
@@ -173,6 +197,14 @@ public class ArticleViewActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Needed for when returning from settings activity if font was changed
+        tvDescription.setTextSize(fonts.getFloat(SettingsActivity.GET_A_FONT, 12));
     }
 
     @Override

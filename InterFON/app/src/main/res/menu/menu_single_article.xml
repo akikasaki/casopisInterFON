@@ -8,10 +8,12 @@
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_share"
-        android:icon="@drawable/ic_share_white"
         android:title="@string/share"
+        android:icon="@drawable/ic_share_white"
+        android:actionProviderClass="android.widget.ShareActionProvider"
         app:showAsAction="ifRoom"/>
-    <item android:id="@+id/action_settings"
+    <item
+        android:id="@+id/action_settings"
         android:title="@string/settings"
         app:showAsAction="never"/>
 </menu>

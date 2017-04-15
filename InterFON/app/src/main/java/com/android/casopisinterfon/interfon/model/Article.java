@@ -42,6 +42,11 @@ public class Article {
         return format.format(this.articleDate);
     }
 
+
+    public String getArticleLink() {
+        return articleLink;
+    }
+
     public Date getArticleDate() {
         return articleDate;
     }

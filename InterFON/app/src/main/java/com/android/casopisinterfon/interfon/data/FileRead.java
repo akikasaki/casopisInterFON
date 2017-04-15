@@ -14,8 +14,12 @@ public class FileRead {
 
     private final static String TAG = "login activity";
 
+    /**
+     * Method for reading a file
+     * @param file Name of the file we are reading from
+     * @return the file as a String
+     */
     public String readFile(Context context, String file){
-        String ret="";
         try {
             InputStream inputStream = context.openFileInput(file);
 
@@ -30,8 +34,7 @@ public class FileRead {
                 }
 
                 inputStream.close();
-                ret = stringBuilder.toString();
-                return ret;
+                return stringBuilder.toString();
             }
         } catch (FileNotFoundException e) {
             Log.e(TAG, "File not found: " + e.toString());

@@ -81,7 +81,8 @@ public class DataSaver {
      */
     public void removeId(long articleId, List<Long> bookmarkedArticles, String file) {
         Iterator<Long> iter = bookmarkedArticles.iterator();
-
+        
+        //Check if the article is in the bookmarked articles list
         while (iter.hasNext()) {
             Long a = iter.next();
 

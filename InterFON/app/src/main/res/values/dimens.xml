@@ -57,5 +57,6 @@
     <dimen name="article_title_textSize">22dp</dimen>
     <dimen name="article_category_textSize">@dimen/textSize_body</dimen>
     <dimen name="article_date_textSize">@dimen/textSize_info</dimen>
+    <dimen name="about_us_text_margin">15dp</dimen>
 
 </resources>

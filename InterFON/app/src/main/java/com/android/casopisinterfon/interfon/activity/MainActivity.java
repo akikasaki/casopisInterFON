@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(openSettings);
                 return true;
             case R.id.miAboutUs:
+                Intent openAboutUs = new Intent(this, AboutActivity.class);
+                startActivity(openAboutUs);
                 return true;
             case R.id.miContacts:
                 return true;

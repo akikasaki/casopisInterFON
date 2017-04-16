@@ -3,7 +3,6 @@ package com.android.casopisinterfon.interfon.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
@@ -24,6 +23,7 @@ import com.android.casopisinterfon.interfon.data.DataManager;
 import com.android.casopisinterfon.interfon.data.DataSaver;
 import com.android.casopisinterfon.interfon.model.Article;
 import com.android.casopisinterfon.interfon.model.Category;
+import com.android.casopisinterfon.interfon.utils.Util;
 import com.bumptech.glide.Glide;
 
 
@@ -135,7 +135,7 @@ public class ArticleViewActivity extends AppCompatActivity {
             // Load pic
             Glide.with(this).load(mCurArticle.getPictureLink()).into(ivSingleArticlePicture);
             // Set data to view
-            tvTitle.setText(mCurArticle.getArticleTitle());
+            tvTitle.setText(Util.fromHtml(mCurArticle.getArticleTitle()));
             tvCategory.setText(mCurArticle.getArticleCategoriesString() + " - ");
             // Format date
             tvDate.setText(mCurArticle.getArticleDateString());

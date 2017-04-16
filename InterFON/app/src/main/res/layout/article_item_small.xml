@@ -4,8 +4,8 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/article_item_small_margin_bottom"
     android:background="@color/cardview_light_background"
-    android:foreground="?android:attr/selectableItemBackground"
     android:elevation="2dp"
+    android:foreground="?android:attr/selectableItemBackground"
     android:paddingEnd="@dimen/article_item_small_padding"
     android:paddingRight="@dimen/article_item_small_padding">
 
@@ -13,6 +13,7 @@
         android:id="@+id/ivThumbnail"
         android:layout_width="@dimen/article_item_small_picture_width"
         android:layout_height="@dimen/article_item_small_picture_height"
+        android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/article_item_small_picture_margin_right"
         android:layout_marginRight="@dimen/article_item_small_picture_margin_right"
         android:adjustViewBounds="true"

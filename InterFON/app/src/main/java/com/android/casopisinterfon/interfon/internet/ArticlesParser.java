@@ -30,6 +30,7 @@ public class ArticlesParser {
     public static final String KEY_POST_CONTENT = "content";
     private static final String KEY_POST_DATE_C = "date";
     private static final String KEY_POST_CATEGORIES = "categories";
+    public static final String KEY_CUSTOM_FIELDS = "custom_fields";
 
     /**
      * Method for parsing {@link JSONObject} instance to list of {@link Article} objects.
@@ -71,7 +72,7 @@ public class ArticlesParser {
             throw new IllegalArgumentException("Cannot parse null as Article object.");
         Article a;
         try {
-            a = new Article();
+//            a = new Article();
             long _id = jsonObject.getLong(KEY_POST_ID);
             String url = jsonObject.getString(KEY_POST_URL);
             String title = jsonObject.getString(KEY_POST_TITLE);
@@ -94,13 +95,7 @@ public class ArticlesParser {
             // TODO - add the code to chose the right image to display
             String picUrl = jsonObject.getJSONObject("thumbnail_images").getJSONObject("large").getString("url");
 
-            a.setId(_id);
-            a.setArticleLink(url);
-            a.setArticleTitle(title);
-            a.setArticleDescription(description);
-            a.setArticleCategories(categories);
-            a.setArticleDate(date);
-            a.setPictureLink(picUrl);
+            a = new Article(_id, title, description, date, picUrl, url);
         } catch (JSONException e) {
             Log.e(TAG, "Failed to parse article: " + jsonObject.toString(), e);
             a = null;

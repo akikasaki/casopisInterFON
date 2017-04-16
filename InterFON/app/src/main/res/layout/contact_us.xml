@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar"/>
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/contact_us_map_height"
+        android:layout_weight="0.31"
+        map:cameraTargetLat="44.7727910"
+        map:cameraTargetLng="20.4728267"
+        map:uiZoomControls="false"
+        map:uiZoomGestures="true"
+        map:cameraZoom="16"/>
+
+    <TextView
+        android:layout_margin="@dimen/contact_us_desription_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/contact_us_description"
+        android:textAlignment="center" />
+    <FrameLayout
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginBottom="@dimen/article_divider_bottom_margin"
+        android:background="@color/article_view_divider_color" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/contact_us_adress"
+        android:textAlignment="center" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/contact_us_email_margin_bottom"
+        android:layout_marginTop="@dimen/contact_us_email_margin_top"
+        android:text="@string/contact_us_email"
+        android:textAlignment="center" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.12"
+        android:paddingTop="15dp"
+        app:srcCompat="@drawable/ic_logo" />
+</LinearLayout>

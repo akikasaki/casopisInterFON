@@ -62,5 +62,11 @@
     <!-- About us related -->
     <dimen name="about_us_text_margin">15dp</dimen>
 
+    <!--Contact Us related -->
+    <dimen name="contact_us_map_height">200dp</dimen>
+    <dimen name="contact_us_desription_margin">20dp</dimen>
+    <dimen name="contact_us_email_margin_bottom">20dp</dimen>
+    <dimen name="contact_us_email_margin_top">8dp</dimen>
+
 
 </resources>

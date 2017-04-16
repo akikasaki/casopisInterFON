@@ -6,9 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.android.casopisinterfon.interfon.R;
 
-/**
- * Created by Aleksa on 15.4.2017.
- */
 
 public class AboutActivity extends AppCompatActivity {
     @Override

@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.android.casopisinterfon.interfon.activity.MainActivity;
 import com.android.casopisinterfon.interfon.data.ArticlesParser;
 import com.android.casopisinterfon.interfon.data.DataManager;
 import com.android.casopisinterfon.interfon.internet.events.ListDownloadedEvent;
@@ -34,6 +35,16 @@ public class NetworkManager {
      */
     public static final int START_PAGE_INDEX = 1;
 
+    /**
+     * Contains page index that are already downloaded.
+     */
+    private static final int[] mCategoryPageIndex = new int[MainActivity.CATEGORY_COUNT];
+
+//    static {
+//        for (int i = 0; i < MainActivity.CATEGORY_COUNT; i++) {
+//            mCategoryPageIndex[i] = START_PAGE_INDEX;
+//        }
+//    }
 
     private static NetworkManager mInstance;
     private RequestQueue mRequestQueue;
@@ -161,5 +172,34 @@ public class NetworkManager {
                 });
 
         mRequestQueue.add(request);
+    }
+
+    /**
+     * Return page index for provided category.
+     *
+     * @param category category to return index for.
+     * @return page index of data that has already been downloaded.
+     */
+    public static int getCategoryPageIndex(Category category) {
+        return mCategoryPageIndex[category.ordinal()];
+    }
+
+    /**
+     * Sets current index for given category.
+     *
+     * @param category category for index.
+     * @param index    index of page data.
+     */
+    public static void setCategoryPageIndex(Category category, int index) {
+        mCategoryPageIndex[category.ordinal()] = index;
+    }
+
+    /**
+     * Increment page index for given category.
+     * @param category category.
+     * @return page index after increment.
+     */
+    public static int incrementCatPageIndex(Category category){
+        return mCategoryPageIndex[category.ordinal()] += 1;
     }
 }

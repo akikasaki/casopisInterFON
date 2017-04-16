@@ -6,28 +6,29 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import com.android.casopisinterfon.interfon.internet.NetworkManager;
+import com.android.casopisinterfon.interfon.model.Category;
 
-/**
- * Created by Aleksa on 23.3.2017.
- */
 
 public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnScrollListener {
     // The minimum amount of items to have below your current scroll position
     // before loading more.
     private int visibleThreshold = 2;
-    // The current offset index of data you have loaded
-    private int currentPage = 0;
+//     The current offset index of data you have loaded
+//    private int currentPage = 0;
     // The total number of items in the dataset after the last load
     private int previousTotalItemCount = 0;
     // True if we are still waiting for the last set of data to load.
     private boolean loading = true;
     // Sets the starting page index
     private int startingPageIndex = NetworkManager.START_PAGE_INDEX;
+    // The current category of data that this listener is attached to
+    private Category mCurCategory;
 
     RecyclerView.LayoutManager mLayoutManager;
 
-    public EndlessRecyclerViewScrollListener(LinearLayoutManager layoutManager) {
+    public EndlessRecyclerViewScrollListener(LinearLayoutManager layoutManager, Category category) {
         this.mLayoutManager = layoutManager;
+        this.mCurCategory = category;
     }
 
     public EndlessRecyclerViewScrollListener(GridLayoutManager layoutManager) {
@@ -74,7 +75,8 @@ public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnS
         // If the total item count is zero and the previous isn't, assume the
         // list is invalidated and should be reset back to initial state
         if (totalItemCount < previousTotalItemCount) {
-            this.currentPage = this.startingPageIndex;
+//            this.currentPage = this.startingPageIndex;
+            NetworkManager.setCategoryPageIndex(mCurCategory, this.startingPageIndex);
             this.previousTotalItemCount = totalItemCount;
             if (totalItemCount == 0) {
                 this.loading = true;
@@ -93,15 +95,17 @@ public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnS
         // If we do need to reload some more data, we execute onLoadMore to fetch the data.
         // threshold should reflect how many total columns there are too
         if (!loading && (lastVisibleItemPosition + visibleThreshold) > totalItemCount) {
-            currentPage++;
-            onLoadMore(currentPage, totalItemCount, view);
+//            currentPage++;
+            int curPage = NetworkManager.incrementCatPageIndex(mCurCategory);
+            onLoadMore(curPage, totalItemCount, view);
             loading = true;
         }
     }
 
     // Call this method whenever performing new searches
     public void resetState() {
-        this.currentPage = this.startingPageIndex;
+//        this.currentPage = this.startingPageIndex;
+        NetworkManager.setCategoryPageIndex(mCurCategory, this.startingPageIndex);
         this.previousTotalItemCount = 0;
         this.loading = true;
     }

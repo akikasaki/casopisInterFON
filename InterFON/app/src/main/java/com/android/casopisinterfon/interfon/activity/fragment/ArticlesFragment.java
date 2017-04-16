@@ -25,8 +25,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import static java.security.AccessController.getContext;
-
 
 public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemClickedCallbackInterface {
 
@@ -73,7 +71,8 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
 
         Bundle a = getArguments();
         mFragPosition = a.getInt(POSITION_ARG);
-        downloadArticles(NetworkManager.START_PAGE_INDEX, false);
+
+        initialDownload();
     }
 
     @Override
@@ -98,7 +97,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         rvList.setAdapter(mAdapter);
         linearLayoutManager = new LinearLayoutManager(getContext());
         rvList.setLayoutManager(linearLayoutManager);
-        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager, Category.getCategory(mFragPosition)) {
             @Override
             public void onLoadMore(int page, final int totalItemsCount, RecyclerView view) {
                 downloadArticles(page, false);
@@ -110,6 +109,18 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         mAdapter.setData(mDataManager.getArticlesForPosition(mFragPosition));
         return srRootView;
     }
+
+    /**
+     * Helper method for first time download list of articles.
+     */
+    private void initialDownload() {
+        // Only if there is no data, download articles for the first time.
+        Category category = Category.getCategory(mFragPosition);
+        if (NetworkManager.getCategoryPageIndex(category) < NetworkManager.START_PAGE_INDEX) {
+            downloadArticles(NetworkManager.incrementCatPageIndex(category), true);
+        }
+    }
+
 
     /**
      * Helper method for download list of articles for current fragment category based on {@link #mFragPosition}.
@@ -124,6 +135,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         else
             mNetManager.downloadArticles(page, isFreshData, null);
     }
+
 
     @Override
     public void onItemClicked(long articleId) {

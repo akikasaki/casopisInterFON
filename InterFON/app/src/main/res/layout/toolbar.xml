@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/toolbar"
+<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/actionBarSize"
-    android:background="@color/colorPrimary"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:layout_scrollFlags="scroll|enterAlways"
     android:elevation="@dimen/main_elevation">
 
-    <!--<ImageView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:src="@drawable/ic_logo1" />-->
-    <TextView
-        android:id="@+id/tvHeading"
-        android:textColor="@color/primary_white_text"
-        android:gravity="center_vertical"
-        android:textSize="@dimen/textSize_smallHeading"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
-</android.support.v7.widget.Toolbar>
+        <!--<ImageView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:src="@drawable/ic_logo1" />-->
+        <TextView
+            android:id="@+id/tvHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textColor="@color/primary_white_text"
+            android:textSize="@dimen/textSize_smallHeading" />
+    </android.support.v7.widget.Toolbar>
+</android.support.design.widget.AppBarLayout>

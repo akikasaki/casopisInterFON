@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar"/>
-
-    <ScrollView
+    <!--<include layout="@layout/toolbar"-->
+    <!--app:layout_scrollFlags="scroll|enterAlways|snap"-->
+    <!--/>-->
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/main_elevation">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|snap|enterAlways">
+
+            <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:src="@drawable/ic_logo1" />-->
+            <TextView
+                android:id="@+id/tvHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textColor="@color/primary_white_text"
+                android:textSize="@dimen/textSize_smallHeading" />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -77,5 +106,5 @@
                     android:text="Beogradska berza je jako malo i nerazvijeno tržište i sa te strane nema sličnosti. U filmu se govori o milionima i velikim prevarama, što kod nas nije slučaj.  Međutim, svako nerazvijeno tržište sa sobom nosi dozu neregularnosti. Postoji lažno informisanje. U svetu je zabranjeno da brokeri ulažu u berzu, međutim, kod nas se to pravilo često krši. Mene finansijsko tržište i sama berza jako privlače. Počelo je kao hobi, ali sam kasnije to počeo da povezujem sa naukom tj. oblašću kojom se bavim, kao i sada sa svojim doktorskim radom. Na berzi me privalači ta igra u kojoj svakoga dana pokušavaš da pobediš tržište, što je poprilično teško, u teoriji bi rekli nemoguće, ali veoma motivišuće. Mnogi ljudi koriste insajderske informacije, dok ja pokušavam da korišćenjem naućnuh tehnika dobijem informacije koje bi mi pomogle. Ja na taj način ispitujem teorijske postavke i da li one stvarno funkcionišu u praksi. " />
             </RelativeLayout>
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

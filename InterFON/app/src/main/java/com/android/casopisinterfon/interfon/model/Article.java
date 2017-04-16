@@ -3,6 +3,7 @@ package com.android.casopisinterfon.interfon.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,25 +12,29 @@ import java.util.List;
  */
 public class Article {
 
-    private String pictureLink;
-    private int pictureWidth, pictureHeight;
+    private long id;
     private String articleTitle;
     private String articleDescription;
     private Date articleDate;
+    private String pictureLink;
     private String articleLink;
     private boolean articleIsBookmarked;
-    private long id;
-    private List<Category> articleCategories;
+    private List<Category> articleCategories = new ArrayList<>(1);
 
-    public Article() {
+//    public Article() {
+//    }
+
+    public Article(long id, String articleTitle, String articleDescription, String articleDate, String pictureLink, String articleLink) {
+        this.id = id;
+        this.articleTitle = articleTitle;
+        this.articleDescription = articleDescription;
+        this.setArticleDate(articleDate);
+        this.pictureLink = pictureLink;
+        this.articleLink = articleLink;
     }
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public List<Category> getArticleCategories() {

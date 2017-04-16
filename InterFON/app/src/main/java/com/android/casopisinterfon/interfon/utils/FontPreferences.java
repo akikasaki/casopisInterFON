@@ -1,24 +1,25 @@
-package com.vesti.fonis.fonisvesti.utils;
+package com.android.casopisinterfon.interfon.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 /**
- * Created by Sarma on 4/5/2016.
+ * Helper class for working with shared preferences. Store font style preferences.
  */
-public class Preferences {
+public class FontPreferences {
+    private static final String TAG = "FontPreferences";
+
     private final static String FONT_STYLE = "FONT_STYLE";
     private static int stateChanged = 0;
 
     private final Context context;
 
-    public Preferences(Context context) {
+    public FontPreferences(Context context) {
         this.context = context;
     }
 
     protected SharedPreferences open() {
-        return context.getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        return context.getSharedPreferences("fontStylePrefs", Context.MODE_PRIVATE);
     }
 
     protected SharedPreferences.Editor edit() {
@@ -27,7 +28,7 @@ public class Preferences {
 
     public FontStyle getFontStyle() {
         return FontStyle.valueOf(open().getString(FONT_STYLE,
-                FontStyle.Large.name()));
+                FontStyle.Medium.name()));
     }
 
     public void setFontStyle(FontStyle style) {
@@ -40,7 +41,7 @@ public class Preferences {
 
     public static boolean isChanged() {
         if (1 == stateChanged) {
-            Log.d(Util.TAG, String.valueOf(stateChanged));
+//            Log.d(TAG, String.valueOf(stateChanged));
             stateChanged = 0;
             return true;
         } else return false;

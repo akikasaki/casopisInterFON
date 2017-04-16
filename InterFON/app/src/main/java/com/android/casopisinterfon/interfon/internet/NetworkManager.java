@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.android.casopisinterfon.interfon.activity.MainActivity;
-import com.android.casopisinterfon.interfon.data.ArticlesParser;
 import com.android.casopisinterfon.interfon.data.DataManager;
 import com.android.casopisinterfon.interfon.internet.events.ListDownloadedEvent;
 import com.android.casopisinterfon.interfon.model.Category;
@@ -117,7 +116,8 @@ public class NetworkManager {
                 .appendQueryParameter(UrlData.PARAM_CAT_ID, Integer.toString(category.getCatId()))
                 .appendQueryParameter(UrlData.PARAM_PAGE, Integer.toString(pageIndex))
                 // Exclude content
-                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_POST_CONTENT);
+                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_POST_CONTENT)
+                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_CUSTOM_FIELDS);
 
         startDownloadProcess(builder.build().toString(), new Response.Listener<JSONObject>() {
             @Override

@@ -1,11 +1,11 @@
-package com.vesti.fonis.fonisvesti.utils;
+package com.android.casopisinterfon.interfon.utils;
 
-import com.vesti.fonis.fonisvesti.R;
+
+import com.android.casopisinterfon.interfon.R;
 
 /**
- * Created by Sarma on 4/5/2016.
+ * Declares different font style that can be used.
  */
-
 public enum FontStyle {
     Small(R.style.FontStyle_Small, "Small"),
     Medium(R.style.FontStyle_Medium, "Medium"),

@@ -54,9 +54,13 @@
     <dimen name="article_divider_bottom_margin">@dimen/activity_vertical_margin</dimen>
     <dimen name="article_divider_side_margin">8dp</dimen>
     <!-- Text size related -->
-    <dimen name="article_title_textSize">22dp</dimen>
-    <dimen name="article_category_textSize">@dimen/textSize_body</dimen>
-    <dimen name="article_date_textSize">@dimen/textSize_info</dimen>
+    <dimen name="article_title_textSize">?attr/font_xxlarge</dimen>
+    <dimen name="article_category_textSize">?attr/font_small</dimen>
+    <dimen name="article_date_textSize">?attr/font_small</dimen>
+    <dimen name="article_content_textSize">?attr/font_medium</dimen>
+
+    <!-- About us related -->
     <dimen name="about_us_text_margin">15dp</dimen>
+
 
 </resources>

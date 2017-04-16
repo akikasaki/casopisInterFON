@@ -4,7 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
+import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -12,9 +12,13 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.android.casopisinterfon.interfon.R;
+import com.android.casopisinterfon.interfon.utils.FontPreferences;
+import com.android.casopisinterfon.interfon.utils.FontStyle;
 
 
 public class SettingsActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, RadioGroup.OnCheckedChangeListener {
+    private static final String TAG = "SettingsActivity";
+
 
     public final static String NOTIFICATION_TOGGLE = "NotificationsOn";
     public final static String NOTIFICATION_STATE = "NotificationsState";
@@ -51,19 +55,19 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
         fontGroup = (RadioGroup) findViewById(R.id.rgFont);
         //previous notification toggled state
         SharedPreferences prefs = getSharedPreferences(NOTIFICATION_TOGGLE, MODE_PRIVATE);
-        //previous font button state
-        SharedPreferences buttonState = getSharedPreferences(FONTS, MODE_PRIVATE);
-        int i = buttonState.getInt(GET_LAST_TOGGLED_STATE, 1);
-        switch (i) {
-            case SMALL_BUTTON_TOGGLED_STATE:
+
+        final FontPreferences fontPrefs = new FontPreferences(this);
+        FontStyle style = fontPrefs.getFontStyle();
+        switch (style) {
+            case Small:
                 RadioButton rbSmall = (RadioButton) findViewById(R.id.rbSmall);
                 rbSmall.setChecked(true);
                 break;
-            case MEDIUM_BUTTON_TOGGLED_STATE:
+            case Medium:
                 RadioButton rbMedium = (RadioButton) findViewById(R.id.rbMedium);
                 rbMedium.setChecked(true);
                 break;
-            case LARGE_BUTTON_TOGGLED_STATE:
+            case Large:
                 RadioButton rbLarge = (RadioButton) findViewById(R.id.rbLarge);
                 rbLarge.setChecked(true);
                 break;
@@ -71,14 +75,16 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
         tbNotifications.setChecked(prefs.getBoolean(NOTIFICATION_STATE, true));
         tbNotifications.setOnCheckedChangeListener(this);
         fontGroup.setOnCheckedChangeListener(this);
+
     }
 
+    /**
+     * For setting Notifications toggle
+     */
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-        /**
-         * For setting Notifications toggle
-         */
+
         SharedPreferences.Editor editor = getSharedPreferences(NOTIFICATION_TOGGLE, MODE_PRIVATE).edit();
         if (isChecked) {
             editor.putBoolean(NOTIFICATION_STATE, true);
@@ -89,39 +95,38 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
         }
     }
 
+    /**
+     * For setting Font Size
+     */
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
-
-        /**
-         * For setting Font Size
-         */
+        final FontPreferences prefs = new FontPreferences(this);
         switch (checkedId) {
-
             case R.id.rbSmall:
-                setFont(SMALL_FONT_SIZE, SMALL_BUTTON_TOGGLED_STATE);
+                // Small size selected
+                prefs.setFontStyle(FontStyle.Small);
+                Log.d(TAG, "1. item selected.");
+                FontPreferences.notifyStateChanged();
                 break;
             case R.id.rbMedium:
-                setFont(MEDIUM_FONT_SIZE, MEDIUM_BUTTON_TOGGLED_STATE);
+                // Medium size selected
+                prefs.setFontStyle(FontStyle.Medium);
+                Log.d(TAG, "2. item selected.");
+                FontPreferences.notifyStateChanged();
                 break;
             case R.id.rbLarge:
-                setFont(LARGE_FONT_SIZE, LARGE_BUTTON_TOGGLED_STATE);
+                // Large size selected
+                prefs.setFontStyle(FontStyle.Large);
+                Log.d(TAG, "3. item selected.");
+                FontPreferences.notifyStateChanged();
                 break;
+            default:
+                // Set medium
+                prefs.setFontStyle(FontStyle.Medium);
+                FontPreferences.notifyStateChanged();
+
         }
 
-    }
-
-    /**
-     * Method for setting a Font and remembering toggled state
-     *
-     * @param size      size of the font
-     * @param lastState Currently toggled button
-     */
-    public void setFont(float size, int lastState) {
-        float dipSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, size, getResources().getDisplayMetrics());
-        SharedPreferences.Editor fonts = getSharedPreferences(FONTS, MODE_PRIVATE).edit();
-        fonts.putFloat(GET_A_FONT, dipSize);
-        fonts.putInt(GET_LAST_TOGGLED_STATE, lastState);
-        fonts.apply();
     }
 //    @Override
 //    protected void onDestroy() {

@@ -23,6 +23,7 @@ import com.android.casopisinterfon.interfon.data.DataManager;
 import com.android.casopisinterfon.interfon.data.DataSaver;
 import com.android.casopisinterfon.interfon.model.Article;
 import com.android.casopisinterfon.interfon.model.Category;
+import com.android.casopisinterfon.interfon.utils.FontPreferences;
 import com.android.casopisinterfon.interfon.utils.Util;
 import com.bumptech.glide.Glide;
 
@@ -58,6 +59,7 @@ public class ArticleViewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setupTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.article_view_activity);
 
@@ -68,6 +70,17 @@ public class ArticleViewActivity extends AppCompatActivity {
 
         initialize();
         setArticle();
+    }
+
+    private void setupTheme() {
+        try {
+            // Set the theme for the activity.
+            getTheme().applyStyle(new FontPreferences(this).getFontStyle().getResId(), true);
+            Log.e(TAG, "Theme applied");
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void initialize() {
@@ -83,8 +96,8 @@ public class ArticleViewActivity extends AppCompatActivity {
 
         // Get current article
 
-            mDataManager = DataManager.getInstance();
-            mCurArticle = getArticle();
+        mDataManager = DataManager.getInstance();
+        mCurArticle = getArticle();
 
         // Init views
         tvTitle = (TextView) findViewById(R.id.tvArticleTitle);
@@ -140,7 +153,7 @@ public class ArticleViewActivity extends AppCompatActivity {
             // Format date
             tvDate.setText(mCurArticle.getArticleDateString());
             //Set font size
-            tvDescription.setTextSize(fonts.getFloat(SettingsActivity.GET_A_FONT, 12));
+//            tvDescription.setTextSize(fonts.getFloat(SettingsActivity.GET_A_FONT, 12));
         }
     }
 
@@ -149,19 +162,17 @@ public class ArticleViewActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         DataLoader loadBookmarks = new DataLoader(this);
 
-        /**
-         *  Gets a different Menu depending on if the article is bookmarked
-         */
+//      Gets a different Menu depending on if the article is bookmarked
         if (loadBookmarks.isBookmarked(mCurArticle.getId(), loadBookmarks.readId(BOOKAMRKS__ID_FILE))) {
             //Toolbar with white Share star
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_single_article_bookmarked, menu);
-            bookmarked=true;
+            bookmarked = true;
         } else {
             //toolbar with yellow Share star
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_single_article, menu);
-            bookmarked=false;
+            bookmarked = false;
         }
         //Set the share button to provide a ShareAction
         MenuItem item = menu.findItem(R.id.action_share);
@@ -179,13 +190,13 @@ public class ArticleViewActivity extends AppCompatActivity {
                 DataLoader loadBookmarks = new DataLoader(this);
                 if (bookmarked) {
                     //If the article is bookmarked remove the bookmark and set star to white
-                    saveSingleArticle.removeData(mCurArticle, loadBookmarks.readData( ARTICLES_FILE), ARTICLES_FILE);
+                    saveSingleArticle.removeData(mCurArticle, loadBookmarks.readData(ARTICLES_FILE), ARTICLES_FILE);
                     saveSingleArticle.removeId(mCurArticle.getId(), loadBookmarks.readId(BOOKAMRKS__ID_FILE), BOOKAMRKS__ID_FILE);
                     item.setIcon(R.drawable.ic_star_white);
                     bookmarked = false;
                 } else {
                     //If the article is not bookmarked save to bookmarks and set star to yellow
-                    saveSingleArticle.saveData(mCurArticle, loadBookmarks.readData( ARTICLES_FILE), ARTICLES_FILE);
+                    saveSingleArticle.saveData(mCurArticle, loadBookmarks.readData(ARTICLES_FILE), ARTICLES_FILE);
                     saveSingleArticle.saveId(mCurArticle.getId(), loadBookmarks.readId(BOOKAMRKS__ID_FILE), BOOKAMRKS__ID_FILE);
                     item.setIcon(R.drawable.ic_star_yellow);
                     bookmarked = true;
@@ -218,7 +229,14 @@ public class ArticleViewActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         //Needed for when returning from settings activity if font was changed
-        tvDescription.setTextSize(fonts.getFloat(SettingsActivity.GET_A_FONT, 12));
+//        tvDescription.setTextSize(fonts.getFloat(SettingsActivity.GET_A_FONT, 12));
+
+        // Restart the activity if font has been changed.
+        if(FontPreferences.isChanged()){
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+        }
     }
 
     @Override

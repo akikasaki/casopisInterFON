@@ -8,9 +8,34 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorSecondary">@color/white</item>
     </style>
-    <style name="Divider">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/colorPrimaryDark</item>
+
+    <!-- FONTS -->
+    <style name="FontStyle" />
+
+    <style name="FontStyle.Small" parent="AppTheme">
+        <item name="font_xsmall">10sp</item>
+        <item name="font_small">14sp</item>
+        <item name="font_medium">16sp</item>
+        <item name="font_large">18sp</item>
+        <item name="font_xlarge">20sp</item>
+        <item name="font_xxlarge">22sp</item>
+    </style>
+
+    <style name="FontStyle.Medium" parent="AppTheme">
+        <item name="font_xsmall">14sp</item>
+        <item name="font_small">18sp</item>
+        <item name="font_medium">20sp</item>
+        <item name="font_large">22sp</item>
+        <item name="font_xlarge">24sp</item>
+        <item name="font_xxlarge">26sp</item>
+    </style>
+
+    <style name="FontStyle.Large" parent="AppTheme">
+        <item name="font_xsmall">22sp</item>
+        <item name="font_small">26sp</item>
+        <item name="font_medium">28sp</item>
+        <item name="font_large">30sp</item>
+        <item name="font_xlarge">32sp</item>
+        <item name="font_xxlarge">34sp</item>
     </style>
 </resources>

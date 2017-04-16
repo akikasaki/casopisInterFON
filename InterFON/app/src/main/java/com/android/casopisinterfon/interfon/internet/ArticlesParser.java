@@ -1,4 +1,4 @@
-package com.android.casopisinterfon.interfon.data;
+package com.android.casopisinterfon.interfon.internet;
 
 
 import android.support.annotation.NonNull;
@@ -27,10 +27,10 @@ public class ArticlesParser {
     private static final String KEY_POST_ID = "id";
     private static final String KEY_POST_URL = "url";
     private static final String KEY_POST_TITLE = "title";
-    public static final String KEY_POST_CONTENT = "content";
+    static final String KEY_POST_CONTENT = "content";
     private static final String KEY_POST_DATE_C = "date";
     private static final String KEY_POST_CATEGORIES = "categories";
-    public static final String KEY_CUSTOM_FIELDS = "custom_fields";
+    static final String KEY_CUSTOM_FIELDS = "custom_fields";
 
     /**
      * Method for parsing {@link JSONObject} instance to list of {@link Article} objects.
@@ -96,6 +96,7 @@ public class ArticlesParser {
             String picUrl = jsonObject.getJSONObject("thumbnail_images").getJSONObject("large").getString("url");
 
             a = new Article(_id, title, description, date, picUrl, url);
+            a.setArticleCategories(categories);
         } catch (JSONException e) {
             Log.e(TAG, "Failed to parse article: " + jsonObject.toString(), e);
             a = null;

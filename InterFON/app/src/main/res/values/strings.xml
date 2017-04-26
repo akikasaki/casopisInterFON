@@ -84,4 +84,10 @@
 
     <!-- Article view related -->
     <string name="article_view_loading_article">Učitavanje članka</string>
+
+    <string name="contact_us_description">ŽELITE DA DATE NEKI PREDLOG ILI SUGESTIJU? IMATE PRIČU KOJU ŽELITE DA PODELITE SA NAMA? IMATE NEKO PITANJE? KONTAKTIRAJTE NAS!</string>
+    <string name="contact_us_informacije">INFORMACIJE</string>
+    <string name="contact_us_adress">Adresa: 154 Jove Ilića, Beograd 11000</string>
+    <string name="contact_us_email">Email: info@casopisinterfon.org</string>
+
 </resources>

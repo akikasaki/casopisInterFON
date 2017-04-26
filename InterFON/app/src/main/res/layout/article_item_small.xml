@@ -16,9 +16,9 @@
         android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/article_item_small_picture_margin_right"
         android:layout_marginRight="@dimen/article_item_small_picture_margin_right"
+        android:scaleType="centerCrop"
         />
-        <!--android:cropToPadding="true"-->
-        <!--android:scaleType="centerCrop" />-->
+    <!--android:cropToPadding="true"-->
 
     <TextView
         android:id="@+id/tvArticleTitle"

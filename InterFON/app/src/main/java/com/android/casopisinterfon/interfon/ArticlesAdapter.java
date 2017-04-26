@@ -30,8 +30,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         void onItemClicked(long articleId);
     }
 
-    private static final int LARGE_ITEM_TYPE = 0;
-    private static final int SMALL_ITEM_TYPE = 1;
+    private static final int LARGE_ITEM_VIEW_TYPE = 0;
+    private static final int SMALL_ITEM_VIEW_TYPE = 1;
     private boolean mOnlySmallLayout = false;
 
     private final Context mContext;
@@ -57,7 +57,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     public ArticlesAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View rootView;
         // create a new view
-        if (viewType == LARGE_ITEM_TYPE) {
+        if (viewType == LARGE_ITEM_VIEW_TYPE) {
             rootView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.article_item, parent, false);
         } else
@@ -81,23 +81,32 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         holder.tvCategory.setText(a.getArticleCategoriesString());
         holder.tvDate.setText(a.getArticleDateString());
 
-        Glide
-                .with(mContext)
-                .load(a.getPictureLink())
-                .placeholder(R.drawable.placeholder)
-                .crossFade()
-                .into(holder.ivThumbnail);
+//        if (getItemViewType(position) == SMALL_ITEM_VIEW_TYPE)
+            Glide
+                    .with(mContext)
+                    .load(a.getPictureLink())
+                    .placeholder(R.drawable.placeholder)
+                    .dontAnimate()
+//                    .centerCrop()
+                    .into(holder.ivThumbnail);
+//        else
+//            Glide
+//                    .with(mContext)
+//                    .load(a.getPictureLink())
+//                    .placeholder(R.drawable.placeholder)
+//                    .dontAnimate()
+//                    .into(holder.ivThumbnail);
     }
 
     @Override
     public int getItemViewType(int position) {
         // Today news will be diferent from others
         // TODO - finsih method
-        if (mOnlySmallLayout) return SMALL_ITEM_TYPE;
+        if (mOnlySmallLayout) return SMALL_ITEM_VIEW_TYPE;
         if (position < 5)
-            return LARGE_ITEM_TYPE;
+            return LARGE_ITEM_VIEW_TYPE;
         else
-            return SMALL_ITEM_TYPE;
+            return SMALL_ITEM_VIEW_TYPE;
     }
 
     @Override

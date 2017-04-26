@@ -94,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(openAboutUs);
                 return true;
             case R.id.miContacts:
+                Intent openContacts = new Intent(this, ContactUsActivity.class);
+                startActivity(openContacts);
                 return true;
             case R.id.miBookmarks:
                 Intent openBookmarks = new Intent(this, BookmarksActivity.class);

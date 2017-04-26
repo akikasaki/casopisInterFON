@@ -6,7 +6,7 @@
     android:weightSum="1">
 
     <include layout="@layout/toolbar"
-        android:id="@+id/toolbar"/>
+    android:id="@+id/toolbar"/>
 
     <ScrollView
         android:layout_width="match_parent"

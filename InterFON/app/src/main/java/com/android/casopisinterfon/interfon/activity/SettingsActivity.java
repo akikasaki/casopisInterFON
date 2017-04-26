@@ -49,6 +49,7 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         ((TextView) findViewById(R.id.tvHeading)).setText(R.string.settings_activity_heading);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         tbNotifications = (ToggleButton) findViewById(R.id.tbNotifications);
         tvFont = (TextView) findViewById(R.id.tvFont);

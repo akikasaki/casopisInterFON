@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="14dp"
-            android:text="Notifications on/off" />
+            android:text="@string/settings_activity_notifications_state" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Font" />
+            android:text="@string/settings_activity_font" />
 
         <RadioGroup
             android:id="@+id/rgFont"
@@ -56,21 +56,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Small" />
+                android:text="@string/settings_activity_mali" />
 
             <RadioButton
                 android:id="@+id/rbMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Medium" />
+                android:text="@string/settings_activity_srednji" />
 
             <RadioButton
                 android:id="@+id/rbLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Large" />
+                android:text="@string/settings_activity_veliki" />
         </RadioGroup>
     </LinearLayout>
 </LinearLayout>

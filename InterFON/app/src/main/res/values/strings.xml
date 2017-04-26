@@ -10,6 +10,14 @@
     <string name="settings_activity_heading">Podešavanja</string>
     <string name="filter_title_linkInterFON">LinkInterFON</string>
 
+    <string name="settings_activity_notifications_state">Obaveštenja:</string>
+    <string name="settings_activity_mali">Mali</string>
+    <string name="settings_activity_srednji">Srednji</string>
+    <string name="settings_activity_veliki">Veliki</string>
+    <string name="settings_activity_font">Font</string>
+
+    <!--About us activity related -->
+    <string name="about_us_activity_heading">O nama</string>
     <string name="o_nama"><b><font size= "20">Časopis InterFON\n\n</font></b>
         Osnovali su ga studenti Fakulteta organizacionih nauka u Beogradu sa željom da obezbede prave
         informacije potrebne studentima i time poboljšaju kvalitet studiranja u Srbiji.\n\n
@@ -59,7 +67,8 @@
 
         Redakciju sada čini <b>tridesetak stalnih članova,</b>
         dok uz to imamo <b>članove koji nam pružaju</b> podršku kad god nam je to potrebno,
-        kao i <b>veliki broj autora i dopisnika</b> sa mnogih fakulteta u Srbiji i nekoliko njih koji nam pišu iz inostranstva.\n\n
+        kao i <b>veliki broj autora i dopisnika</b> sa mnogih fakulteta u Srbiji i
+        nekoliko njih koji nam pišu iz inostranstva.\n\n
 
         Pored <b>urednika</b> i <b>zamenika</b> članovi redakcije su raspoređeni u timove.
         Tim za korporativne odnose (CR) zadužen je za ostvarivanje i
@@ -85,9 +94,18 @@
     <!-- Article view related -->
     <string name="article_view_loading_article">Učitavanje članka</string>
 
+    <!-- ContactUsActivity related -->
     <string name="contact_us_description">ŽELITE DA DATE NEKI PREDLOG ILI SUGESTIJU? IMATE PRIČU KOJU ŽELITE DA PODELITE SA NAMA? IMATE NEKO PITANJE? KONTAKTIRAJTE NAS!</string>
     <string name="contact_us_informacije">INFORMACIJE</string>
     <string name="contact_us_adress">Adresa: 154 Jove Ilića, Beograd 11000</string>
     <string name="contact_us_email">Email: info@casopisinterfon.org</string>
+    <string name="contact_us_activity_heading">Kontakt</string>
+
+    <!-- Menu Items related -->
+    <string name="menu_item_opcije">Podešavanja</string>
+    <string name="menu_item_o_nama">O nama</string>
+    <string name="menu_item_kontakt">Kontakt</string>
+    <string name="menu_item_sacuvani_clanci">Sačuvani artikli</string>
+
 
 </resources>

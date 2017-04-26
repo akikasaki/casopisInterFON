@@ -61,6 +61,8 @@
 
     <!-- About us related -->
     <dimen name="about_us_text_margin">15dp</dimen>
+    <dimen name="about_us_toolbar_margin">15dp</dimen>
+    <dimen name="about_us_margin_bottom">10dp</dimen>
 
     <!--Contact Us related -->
     <dimen name="contact_us_map_height">200dp</dimen>

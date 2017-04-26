@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -106,6 +107,7 @@ public class ArticleViewActivity extends AppCompatActivity {
         tvCategory = (TextView) findViewById(R.id.tvArticleCategory);
         tvDate = (TextView) findViewById(R.id.tvArticleDate);
         tvDescription = (TextView) findViewById(R.id.tvSingleDescription);
+        tvDescription.setMovementMethod(LinkMovementMethod.getInstance());
 
         // Show progress dialog
         showProgress();

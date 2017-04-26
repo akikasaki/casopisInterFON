@@ -12,6 +12,6 @@
         android:title="@string/share"
         app:showAsAction="ifRoom"/>
     <item android:id="@+id/action_settings"
-        android:title="@string/settings"
+        android:title="@string/menu_item_opcije"
         app:showAsAction="never"/>
 </menu>

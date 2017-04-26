@@ -8,7 +8,9 @@ import android.util.Log;
 
 import com.android.casopisinterfon.interfon.activity.MainActivity;
 import com.android.casopisinterfon.interfon.data.DataManager;
+import com.android.casopisinterfon.interfon.internet.events.ItemDownloadedEvent;
 import com.android.casopisinterfon.interfon.internet.events.ListDownloadedEvent;
+import com.android.casopisinterfon.interfon.model.Article;
 import com.android.casopisinterfon.interfon.model.Category;
 import com.android.casopisinterfon.interfon.utils.TaskHandler;
 import com.android.volley.NetworkResponse;
@@ -20,6 +22,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.greenrobot.eventbus.EventBus;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -143,6 +146,46 @@ public class NetworkManager {
     }
 
     /**
+     * Method for downloading article description.
+     *
+     * @param article article which description text will be downloaded.
+     */
+    public void downloadArticleDesc(final Article article) {
+        if (article == null) return;
+
+        Uri.Builder builder = Uri.parse(UrlData.GET_POST)
+                .buildUpon()
+                .appendQueryParameter(UrlData.PARAM_ARTICLE_ID, Long.toString(article.getId()))
+                // Exclude content
+                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_THUMBNAIL_IMAGES)
+                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_COMMENTS)
+                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_AUTHOR)
+                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_TAGS)
+                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_POST_CATEGORIES);
+
+        startDownloadProcess(builder.build().toString(), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, "Article info download success.");
+                ArticlesParser parser = new ArticlesParser();
+                // Parse article
+                Article a = null;
+                try {
+                     a = parser.parseArticle(response.getJSONObject("post"));
+                }catch (JSONException e){
+                    Log.e(TAG, e.getLocalizedMessage(), e);
+                }
+                // Add info to article
+                if (a != null)
+                    article.setArticleDescription(a.getArticleDescription());
+                // Notify UI
+                EventBus.getDefault().post(new ItemDownloadedEvent(true));
+            }
+        });
+
+    }
+
+    /**
      * Creates network request and start download process.
      *
      * @param url             url to download from.
@@ -196,10 +239,11 @@ public class NetworkManager {
 
     /**
      * Increment page index for given category.
+     *
      * @param category category.
      * @return page index after increment.
      */
-    public static int incrementCatPageIndex(Category category){
+    public static int incrementCatPageIndex(Category category) {
         return mCategoryPageIndex[category.ordinal()] += 1;
     }
 }

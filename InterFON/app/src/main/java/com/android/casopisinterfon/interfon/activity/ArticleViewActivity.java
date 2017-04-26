@@ -2,7 +2,6 @@ package com.android.casopisinterfon.interfon.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
@@ -21,11 +20,17 @@ import com.android.casopisinterfon.interfon.R;
 import com.android.casopisinterfon.interfon.data.DataLoader;
 import com.android.casopisinterfon.interfon.data.DataManager;
 import com.android.casopisinterfon.interfon.data.DataSaver;
+import com.android.casopisinterfon.interfon.internet.NetworkManager;
+import com.android.casopisinterfon.interfon.internet.events.ItemDownloadedEvent;
 import com.android.casopisinterfon.interfon.model.Article;
 import com.android.casopisinterfon.interfon.model.Category;
 import com.android.casopisinterfon.interfon.utils.FontPreferences;
 import com.android.casopisinterfon.interfon.utils.Util;
 import com.bumptech.glide.Glide;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 
 public class ArticleViewActivity extends AppCompatActivity {
@@ -37,7 +42,7 @@ public class ArticleViewActivity extends AppCompatActivity {
     /**
      * Params for intent's extra that contains id of article category.
      */
-    public static final String EXTRA_ARTICLE_CAT_ID = "extra_parameter_category_id";
+    public static final String EXTRA_ARTICLE_CATEGORY = "extra_parameter_category_id";
     /**
      * Parameters for bookmarking files
      */
@@ -50,12 +55,14 @@ public class ArticleViewActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private ImageView ivSingleArticlePicture;
     private TextView tvTitle, tvDescription, tvCategory, tvDate;
-    private SharedPreferences fonts;
     private Intent sendIntent;
     boolean bookmarked;
 
     // Holds reference to the current viewing article
     private Article mCurArticle = null;
+    private Category mCategory = Category.ALL;
+    private long mCurId = -1;
+    private Object articleDesc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +76,7 @@ public class ArticleViewActivity extends AppCompatActivity {
         Uri data = intent.getData();*/
 
         initialize();
-        setArticle();
+        setUpArticle();
     }
 
     private void setupTheme() {
@@ -77,8 +84,7 @@ public class ArticleViewActivity extends AppCompatActivity {
             // Set the theme for the activity.
             getTheme().applyStyle(new FontPreferences(this).getFontStyle().getResId(), true);
             Log.e(TAG, "Theme applied");
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -94,11 +100,6 @@ public class ArticleViewActivity extends AppCompatActivity {
         ab.setDisplayHomeAsUpEnabled(true);
 
 
-        // Get current article
-
-        mDataManager = DataManager.getInstance();
-        mCurArticle = getArticle();
-
         // Init views
         tvTitle = (TextView) findViewById(R.id.tvArticleTitle);
         ivSingleArticlePicture = (ImageView) findViewById(R.id.ivSingleArticlePicture);
@@ -107,56 +108,119 @@ public class ArticleViewActivity extends AppCompatActivity {
         tvDescription = (TextView) findViewById(R.id.tvSingleDescription);
 
         // Show progress dialog
-        mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.setTitle(null);
-        mProgressDialog.setIndeterminate(true);
-        mProgressDialog.setMessage("Loading article");
-//        mProgressDialog.show();
+        showProgress();
+
+        // Get current article
+        mDataManager = DataManager.getInstance();
+        mCurArticle = getArticle();
+        // Download description
+        getArticleDesc();
     }
 
-
+    /**
+     * Helper method for starting article info download process.
+     *
+     * @return article from data
+     */
     private Article getArticle() {
-        final long id = getIntent().getLongExtra(EXTRA_ARTICLE_ID, -1);
-        final int catId = getIntent().getIntExtra(EXTRA_ARTICLE_CAT_ID, -1);
+        // Get intent's extra info
+        getArticleInfo();
+        // Return article from data
+        return mDataManager.getArticle(mCurId, mCategory);
+    }
 
-        if (id == -1 || catId == -1) { // Should not happen
+    /**
+     * Retrieves article id and category id from intent extra.
+     */
+    private void getArticleInfo() {
+        mCurId = getIntent().getLongExtra(EXTRA_ARTICLE_ID, -1);
+
+        try {
+            mCategory = (Category) getIntent().getSerializableExtra(EXTRA_ARTICLE_CATEGORY);
+        } catch (ClassCastException e) {
+            Log.e(TAG, e.getLocalizedMessage(), e);
+            Toast.makeText(this, "Sorry, an error has occurred :(", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        if (mCurId == -1) { // Should not happen
             Log.e(TAG, "No article data has been passed.");
             Toast.makeText(this, "Sorry, an error has occurred :(", Toast.LENGTH_SHORT).show();
             finish();
+            return;
         }
-
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                final Article article = mDataManager.getArticle(id);
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        setArticle(article);
-//                        mProgressDialog.dismiss();
-//                    }
-//                });
-//            }
-//        }).start();
-        return mDataManager.getArticle(id, Category.getCategoryById(catId));
     }
 
-    private void setArticle() {
+    /**
+     * Helper method for downloading article description from the server.
+     */
+    public void getArticleDesc() {
+        if (mCurArticle.getArticleDescription().isEmpty())
+            NetworkManager.getInstance(this).downloadArticleDesc(mCurArticle);
+    }
+
+    /**
+     * Sets the text in appropriate text views.
+     */
+    private void setUpArticle() {
+        // try hide dialog and set desc
+        if (!mCurArticle.getArticleDescription().isEmpty()) {
+            dismissProgress();
+            tvDescription.setText(Util.fromHtml(mCurArticle.getArticleDescription()));
+        }
+        // Display data
         if (mCurArticle != null) {
-            // Get font size
-            fonts = getSharedPreferences(SettingsActivity.FONTS, MODE_PRIVATE);
             // Load pic
             Glide.with(this).load(mCurArticle.getPictureLink()).into(ivSingleArticlePicture);
-            // Set data to view
+            // Set text
             tvTitle.setText(Util.fromHtml(mCurArticle.getArticleTitle()));
             tvCategory.setText(mCurArticle.getArticleCategoriesString() + " - ");
             // Format date
             tvDate.setText(mCurArticle.getArticleDateString());
-            //Set font size
-//            tvDescription.setTextSize(fonts.getFloat(SettingsActivity.GET_A_FONT, 12));
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onArticleInfoDownload(ItemDownloadedEvent event) {
+        setUpArticle();
+    }
+
+    /**
+     * Helper method for showing indeterminate progress dialog.
+     */
+    private void showProgress() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setTitle(null);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage(getString(R.string.article_view_loading_article));
+        mProgressDialog.show();
+    }
+
+    /**
+     * Helper method for hiding progress dialog if present.
+     */
+    private void dismissProgress() {
+        if (mProgressDialog != null && mProgressDialog.isShowing())
+            mProgressDialog.dismiss();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Restart the activity if font has been changed.
+        if (FontPreferences.isChanged()) {
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -224,39 +288,14 @@ public class ArticleViewActivity extends AppCompatActivity {
         }
     }
 
-
     @Override
-    protected void onResume() {
-        super.onResume();
-        //Needed for when returning from settings activity if font was changed
-//        tvDescription.setTextSize(fonts.getFloat(SettingsActivity.GET_A_FONT, 12));
-
-        // Restart the activity if font has been changed.
-        if(FontPreferences.isChanged()){
-            Intent intent = getIntent();
-            finish();
-            startActivity(intent);
-        }
+    protected void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-//        Intent notificationStarter = new Intent(this, NotificationService.class);
-//        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
-//        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
-//            startService(notificationStarter);
-//        }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-//        Intent notificationStarter = new Intent(this, NotificationService.class);
-//        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
-//        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
-//            stopService(notificationStarter);
-//        }
-    }
 }
+
+
+
 

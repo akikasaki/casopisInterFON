@@ -3,8 +3,8 @@ package com.android.casopisinterfon.interfon.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -19,7 +19,7 @@ public class Article {
     private String pictureLink;
     private String articleLink;
     private boolean articleIsBookmarked;
-    private List<Category> articleCategories = new ArrayList<>(1);
+    private List<Category> articleCategories = new LinkedList<>();
 
 //    public Article() {
 //    }
@@ -54,7 +54,8 @@ public class Article {
     }
 
     public void setArticleCategories(List<Category> articleCategories) {
-        this.articleCategories = articleCategories;
+        if (articleCategories == null) this.articleCategories = new LinkedList<>();
+        else this.articleCategories = articleCategories;
     }
 
     public String getArticleDateString() {
@@ -87,7 +88,7 @@ public class Article {
     }
 
     public String getArticleDescription() {
-        return articleDescription;
+        return articleDescription == null ? "" : articleDescription;
     }
 
     public void setArticleDescription(String articleDescription) {

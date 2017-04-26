@@ -81,4 +81,7 @@
         za sve one koji kad porastu žele da budu bolji ljudi…\n\n\n
 
         InterFON je tu <b>Za one koji žele više!</b></string>
+
+    <!-- Article view related -->
+    <string name="article_view_loading_article">Učitavanje članka</string>
 </resources>

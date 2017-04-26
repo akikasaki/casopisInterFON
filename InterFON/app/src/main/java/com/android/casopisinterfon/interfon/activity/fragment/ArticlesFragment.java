@@ -141,7 +141,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
     public void onItemClicked(long articleId) {
         Intent intent = new Intent(getContext(), ArticleViewActivity.class);
         intent.putExtra(ArticleViewActivity.EXTRA_ARTICLE_ID, articleId);
-        intent.putExtra(ArticleViewActivity.EXTRA_ARTICLE_CAT_ID, Category.getCategory(mFragPosition).getCatId());
+        intent.putExtra(ArticleViewActivity.EXTRA_ARTICLE_CATEGORY, Category.getCategory(mFragPosition));
         startActivity(intent);
     }
 
@@ -149,8 +149,9 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
     public void onListDownloadEvent(ListDownloadedEvent event) {
         if (event.eventType.equals(Category.getCategory(mFragPosition)) && event.isSuccess) {
             mAdapter.setData(mDataManager.getArticlesForPosition(mFragPosition));
-            srRootView.setRefreshing(false);
         }
+
+        srRootView.setRefreshing(false);
     }
 
     @Override

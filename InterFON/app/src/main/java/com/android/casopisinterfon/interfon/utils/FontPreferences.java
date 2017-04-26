@@ -41,7 +41,6 @@ public class FontPreferences {
 
     public static boolean isChanged() {
         if (1 == stateChanged) {
-//            Log.d(TAG, String.valueOf(stateChanged));
             stateChanged = 0;
             return true;
         } else return false;

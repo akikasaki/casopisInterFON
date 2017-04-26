@@ -29,8 +29,12 @@ public class ArticlesParser {
     private static final String KEY_POST_TITLE = "title";
     static final String KEY_POST_CONTENT = "content";
     private static final String KEY_POST_DATE_C = "date";
-    private static final String KEY_POST_CATEGORIES = "categories";
+    static final String KEY_POST_CATEGORIES = "categories";
     static final String KEY_CUSTOM_FIELDS = "custom_fields";
+    static final String KEY_THUMBNAIL_IMAGES = "thumbnail_images";
+    static final String KEY_AUTHOR = "author";
+    static final String KEY_TAGS = "tags";
+    static final String KEY_COMMENTS = "comments";
 
     /**
      * Method for parsing {@link JSONObject} instance to list of {@link Article} objects.
@@ -38,7 +42,6 @@ public class ArticlesParser {
      * @param response response from the server containing all article categories.
      * @return newly created list containing articles
      */
-    public
     @NonNull
     List<Article> parseAll(JSONObject response) {
         List<Article> articleList = new ArrayList<>();
@@ -65,7 +68,6 @@ public class ArticlesParser {
      * @return newly created article object with data from json object.
      * @throws IllegalArgumentException
      */
-    private
     @Nullable
     Article parseArticle(JSONObject jsonObject) throws IllegalArgumentException {
         if (jsonObject == null)
@@ -90,11 +92,21 @@ public class ArticlesParser {
                 description = "";
             }
             String date = jsonObject.getString(KEY_POST_DATE_C);
-            List<Category> categories = parseCategories(jsonObject.getJSONArray(KEY_POST_CATEGORIES));
+
+            List<Category> categories = null;
+            try {
+                categories = parseCategories(jsonObject.getJSONArray(KEY_POST_CATEGORIES));
+            } catch (JSONException e) {
+                Log.w(TAG, "No categories found.");
+            }
 
             // TODO - add the code to chose the right image to display
-            String picUrl = jsonObject.getJSONObject("thumbnail_images").getJSONObject("large").getString("url");
-
+            String picUrl = "";
+            try {
+                picUrl = jsonObject.getJSONObject(KEY_THUMBNAIL_IMAGES).getJSONObject("large").getString("url");
+            } catch (JSONException e) {
+                Log.w(TAG, "No images found.");
+            }
             a = new Article(_id, title, description, date, picUrl, url);
             a.setArticleCategories(categories);
         } catch (JSONException e) {

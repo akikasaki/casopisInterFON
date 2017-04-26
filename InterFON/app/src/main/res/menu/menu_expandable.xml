@@ -2,12 +2,12 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Settings"
+    <item android:title="@string/menu_item_opcije"
         android:id="@+id/miSettings" />
-    <item android:title="About us"
+    <item android:title="@string/menu_item_o_nama"
         android:id="@+id/miAboutUs" />
-    <item android:title="Contacts"
+    <item android:title="@string/menu_item_kontakt"
         android:id="@+id/miContacts" />
-    <item android:title="Bookmarks"
+    <item android:title="@string/menu_item_sacuvani_clanci"
         android:id="@+id/miBookmarks" />
 </menu>

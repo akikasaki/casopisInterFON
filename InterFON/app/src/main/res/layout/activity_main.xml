@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:background="@color/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways">
+            app:layout_scrollFlags="scroll|enterAlways|snap">
 
             <!--<ImageView-->
             <!--android:layout_width="wrap_content"-->
@@ -40,7 +40,7 @@
             android:layout_marginLeft="@dimen/main_divider_padding"
             android:layout_marginRight="@dimen/main_divider_padding"
             android:background="@color/main_toolbar_divider_color"
-            app:layout_scrollFlags="scroll|enterAlways" />
+            app:layout_scrollFlags="scroll|enterAlways|snap" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"

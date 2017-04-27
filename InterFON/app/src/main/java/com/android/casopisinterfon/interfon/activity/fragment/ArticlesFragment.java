@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -25,8 +26,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import static java.security.AccessController.getContext;
+
 
 public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemClickedCallbackInterface {
+
+    private static final String TAG = "ArticlesFragment";
 
     public static final String POSITION_ARG = "page_position";
 
@@ -41,6 +46,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
 
     private SwipeRefreshLayout srRootView;
     private RecyclerView rvList;
+    private RecyclerView.OnItemTouchListener mOnItemTouchListener;
 
     public ArticlesFragment() {
     }
@@ -105,6 +111,29 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         };
         rvList.addOnScrollListener(scrollListener);
 
+        // Touch listener for recycle view so pages will change more easily
+        mOnItemTouchListener = new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                if (e.getAction() == MotionEvent.ACTION_DOWN && rv.getScrollState() == RecyclerView.SCROLL_STATE_SETTLING) {
+//                    Log.d(TAG, "onInterceptTouchEvent: click performed");
+                    rv.stopScroll();
+//                    View childView = rv.findChildViewUnder(e.getX(), e.getY());
+//                    if (childView != null) childView.performClick();
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+            }
+        };
+
         // Set mAdapter data
         mAdapter.setData(mDataManager.getArticlesForPosition(mFragPosition));
         return srRootView;
@@ -162,8 +191,19 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         mAdapter.setData(mDataManager.getArticlesForPosition(mFragPosition));
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        rvList.addOnItemTouchListener(mOnItemTouchListener);
+    }
 
-//    @Override
+    @Override
+    public void onPause() {
+        rvList.removeOnItemTouchListener(mOnItemTouchListener);
+        super.onPause();
+    }
+
+    //    @Override
 //    public void onPause() {
 ////        if (scrollListener != null)
 ////            rvList.removeOnScrollListener(scrollListener);

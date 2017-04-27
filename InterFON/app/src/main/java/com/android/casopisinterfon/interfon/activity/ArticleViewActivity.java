@@ -45,6 +45,10 @@ public class ArticleViewActivity extends AppCompatActivity {
      */
     public static final String EXTRA_ARTICLE_CATEGORY = "extra_parameter_category_id";
     /**
+     * Params for intent's extra that indicates if this article is from bookmarks.
+     */
+    public static final String EXTRA_FROM_BOOKMARK = "extra_from_bookmark";
+    /**
      * Parameters for bookmarking files
      */
     public static final String ARTICLES_FILE = "articles.txt";
@@ -114,9 +118,7 @@ public class ArticleViewActivity extends AppCompatActivity {
 
         // Get current article
         mDataManager = DataManager.getInstance();
-        mCurArticle = getArticle();
-        // Download description
-        getArticleDesc();
+        getArticle();
     }
 
     /**
@@ -124,33 +126,36 @@ public class ArticleViewActivity extends AppCompatActivity {
      *
      * @return article from data
      */
-    private Article getArticle() {
+    private void getArticle() {
         // Get intent's extra info
-        getArticleInfo();
+        try {
+            getArticleInfo();
+        } catch (Exception e) {
+            Log.e(TAG, "No article data has been passed.");
+            Toast.makeText(this, "Sorry, an error has occurred :(", Toast.LENGTH_SHORT).show();
+//            finish();
+            return;
+        }
         // Return article from data
-        return mDataManager.getArticle(mCurId, mCategory);
+        mCurArticle = mDataManager.getArticle(mCurId, mCategory);
+        // Download description
+        getArticleDesc();
     }
 
     /**
      * Retrieves article id and category id from intent extra.
      */
-    private void getArticleInfo() {
-        mCurId = getIntent().getLongExtra(EXTRA_ARTICLE_ID, -1);
+    private void getArticleInfo() throws RuntimeException {
+        Intent i = getIntent();
+        mCurId = i.getLongExtra(EXTRA_ARTICLE_ID, -1);
 
-        try {
-            mCategory = (Category) getIntent().getSerializableExtra(EXTRA_ARTICLE_CATEGORY);
-        } catch (ClassCastException e) {
-            Log.e(TAG, e.getLocalizedMessage(), e);
-            Toast.makeText(this, "Sorry, an error has occurred :(", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
-        }
+        if (i.hasExtra(EXTRA_ARTICLE_CATEGORY))
+            mCategory = (Category) i.getSerializableExtra(EXTRA_ARTICLE_CATEGORY);
+        else
+            throw new RuntimeException();
 
         if (mCurId == -1) { // Should not happen
-            Log.e(TAG, "No article data has been passed.");
-            Toast.makeText(this, "Sorry, an error has occurred :(", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
+            throw new RuntimeException();
         }
     }
 
@@ -166,6 +171,7 @@ public class ArticleViewActivity extends AppCompatActivity {
      * Sets the text in appropriate text views.
      */
     private void setUpArticle() {
+        if (mCurArticle == null) return;
         // try hide dialog and set desc
         if (!mCurArticle.getArticleDescription().isEmpty()) {
             dismissProgress();
@@ -229,7 +235,7 @@ public class ArticleViewActivity extends AppCompatActivity {
         DataLoader loadBookmarks = new DataLoader(this);
 
 //      Gets a different Menu depending on if the article is bookmarked
-        if (loadBookmarks.isBookmarked(mCurArticle.getId(), loadBookmarks.readId(BOOKAMRKS__ID_FILE))) {
+        if (mCurArticle != null && loadBookmarks.isBookmarked(mCurArticle.getId(), loadBookmarks.readId(BOOKAMRKS__ID_FILE))) {
             //Toolbar with white Share star
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_single_article_bookmarked, menu);
@@ -254,19 +260,20 @@ public class ArticleViewActivity extends AppCompatActivity {
                 //Saves Article into Bookmarks
                 DataSaver saveSingleArticle = new DataSaver(this);
                 DataLoader loadBookmarks = new DataLoader(this);
-                if (bookmarked) {
-                    //If the article is bookmarked remove the bookmark and set star to white
-                    saveSingleArticle.removeData(mCurArticle, loadBookmarks.readData(ARTICLES_FILE), ARTICLES_FILE);
-                    saveSingleArticle.removeId(mCurArticle.getId(), loadBookmarks.readId(BOOKAMRKS__ID_FILE), BOOKAMRKS__ID_FILE);
-                    item.setIcon(R.drawable.ic_star_white);
-                    bookmarked = false;
-                } else {
-                    //If the article is not bookmarked save to bookmarks and set star to yellow
-                    saveSingleArticle.saveData(mCurArticle, loadBookmarks.readData(ARTICLES_FILE), ARTICLES_FILE);
-                    saveSingleArticle.saveId(mCurArticle.getId(), loadBookmarks.readId(BOOKAMRKS__ID_FILE), BOOKAMRKS__ID_FILE);
-                    item.setIcon(R.drawable.ic_star_yellow);
-                    bookmarked = true;
-                }
+                if (mCurArticle != null)
+                    if (bookmarked) {
+                        //If the article is bookmarked remove the bookmark and set star to white
+                        saveSingleArticle.removeData(mCurArticle, loadBookmarks.readData(ARTICLES_FILE), ARTICLES_FILE);
+                        saveSingleArticle.removeId(mCurArticle.getId(), loadBookmarks.readId(BOOKAMRKS__ID_FILE), BOOKAMRKS__ID_FILE);
+                        item.setIcon(R.drawable.ic_star_white);
+                        bookmarked = false;
+                    } else {
+                        //If the article is not bookmarked save to bookmarks and set star to yellow
+                        saveSingleArticle.saveData(mCurArticle, loadBookmarks.readData(ARTICLES_FILE), ARTICLES_FILE);
+                        saveSingleArticle.saveId(mCurArticle.getId(), loadBookmarks.readId(BOOKAMRKS__ID_FILE), BOOKAMRKS__ID_FILE);
+                        item.setIcon(R.drawable.ic_star_yellow);
+                        bookmarked = true;
+                    }
                 return true;
 
             case R.id.action_share:

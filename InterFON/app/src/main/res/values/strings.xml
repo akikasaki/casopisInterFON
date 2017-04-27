@@ -1,11 +1,13 @@
 <resources>
+
+    <!-- App related -->
     <string name="app_name">InterFON</string>
-    <string name="star">Favorites</string>
-    <string name="share">Share</string>
+    <string name="article_loading_label">Učitavanje</string>
+    <string name="share">Podeli</string>
+    <string name="bookmark">Sačuvaj</string>
+
     <!-- Settings related -->
     <string name="notification_label">Notifikacije</string>
-    <string name="settings">Settings</string>
-
     <string name="single_article_heading">Sačuvani artikli</string>
     <string name="settings_activity_heading">Podešavanja</string>
     <string name="filter_title_linkInterFON">LinkInterFON</string>

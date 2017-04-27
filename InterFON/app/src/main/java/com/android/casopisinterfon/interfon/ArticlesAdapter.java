@@ -32,6 +32,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
 
     private static final int LARGE_ITEM_VIEW_TYPE = 0;
     private static final int SMALL_ITEM_VIEW_TYPE = 1;
+    private static final int LOADING_VIEW_TYPE = 2;
     private boolean mOnlySmallLayout = false;
 
     private final Context mContext;
@@ -60,9 +61,12 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         if (viewType == LARGE_ITEM_VIEW_TYPE) {
             rootView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.article_item, parent, false);
-        } else
+        } else if (viewType == SMALL_ITEM_VIEW_TYPE)
             rootView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.article_item_small, parent, false);
+        else
+            rootView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.article_item_loading, parent, false);
 
 
         return new MyViewHolder(rootView, new MyViewHolder.ViewHolderClickListener() {
@@ -75,6 +79,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        // NO data for loading item
+        if (getItemViewType(position) == LOADING_VIEW_TYPE) return;
         Article a = mCurrentData.get(position);
         holder.tvTitle.setText(Util.fromHtml(a.getArticleTitle()));
 //        holder.tvTitle.setText(a.getArticleTitle());
@@ -82,13 +88,13 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         holder.tvDate.setText(a.getArticleDateString());
 
 //        if (getItemViewType(position) == SMALL_ITEM_VIEW_TYPE)
-            Glide
-                    .with(mContext)
-                    .load(a.getPictureLink())
-                    .placeholder(R.drawable.placeholder)
-                    .dontAnimate()
+        Glide
+                .with(mContext)
+                .load(a.getPictureLink())
+                .placeholder(R.drawable.placeholder)
+                .dontAnimate()
 //                    .centerCrop()
-                    .into(holder.ivThumbnail);
+                .into(holder.ivThumbnail);
 //        else
 //            Glide
 //                    .with(mContext)
@@ -103,6 +109,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
         // Today news will be diferent from others
         // TODO - finsih method
         if (mOnlySmallLayout) return SMALL_ITEM_VIEW_TYPE;
+        if (position >= mCurrentData.size()) return LOADING_VIEW_TYPE;
         if (position < 5)
             return LARGE_ITEM_VIEW_TYPE;
         else
@@ -111,7 +118,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
 
     @Override
     public int getItemCount() {
-        return mCurrentData.size();
+        if (mOnlySmallLayout) return mCurrentData.size();
+        return mCurrentData.size() + 1;
     }
 
     /**

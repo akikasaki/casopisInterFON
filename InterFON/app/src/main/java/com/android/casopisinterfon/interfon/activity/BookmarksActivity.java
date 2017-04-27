@@ -42,6 +42,7 @@ public class BookmarksActivity extends AppCompatActivity implements ArticlesAdap
     public void onItemClicked(long articleId) {
         Intent intent = new Intent(getApplicationContext(), ArticleViewActivity.class);
         intent.putExtra(ArticleViewActivity.EXTRA_ARTICLE_ID, articleId);
+        intent.putExtra(ArticleViewActivity.EXTRA_FROM_BOOKMARK, true);
         startActivity(intent);
     }
 }

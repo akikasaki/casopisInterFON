@@ -13,34 +13,44 @@
         android:layout_height="wrap_content"
         android:elevation="@dimen/main_elevation">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
+            android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways">
+            android:orientation="vertical"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
 
-            <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:src="@drawable/ic_logo1" />-->
-            <TextView
-                android:id="@+id/tvHeading"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:textColor="@color/primary_white_text"
-                android:textSize="@dimen/textSize_smallHeading" />
-        </android.support.v7.widget.Toolbar>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                android:background="@color/colorPrimary">
+                <!--app:layout_scrollFlags="scroll|enterAlways|snap">-->
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@id/toolbar"
-            android:layout_marginLeft="@dimen/main_divider_padding"
-            android:layout_marginRight="@dimen/main_divider_padding"
-            android:background="@color/main_toolbar_divider_color"
-            app:layout_scrollFlags="scroll|enterAlways" />
+                <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:src="@drawable/ic_logo1" />-->
+                <TextView
+                    android:id="@+id/tvHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/primary_white_text"
+                    android:textSize="@dimen/textSize_smallHeading" />
+            </android.support.v7.widget.Toolbar>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@id/toolbar"
+                android:layout_marginLeft="@dimen/main_divider_padding"
+                android:layout_marginRight="@dimen/main_divider_padding"
+                android:background="@color/main_toolbar_divider_color"
+                app:layout_scrollFlags="scroll|enterAlways|snap" />
+
+        </LinearLayout>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
@@ -52,14 +62,12 @@
             app:tabMinWidth="@dimen/main_tab_min_width"
             app:tabMode="scrollable"
             app:tabSelectedTextColor="@android:color/white"
-            app:tabTextColor="@color/tab_text_color">
-        </android.support.design.widget.TabLayout>
+            app:tabTextColor="@color/tab_text_color"></android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vpCategory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-    </android.support.v4.view.ViewPager>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"></android.support.v4.view.ViewPager>
 </android.support.design.widget.CoordinatorLayout>

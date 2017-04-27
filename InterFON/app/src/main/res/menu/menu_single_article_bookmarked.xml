@@ -4,7 +4,7 @@
     <item
         android:id="@+id/action_star"
         android:icon="@drawable/ic_star_yellow"
-        android:title="@string/star"
+        android:title="@string/bookmark"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_share"
@@ -12,6 +12,6 @@
         android:title="@string/share"
         app:showAsAction="ifRoom"/>
     <item android:id="@+id/action_settings"
-        android:title="@string/settings"
+        android:title="@string/menu_item_opcije"
         app:showAsAction="never"/>
 </menu>

@@ -44,7 +44,7 @@
         <activity
             android:name=".activity.ArticleViewActivity"
             android:parentActivityName="com.android.casopisinterfon.interfon.activity.MainActivity"
-            android:theme="@style/FontStyle.Medium">
+            android:theme="@style/FontStyle.Small">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.android.casopisinterfon.interfon.activity.MainActivity" />

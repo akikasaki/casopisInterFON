@@ -26,8 +26,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import static java.security.AccessController.getContext;
-
 
 public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemClickedCallbackInterface {
 
@@ -209,6 +207,11 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
 ////            rvList.removeOnScrollListener(scrollListener);
 //        super.onPause();
 //    }
+
+    @Override public void onDestroyView() {
+        srRootView.removeAllViews();
+        super.onDestroyView();
+    }
 
     @Override
     public void onStop() {

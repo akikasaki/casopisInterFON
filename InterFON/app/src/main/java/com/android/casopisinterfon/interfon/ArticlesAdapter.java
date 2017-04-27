@@ -108,8 +108,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     public int getItemViewType(int position) {
         // Today news will be diferent from others
         // TODO - finsih method
-        if (position >= mCurrentData.size()) return LOADING_VIEW_TYPE;
         if (mOnlySmallLayout) return SMALL_ITEM_VIEW_TYPE;
+        if (position >= mCurrentData.size()) return LOADING_VIEW_TYPE;
         if (position < 5)
             return LARGE_ITEM_VIEW_TYPE;
         else
@@ -118,6 +118,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
 
     @Override
     public int getItemCount() {
+        if (mOnlySmallLayout) return mCurrentData.size();
         return mCurrentData.size() + 1;
     }
 

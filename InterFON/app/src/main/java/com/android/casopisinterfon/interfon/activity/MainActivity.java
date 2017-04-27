@@ -36,14 +36,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        downloadFreshData();
         init();
     }
 
-    private void downloadFreshData() {
-        NetworkManager manager = NetworkManager.getInstance(this);
-        manager.downloadArticles(0, true);
-    }
 
     private void init() {
 //        mDataManager = DataManager.getInstance();

@@ -18,7 +18,8 @@
 
     <!--About us activity related -->
     <string name="about_us_activity_heading">O nama</string>
-    <string name="o_nama"><b><font size= "20">Časopis InterFON\n\n</font></b>
+    <string name="o_nama">
+        <b><font size= "20">Časopis InterFON\n\n</font></b>
         Osnovali su ga studenti Fakulteta organizacionih nauka u Beogradu sa željom da obezbede prave
         informacije potrebne studentima i time poboljšaju kvalitet studiranja u Srbiji.\n\n
 
@@ -27,9 +28,10 @@
         da predstavi FON kao najbolji fakultet u Srbiji i pomogne da tako i ostane.\n\n
 
         <b>Vizija</b> časopisa je da bude najbolji studentski časopis u regionu koji
-        ima verne čitaoce i uspešan tim koji stoji iza svega.\n\n\n
-
-<b><font size= "16">Naše vrednosti:\n\n</font></b>
+        ima verne čitaoce i uspešan tim koji stoji iza svega.
+    </string>
+    <string name="about_us_vrednosti">
+        <b><font size= "20">Naše vrednosti:\n\n</font></b>
         <b>Razvoj</b> –razvijati časopis, razvijati članove redakcije i podsticati čitaoce
         da se razvijaju kako u profesionalnom smislu,tako i kao ljudi.\n\n
 
@@ -42,7 +44,7 @@
         <b>Tolerancija</b> – redakciju čine studenti koji su otvorenih shvatanja i ne dele ljude ni prema kojim kriterijumima.
         Ne podržavamo nasilje, mržnju ili bilo kakvo ugrožavanje nečijeg integriteta.\n\n
 
-        <b>Kvalitet</b> – sve što radimo, radimo najbolje što možemo i pružamo prave informacije.\n\n\n
+        <b>Kvalitet</b> – sve što radimo, radimo najbolje što možemo i pružamo prave informacije.\n\n
 
         InterFON se bavi mnogim temama značajnim i interesantnim za studente.
         Svakodnevno izlaze vesti o najboljim <b>konferencijama i seminarima</b> kako bi motivisali studente da se razvijaju,
@@ -57,8 +59,9 @@
 
         InterFON podržava <b>humanitarne akcije.</b>\n\n
 
-        Promovišemo <b>sport, aktivizam</b> i <b>prave vrednosti</b> kod mladih.\n\n\n
-
+        Promovišemo <b>sport, aktivizam</b> i <b>prave vrednosti</b> kod mladih.</string>
+    <string name="about_us_redakcija">
+        <b><font size= "20">Redakcija:\n\n</font></b>
         Redakcija je počela da radi <b>7. novembra 2009. godine.</b>
         U početku je časopis imao štampano izdanje, što se u međuvremenu promenilo,
         te smo sada orijentisani ka razvijanju sajta i internet promociji.
@@ -78,8 +81,8 @@
         Tim za informacione tehnologije (IT) i tim za dizajn (D) sarađuju kako bi
         časopis imao funkcionalan i dobar sajt. Najbrojniji je tim autora i dopisnika (A&amp;R)
         koji uvek stvaraju kvalitetan sadržaj za časopis. A kao spona tu je tim za međuljudske odnose (HR)
-        koji radi na tome da obezbedi najbolje ljude za redakciju i da ih motiviše da uvek mogu da budu bolji.\n\n
-
+        koji radi na tome da obezbedi najbolje ljude za redakciju i da ih motiviše da uvek mogu da budu bolji.</string>
+    <string name="about_us_zakljucak">
         Zadovoljni smo onim što je do sada postignuto, s obzirom da je InterFON nastao ni iz čega
         da bi sada bio časopis koji je poznat čitavom Univerzitetu u Beogradu, a i šire,
         što nam daje motivaciju da uvek radimo više i bolje kako bismo i

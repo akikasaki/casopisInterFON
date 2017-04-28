@@ -2,12 +2,17 @@ package com.android.casopisinterfon.interfon.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
@@ -23,6 +28,7 @@ import com.android.casopisinterfon.interfon.data.DataManager;
 import com.android.casopisinterfon.interfon.data.DataSaver;
 import com.android.casopisinterfon.interfon.internet.NetworkManager;
 import com.android.casopisinterfon.interfon.internet.events.ItemDownloadedEvent;
+import com.android.casopisinterfon.interfon.internet.events.URLImageParser;
 import com.android.casopisinterfon.interfon.model.Article;
 import com.android.casopisinterfon.interfon.model.Category;
 import com.android.casopisinterfon.interfon.utils.FontPreferences;
@@ -68,6 +74,7 @@ public class ArticleViewActivity extends AppCompatActivity {
     private Category mCategory = Category.ALL;
     private long mCurId = -1;
     private Object articleDesc;
+    Html.ImageGetter imageGetter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,7 +182,10 @@ public class ArticleViewActivity extends AppCompatActivity {
         // try hide dialog and set desc
         if (!mCurArticle.getArticleDescription().isEmpty()) {
             dismissProgress();
-            tvDescription.setText(Util.fromHtml(mCurArticle.getArticleDescription()));
+
+            URLImageParser p = new URLImageParser(tvDescription, this);
+            Spanned htmlSpan = Html.fromHtml(mCurArticle.getArticleDescription(),Html.FROM_HTML_MODE_COMPACT, p, null);
+            tvDescription.setText(htmlSpan);
         }
         // Display data
         if (mCurArticle != null) {

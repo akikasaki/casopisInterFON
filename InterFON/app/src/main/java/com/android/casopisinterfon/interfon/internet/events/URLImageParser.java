@@ -73,6 +73,7 @@ public class URLImageParser implements Html.ImageGetter {
             URLImageParser.this.container.invalidate();
             URLImageParser.this.container.setHeight((URLImageParser.this.container.getHeight()
                     + result.getIntrinsicHeight()));
+            URLImageParser.this.container.setGravity(Gravity.CENTER);
             // Pre ICS
             URLImageParser.this.container.setEllipsize(null);
         }

@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.text.Html;
 import android.view.Gravity;
 import android.view.View;
+
 import android.widget.TextView;
 
 import com.android.casopisinterfon.interfon.utils.URLDrawable;
@@ -60,6 +61,7 @@ public class URLImageParser implements Html.ImageGetter {
 
         @Override
         protected void onPostExecute(Drawable result) {
+
             // set the correct bound according to the result from HTTP call
             urlDrawable.setBounds(0, 0, 0 + result.getIntrinsicWidth(), 0
                     + result.getIntrinsicHeight());
@@ -69,10 +71,17 @@ public class URLImageParser implements Html.ImageGetter {
             urlDrawable.drawable = result;
 
             // redraw the image by invalidating the container
-            //For drawing the image correctly
+            //For drawing the image correctly, can overlap text if not present
             URLImageParser.this.container.invalidate();
             URLImageParser.this.container.setHeight((URLImageParser.this.container.getHeight()
                     + result.getIntrinsicHeight()));
+            //For setting the image gravity within the textView
+
+            //Nijedan gravity ne sredjuje velicinu slike vec samo njenu poziciju
+            //Menjanje velicine container-a ne menja velicinu slike
+            //Moguce je da se slika menja preko Drawable ali ne znam metodu/nacin za to
+            //Takodje neki artikli ne ispadaju kako treba jer postoji dupla slika, pa je mozda to bolje prvo resiti
+            // TODO resizing images if needed
             URLImageParser.this.container.setGravity(Gravity.CENTER);
             // Pre ICS
             URLImageParser.this.container.setEllipsize(null);

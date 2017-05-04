@@ -74,7 +74,6 @@ public class ArticleViewActivity extends AppCompatActivity {
     private Category mCategory = Category.ALL;
     private long mCurId = -1;
     private Object articleDesc;
-    Html.ImageGetter imageGetter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,8 +182,11 @@ public class ArticleViewActivity extends AppCompatActivity {
         if (!mCurArticle.getArticleDescription().isEmpty()) {
             dismissProgress();
 
+            //Implements ImageGetter to parse an Image URL when an <img> tag occurs
             URLImageParser p = new URLImageParser(tvDescription, this);
-            Spanned htmlSpan = Html.fromHtml(mCurArticle.getArticleDescription(),Html.FROM_HTML_MODE_COMPACT, p, null);
+            //Creates a spannable String to work with
+            //                                                                      MODE_LEGACY flag for html-s format
+            Spanned htmlSpan = Html.fromHtml(mCurArticle.getArticleDescription(),Html.FROM_HTML_MODE_LEGACY, p, null);
             tvDescription.setText(htmlSpan);
         }
         // Display data

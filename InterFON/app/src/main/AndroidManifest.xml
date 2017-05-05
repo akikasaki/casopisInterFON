@@ -65,10 +65,6 @@
         <activity android:name=".activity.SettingsActivity" />
         <activity android:name=".activity.AboutActivity" />
         <activity android:name=".activity.ContactUsActivity" />
-<<<<<<< HEAD
-        <activity android:name=".activity.article_view.BookmarkViewActivity" />
-=======
->>>>>>> c2e57df97e9c0d00297ebc3cb6a5356ff8b6d2c3
         <activity
             android:name=".activity.BookmarksActivity"
             android:parentActivityName=".activity.MainActivity" />

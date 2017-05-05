@@ -1,11 +1,6 @@
 package com.android.casopisinterfon.interfon.data;
 
 import android.content.Context;
-
-<<<<<<< HEAD
-import com.android.casopisinterfon.interfon.activity.article_view.ArticleViewActivity;
-=======
->>>>>>> c2e57df97e9c0d00297ebc3cb6a5356ff8b6d2c3
 import com.android.casopisinterfon.interfon.model.Article;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

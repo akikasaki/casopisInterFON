@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.android.casopisinterfon.interfon.ArticlesAdapter;
 import com.android.casopisinterfon.interfon.R;
 import com.android.casopisinterfon.interfon.activity.article_view.ArticleViewActivity;
-import com.android.casopisinterfon.interfon.activity.article_view.BookmarkViewActivity;
 import com.android.casopisinterfon.interfon.data.DataLoader;
 
 public class BookmarksActivity extends AppCompatActivity implements ArticlesAdapter.ItemClickedCallbackInterface {

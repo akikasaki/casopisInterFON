@@ -2,7 +2,6 @@ package com.android.casopisinterfon.interfon.data;
 
 import android.content.Context;
 
-import com.android.casopisinterfon.interfon.activity.ArticleViewActivity;
 import com.android.casopisinterfon.interfon.model.Article;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -29,33 +28,13 @@ public class DataLoader {
     public List<Article> readData(String file) {
         ret = "";
         FileRead readArticles = new FileRead();
-        ret = readArticles.readFile(context, file);
+        ret= readArticles.readFile(context,file);
 
         mGson = new Gson();
         Type type = new TypeToken<List<Article>>() {
         }.getType();
         List<Article> fromJson = mGson.fromJson(ret, type);
         return fromJson;
-    }
-
-    /**
-     * Method for retrieving bookmark via id from bookmarked articles
-     * @param id search for this id
-     * @return the article with the parsed id
-     */
-    public Article loadBookmark(long id) {
-        List<Article> bookmarkedArticles= readData(ArticleViewActivity.ARTICLES_FILE);
-        Iterator<Article> iter = bookmarkedArticles.iterator();
-
-        while (iter.hasNext()) {
-            Article a = iter.next();
-
-            if (id == a.getId()) {
-                return a;
-            }
-        }
-
-        return null;
     }
 
     /**

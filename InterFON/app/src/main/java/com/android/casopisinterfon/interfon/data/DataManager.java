@@ -1,14 +1,17 @@
 package com.android.casopisinterfon.interfon.data;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.android.casopisinterfon.interfon.activity.article_view.ArticleViewActivity;
 import com.android.casopisinterfon.interfon.model.Article;
 import com.android.casopisinterfon.interfon.model.Category;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -112,10 +115,22 @@ public class DataManager {
     /**
      * Return {@link Article} object from file disk(from bookmarks) based on article id.
      * @param mCurId id or wanted article.
+     * @param context context
      * @return newly created article object if found, null otherwise.
      */
-    public @Nullable Article getArticleFromDisk(long mCurId) {
-        // TODO - finish Trampa
+    public @Nullable Article getArticleFromDisk(long mCurId, Context context) {
+        List<Article> bookmarkedArticles= new DataLoader(context).readData(ArticleViewActivity.ARTICLES_FILE);
+        Iterator<Article> iter = bookmarkedArticles.iterator();
+
+        while (iter.hasNext()) {
+            Article a = iter.next();
+
+            if (mCurId == a.getId()) {
+                return a;
+            }
+        }
+
         return null;
+
     }
 }

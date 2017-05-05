@@ -14,9 +14,9 @@ import android.view.ViewGroup;
 
 import com.android.casopisinterfon.interfon.ArticlesAdapter;
 import com.android.casopisinterfon.interfon.R;
-import com.android.casopisinterfon.interfon.activity.article_view.ArticleViewActivity;
 import com.android.casopisinterfon.interfon.activity.EndlessRecyclerViewScrollListener;
 import com.android.casopisinterfon.interfon.activity.MainActivity;
+import com.android.casopisinterfon.interfon.activity.article_view.ArticleViewActivity;
 import com.android.casopisinterfon.interfon.data.DataManager;
 import com.android.casopisinterfon.interfon.internet.NetworkManager;
 import com.android.casopisinterfon.interfon.internet.events.ListDownloadedEvent;
@@ -134,6 +134,11 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
 
         // Set mAdapter data
         mAdapter.setData(mDataManager.getArticlesForPosition(mFragPosition));
+
+        // Only big layout for interviews
+        if (Category.getCategoryByPagePos(mFragPosition) == Category.INTERVIEWS)
+            mAdapter.setIsOnlyBigItems();
+
         return srRootView;
     }
 
@@ -177,7 +182,6 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         if (event.eventType.equals(Category.getCategoryByPagePos(mFragPosition)) && event.isSuccess) {
             mAdapter.setData(mDataManager.getArticlesForPosition(mFragPosition));
         }
-
         srRootView.setRefreshing(false);
     }
 
@@ -208,7 +212,8 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
 //        super.onPause();
 //    }
 
-    @Override public void onDestroyView() {
+    @Override
+    public void onDestroyView() {
         srRootView.removeAllViews();
         super.onDestroyView();
     }

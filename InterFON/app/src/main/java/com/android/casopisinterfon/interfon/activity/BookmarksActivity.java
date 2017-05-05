@@ -34,7 +34,7 @@ public class BookmarksActivity extends AppCompatActivity implements ArticlesAdap
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mAdapter = new ArticlesAdapter(this, this);
-        mAdapter.setIsOnlySmallItems(true);
+        mAdapter.setIsOnlySmallItems();
         mAdapter.setData(new DataLoader(this).readData(ArticleViewActivity.ARTICLES_FILE));
         mRecyclerView.setAdapter(mAdapter);
     }

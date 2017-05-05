@@ -31,11 +31,11 @@ public class Util {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, value, resources.getDisplayMetrics());
     }
 
-    public static Spanned fromHtml(String articleDescription, URLImageParser p) {
+    public static Spanned fromHtml(String articleDescription, URLImageParser p, Html.TagHandler tagHandler) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return Html.fromHtml(articleDescription, Html.FROM_HTML_MODE_LEGACY, p, null);
+            return Html.fromHtml(articleDescription, Html.FROM_HTML_MODE_LEGACY, p, tagHandler);
         } else {
-            return Html.fromHtml(articleDescription, p, null);
+            return Html.fromHtml(articleDescription, p, tagHandler);
         }
     }
 }

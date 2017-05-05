@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.android.casopisinterfon.interfon.ArticlesAdapter;
 import com.android.casopisinterfon.interfon.R;
-import com.android.casopisinterfon.interfon.activity.ArticleViewActivity;
+import com.android.casopisinterfon.interfon.activity.article_view.ArticleViewActivity;
 import com.android.casopisinterfon.interfon.activity.EndlessRecyclerViewScrollListener;
 import com.android.casopisinterfon.interfon.activity.MainActivity;
 import com.android.casopisinterfon.interfon.data.DataManager;

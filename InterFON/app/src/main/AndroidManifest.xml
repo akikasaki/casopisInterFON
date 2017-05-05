@@ -42,7 +42,7 @@
             android:enabled="true" />
 
         <activity
-            android:name=".activity.ArticleViewActivity"
+            android:name=".activity.article_view.ArticleViewActivity"
             android:parentActivityName="com.android.casopisinterfon.interfon.activity.MainActivity"
             android:theme="@style/FontStyle.Small">
             <meta-data

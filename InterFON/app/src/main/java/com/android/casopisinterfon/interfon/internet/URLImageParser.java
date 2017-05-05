@@ -1,13 +1,10 @@
-package com.android.casopisinterfon.interfon.internet.events;
+package com.android.casopisinterfon.interfon.internet;
 
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.text.Html;
-import android.view.Gravity;
-import android.view.View;
-
 import android.widget.TextView;
 
 import com.android.casopisinterfon.interfon.utils.URLDrawable;
@@ -37,7 +34,7 @@ public class URLImageParser implements Html.ImageGetter {
 
         // get the actual source
         ImageGetterAsyncTask asyncTask =
-                new ImageGetterAsyncTask( urlDrawable);
+                new ImageGetterAsyncTask(urlDrawable);
 
         asyncTask.execute(source);
 
@@ -63,8 +60,8 @@ public class URLImageParser implements Html.ImageGetter {
         protected void onPostExecute(Drawable result) {
 
             // set the correct bound according to the result from HTTP call
-            urlDrawable.setBounds(0, 0, 0 + result.getIntrinsicWidth(), 0
-                    + result.getIntrinsicHeight());
+            urlDrawable.setBounds(0, 0, 0 + result.getBounds().right, 0
+                    + result.getBounds().bottom);
 
             // change the reference of the current drawable to the result
             // from the HTTP call
@@ -74,7 +71,7 @@ public class URLImageParser implements Html.ImageGetter {
             //For drawing the image correctly, can overlap text if not present
             URLImageParser.this.container.invalidate();
             URLImageParser.this.container.setHeight((URLImageParser.this.container.getHeight()
-                    + result.getIntrinsicHeight()));
+                    + result.getBounds().bottom));
             //For setting the image gravity within the textView
 
             //Nijedan gravity ne sredjuje velicinu slike vec samo njenu poziciju
@@ -82,7 +79,7 @@ public class URLImageParser implements Html.ImageGetter {
             //Moguce je da se slika menja preko Drawable ali ne znam metodu/nacin za to
             //Takodje neki artikli ne ispadaju kako treba jer postoji dupla slika, pa je mozda to bolje prvo resiti
             // TODO resizing images if needed
-            URLImageParser.this.container.setGravity(Gravity.CENTER);
+//            URLImageParser.this.container.setGravity(Gravity.CENTER);
             // Pre ICS
             URLImageParser.this.container.setEllipsize(null);
         }
@@ -96,8 +93,15 @@ public class URLImageParser implements Html.ImageGetter {
             try {
                 InputStream is = fetch(urlString);
                 Drawable drawable = Drawable.createFromStream(is, "src");
-                drawable.setBounds(0, 0, 0 + drawable.getIntrinsicWidth(), 0
-                        + drawable.getIntrinsicHeight());
+
+                float ratio = 1;
+                try {
+                    ratio = (float)container.getWidth() / (float)drawable.getIntrinsicWidth();
+                } catch (Exception e) {
+                }
+
+                drawable.setBounds(0, 0, container.getWidth() == 0 ? drawable.getIntrinsicWidth() : container.getWidth(),
+                        (int)(drawable.getIntrinsicHeight() * ratio));
                 return drawable;
             } catch (Exception e) {
                 return null;

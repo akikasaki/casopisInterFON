@@ -40,7 +40,7 @@ public class NetworkManager {
     /**
      * Contains page index that are already downloaded.
      */
-    private static final int[] mCategoryPageIndex = new int[MainActivity.CATEGORY_COUNT];
+    private static final int[] mCategoryPageIndex = new int[Category.CATEGORY_COUNT];
 
 //    static {
 //        for (int i = 0; i < MainActivity.CATEGORY_COUNT; i++) {

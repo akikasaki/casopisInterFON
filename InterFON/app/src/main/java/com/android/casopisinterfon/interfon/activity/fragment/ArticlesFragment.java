@@ -14,9 +14,9 @@ import android.view.ViewGroup;
 
 import com.android.casopisinterfon.interfon.ArticlesAdapter;
 import com.android.casopisinterfon.interfon.R;
-import com.android.casopisinterfon.interfon.activity.ArticleViewActivity;
 import com.android.casopisinterfon.interfon.activity.EndlessRecyclerViewScrollListener;
 import com.android.casopisinterfon.interfon.activity.MainActivity;
+import com.android.casopisinterfon.interfon.activity.article_view.ArticleViewActivity;
 import com.android.casopisinterfon.interfon.data.DataManager;
 import com.android.casopisinterfon.interfon.internet.NetworkManager;
 import com.android.casopisinterfon.interfon.internet.events.ListDownloadedEvent;
@@ -101,7 +101,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
         rvList.setAdapter(mAdapter);
         linearLayoutManager = new LinearLayoutManager(getContext());
         rvList.setLayoutManager(linearLayoutManager);
-        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager, Category.getCategory(mFragPosition)) {
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager, Category.getCategoryByPagePos(mFragPosition)) {
             @Override
             public void onLoadMore(int page, final int totalItemsCount, RecyclerView view) {
                 downloadArticles(page, false);
@@ -134,6 +134,11 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
 
         // Set mAdapter data
         mAdapter.setData(mDataManager.getArticlesForPosition(mFragPosition));
+
+        // Only big layout for interviews
+        if (Category.getCategoryByPagePos(mFragPosition) == Category.INTERVIEWS)
+            mAdapter.setIsOnlyBigItems();
+
         return srRootView;
     }
 
@@ -142,7 +147,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
      */
     private void initialDownload() {
         // Only if there is no data, download articles for the first time.
-        Category category = Category.getCategory(mFragPosition);
+        Category category = Category.getCategoryByPagePos(mFragPosition);
         if (NetworkManager.getCategoryPageIndex(category) < NetworkManager.START_PAGE_INDEX) {
             downloadArticles(NetworkManager.incrementCatPageIndex(category), true);
         }
@@ -158,7 +163,7 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
     private void downloadArticles(int page, boolean isFreshData) {
         if (isFreshData && scrollListener != null) scrollListener.resetState();
         if (mFragPosition != 0)
-            mNetManager.downloadArticles(page, isFreshData, Category.getCategory(mFragPosition));
+            mNetManager.downloadArticles(page, isFreshData, Category.getCategoryByPagePos(mFragPosition));
         else
             mNetManager.downloadArticles(page, isFreshData, null);
     }
@@ -168,16 +173,15 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
     public void onItemClicked(long articleId) {
         Intent intent = new Intent(getContext(), ArticleViewActivity.class);
         intent.putExtra(ArticleViewActivity.EXTRA_ARTICLE_ID, articleId);
-        intent.putExtra(ArticleViewActivity.EXTRA_ARTICLE_CATEGORY, Category.getCategory(mFragPosition));
+        intent.putExtra(ArticleViewActivity.EXTRA_ARTICLE_CATEGORY, Category.getCategoryByPagePos(mFragPosition));
         startActivity(intent);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onListDownloadEvent(ListDownloadedEvent event) {
-        if (event.eventType.equals(Category.getCategory(mFragPosition)) && event.isSuccess) {
+        if (event.eventType.equals(Category.getCategoryByPagePos(mFragPosition)) && event.isSuccess) {
             mAdapter.setData(mDataManager.getArticlesForPosition(mFragPosition));
         }
-
         srRootView.setRefreshing(false);
     }
 
@@ -208,7 +212,8 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
 //        super.onPause();
 //    }
 
-    @Override public void onDestroyView() {
+    @Override
+    public void onDestroyView() {
         srRootView.removeAllViews();
         super.onDestroyView();
     }

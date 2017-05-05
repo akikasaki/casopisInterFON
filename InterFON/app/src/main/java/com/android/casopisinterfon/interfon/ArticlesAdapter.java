@@ -13,10 +13,12 @@ import com.android.casopisinterfon.interfon.utils.Util;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
 public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyViewHolder> {
+
 
     /**
      * Classes that use {@link ArticlesAdapter}, must implement this listener for item list interaction.
@@ -34,6 +36,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     private static final int SMALL_ITEM_VIEW_TYPE = 1;
     private static final int LOADING_VIEW_TYPE = 2;
     private boolean mOnlySmallLayout = false;
+    private boolean mOnlyBigLayout = false;
 
     private final Context mContext;
 
@@ -107,10 +110,13 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     @Override
     public int getItemViewType(int position) {
         // Today news will be diferent from others
-        // TODO - finsih method
-        if (mOnlySmallLayout) return SMALL_ITEM_VIEW_TYPE;
         if (position >= mCurrentData.size()) return LOADING_VIEW_TYPE;
-        if (position < 5)
+        if (mOnlySmallLayout) return SMALL_ITEM_VIEW_TYPE;
+        if(mOnlyBigLayout) return LARGE_ITEM_VIEW_TYPE;
+
+        Calendar calendar = Calendar.getInstance(); // this would default to now
+        calendar.add(Calendar.DAY_OF_MONTH, -5);
+        if (mCurrentData.get(position).getArticleDate().getTime() > calendar.getTime().getTime())
             return LARGE_ITEM_VIEW_TYPE;
         else
             return SMALL_ITEM_VIEW_TYPE;
@@ -135,11 +141,16 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
 
     /**
      * Sets the adapter so it displays only small item layout.
-     *
-     * @param onlySmallItems set to true if adapter should display only small layout.
      */
-    public void setIsOnlySmallItems(boolean onlySmallItems) {
+    public void setIsOnlySmallItems() {
         this.mOnlySmallLayout = true;
+    }
+
+    /**
+     * Sets the adapter so it displays only big item layout.
+     */
+    public void setIsOnlyBigItems(){
+        this.mOnlyBigLayout = true;
     }
 
     // Provide a reference to the views for each data item

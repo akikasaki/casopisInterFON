@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.android.casopisinterfon.interfon.ArticlesAdapter;
 import com.android.casopisinterfon.interfon.R;
+import com.android.casopisinterfon.interfon.activity.article_view.ArticleViewActivity;
 import com.android.casopisinterfon.interfon.data.DataLoader;
 
 public class BookmarksActivity extends AppCompatActivity implements ArticlesAdapter.ItemClickedCallbackInterface {
@@ -33,7 +34,7 @@ public class BookmarksActivity extends AppCompatActivity implements ArticlesAdap
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mAdapter = new ArticlesAdapter(this, this);
-        mAdapter.setIsOnlySmallItems(true);
+        mAdapter.setIsOnlySmallItems();
         mAdapter.setData(new DataLoader(this).readData(ArticleViewActivity.ARTICLES_FILE));
         mRecyclerView.setAdapter(mAdapter);
     }

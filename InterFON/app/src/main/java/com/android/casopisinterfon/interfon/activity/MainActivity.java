@@ -16,15 +16,12 @@ import android.view.MenuItem;
 import com.android.casopisinterfon.interfon.R;
 import com.android.casopisinterfon.interfon.activity.fragment.ArticlesFragment;
 import com.android.casopisinterfon.interfon.internet.NetworkManager;
+import com.android.casopisinterfon.interfon.model.Category;
+
+import static com.android.casopisinterfon.interfon.model.Category.CATEGORY_COUNT;
 
 public class MainActivity extends AppCompatActivity {
 
-    /**
-     * Total number of categories on interFON casopis
-     */
-    public static final int CATEGORY_COUNT = 9;
-    // private static final String NOTIFY = "notify";
-    public String tabTitles[] = {"Sve", "Vesti", "Interesantno", "Nauka", "Kultura", "Intervjui", "Kolumne", "Prakse", "Sport"};
 
     private CategoryPagerAdapter adapterViewPager;
     private ViewPager mViewPager;
@@ -136,12 +133,12 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return CATEGORY_COUNT;
+            return Category.CATEGORY_COUNT;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return tabTitles[position];
+            return Category.tabTitles[position];
         }
     }
 }

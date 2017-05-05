@@ -1,9 +1,9 @@
 package com.android.casopisinterfon.interfon.data;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.android.casopisinterfon.interfon.activity.MainActivity;
 import com.android.casopisinterfon.interfon.model.Article;
 import com.android.casopisinterfon.interfon.model.Category;
 
@@ -28,9 +28,9 @@ public class DataManager {
     private List<Map<Long, Article>> mData;
 
     private DataManager() {
-        mData = new ArrayList<>(MainActivity.CATEGORY_COUNT);
+        mData = new ArrayList<>(Category.CATEGORY_COUNT);
 
-        for (int i = 0; i < MainActivity.CATEGORY_COUNT; i++) {
+        for (int i = 0; i < Category.CATEGORY_COUNT; i++) {
             mData.add(Collections.synchronizedMap(new LinkedHashMap<Long, Article>(12)));
         }
     }
@@ -86,7 +86,7 @@ public class DataManager {
     public List<Article> getArticlesForPosition(int position) {
         // TODO - maybe refactor this
         // this method if coupling DataManager and Category class
-//        return ArticlesFilter.filterArticles(Category.getCategory(position), new ArrayList<>(mData.values()));
+//        return ArticlesFilter.filterArticles(Category.getCategoryByPagePos(position), new ArrayList<>(mData.values()));
         return new ArrayList<>(mData.get(position).values());
     }
 
@@ -97,7 +97,7 @@ public class DataManager {
      * @param category category of wanted article.
      * @return newly created article object if found, null otherwise.
      */
-    public Article getArticle(long id, Category category) {
+    public @Nullable Article getArticle(long id, Category category) {
 
 //        for (Article a :
 //                mData) {
@@ -107,5 +107,15 @@ public class DataManager {
 //
 //        return null;
         return mData.get(category.ordinal()).get(id);
+    }
+
+    /**
+     * Return {@link Article} object from file disk(from bookmarks) based on article id.
+     * @param mCurId id or wanted article.
+     * @return newly created article object if found, null otherwise.
+     */
+    public @Nullable Article getArticleFromDisk(long mCurId) {
+        // TODO - finish Trampa
+        return null;
     }
 }

@@ -67,19 +67,23 @@
                     android:layout_marginBottom="@dimen/article_title_bottom_margin"
                     android:textAlignment="center"
                     android:textColor="@color/primary_black_text"
+                    android:textIsSelectable="true"
                     android:textSize="?attr/font_xxlarge"
                     android:textStyle="bold" />
 
-                <TextView
+                <TextView                    android:textIsSelectable="true"
+
                     android:id="@+id/tvArticleCategory"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvArticleTitle"
                     android:layout_marginBottom="@dimen/article_info_bottom_margin"
                     android:textColor="@color/secondary_black_text"
-                    android:textSize="?attr/font_small" />
+                    android:textSize="?attr/font_small"
+                    />
 
-                <TextView
+                <TextView                    android:textIsSelectable="true"
+
                     android:id="@+id/tvArticleDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -87,7 +91,7 @@
                     android:layout_below="@id/tvArticleTitle"
                     android:layout_toEndOf="@id/tvArticleCategory"
                     android:layout_toRightOf="@id/tvArticleCategory"
-                    android:textColor="@color/hint_black_text"
+                    android:textColor="@color/secondary_black_text"
                     android:textSize="?attr/font_xsmall" />
 
                 <FrameLayout
@@ -98,12 +102,15 @@
                     android:layout_marginBottom="@dimen/article_divider_bottom_margin"
                     android:background="@color/article_view_divider_color" />
 
-                <TextView
+                <TextView                    android:textIsSelectable="true"
+
                     android:id="@+id/tvSingleDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/divider"
-                    android:textSize="?attr/font_medium" />
+                    android:textSize="?attr/font_medium"
+                    android:textColor="@color/primary_black_text"
+                    />
             </RelativeLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

@@ -10,7 +10,7 @@ public class ListDownloadedEvent extends DownloadedEvent{
 
     public ListDownloadedEvent(boolean isSuccess) {
         super.isSuccess = isSuccess;
-        super.eventType = Category.getCategory(0);
+        super.eventType = Category.getCategoryByPagePos(0);
     }
 
     public ListDownloadedEvent(boolean isSuccess, Category eventType) {

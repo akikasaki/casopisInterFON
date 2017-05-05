@@ -1,18 +1,13 @@
-package com.android.casopisinterfon.interfon.activity;
+package com.android.casopisinterfon.interfon.activity.article_view;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
-import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
@@ -23,12 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.casopisinterfon.interfon.R;
+import com.android.casopisinterfon.interfon.activity.SettingsActivity;
 import com.android.casopisinterfon.interfon.data.DataLoader;
 import com.android.casopisinterfon.interfon.data.DataManager;
 import com.android.casopisinterfon.interfon.data.DataSaver;
 import com.android.casopisinterfon.interfon.internet.NetworkManager;
+import com.android.casopisinterfon.interfon.internet.URLImageParser;
 import com.android.casopisinterfon.interfon.internet.events.ItemDownloadedEvent;
-import com.android.casopisinterfon.interfon.internet.events.URLImageParser;
 import com.android.casopisinterfon.interfon.model.Article;
 import com.android.casopisinterfon.interfon.model.Category;
 import com.android.casopisinterfon.interfon.utils.FontPreferences;
@@ -74,6 +70,9 @@ public class ArticleViewActivity extends AppCompatActivity {
     private Category mCategory = Category.ALL;
     private long mCurId = -1;
     private Object articleDesc;
+
+    // Indicates if this article is loaded from bookmarks
+    private boolean mIsFromBookmark = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,8 +141,15 @@ public class ArticleViewActivity extends AppCompatActivity {
 //            finish();
             return;
         }
-        // Return article from data
-        mCurArticle = mDataManager.getArticle(mCurId, mCategory);
+
+        if(mIsFromBookmark){
+            // Return article from file disk
+            return;
+//            mCurArticle = mDataManager.getArticleFromDisk(mCurId);
+        } else {
+            // Return article from data
+            mCurArticle = mDataManager.getArticle(mCurId, mCategory);
+        }
         // Download description
         getArticleDesc();
     }
@@ -155,6 +161,10 @@ public class ArticleViewActivity extends AppCompatActivity {
         Intent i = getIntent();
         mCurId = i.getLongExtra(EXTRA_ARTICLE_ID, -1);
 
+        if (i.hasExtra(EXTRA_FROM_BOOKMARK)) {
+            mIsFromBookmark = true;
+            return;
+        }
         if (i.hasExtra(EXTRA_ARTICLE_CATEGORY))
             mCategory = (Category) i.getSerializableExtra(EXTRA_ARTICLE_CATEGORY);
         else
@@ -178,21 +188,19 @@ public class ArticleViewActivity extends AppCompatActivity {
      */
     private void setUpArticle() {
         if (mCurArticle == null) return;
-        // try hide dialog and set desc
-        if (!mCurArticle.getArticleDescription().isEmpty()) {
-            dismissProgress();
+        setPic();
+        setDesc();
+        setInfo();
+    }
 
-            //Implements ImageGetter to parse an Image URL when an <img> tag occurs
-            URLImageParser p = new URLImageParser(tvDescription, this);
-            //Creates a spannable String to work with
-            //                                                                      MODE_LEGACY flag for html-s format
-            Spanned htmlSpan = Html.fromHtml(mCurArticle.getArticleDescription(),Html.FROM_HTML_MODE_LEGACY, p, null);
-            tvDescription.setText(htmlSpan);
-        }
+    private void setPic() {
+        if (mCurArticle != null)
+            Glide.with(this).load(mCurArticle.getPictureLink()).into(ivSingleArticlePicture);
+    }
+
+    private void setInfo() {
         // Display data
         if (mCurArticle != null) {
-            // Load pic
-            Glide.with(this).load(mCurArticle.getPictureLink()).into(ivSingleArticlePicture);
             // Set text
             tvTitle.setText(Util.fromHtml(mCurArticle.getArticleTitle()));
             tvCategory.setText(mCurArticle.getArticleCategoriesString() + " - ");
@@ -201,9 +209,23 @@ public class ArticleViewActivity extends AppCompatActivity {
         }
     }
 
+    private void setDesc() {
+        // Try hide dialog and set desc
+        if (!mCurArticle.getArticleDescription().isEmpty()) {
+            // Dismiss progress bar
+            dismissProgress();
+            // Parse text and images
+            URLImageParser p = new URLImageParser(tvDescription, this);
+            ArticleTextStyle style = new ArticleTextStyle(mCurArticle.getArticleDescription(), p);
+            // Display parsed data
+            tvDescription.setText(style.format());
+        }
+
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onArticleInfoDownload(ItemDownloadedEvent event) {
-        setUpArticle();
+        setDesc();
     }
 
     /**

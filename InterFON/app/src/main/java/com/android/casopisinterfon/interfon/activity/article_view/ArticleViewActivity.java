@@ -71,6 +71,9 @@ public class ArticleViewActivity extends AppCompatActivity {
     private long mCurId = -1;
     private Object articleDesc;
 
+    // Indicates if this article is loaded from bookmarks
+    private boolean mIsFromBookmark = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setupTheme();
@@ -138,8 +141,15 @@ public class ArticleViewActivity extends AppCompatActivity {
 //            finish();
             return;
         }
-        // Return article from data
-        mCurArticle = mDataManager.getArticle(mCurId, mCategory);
+
+        if(mIsFromBookmark){
+            // Return article from file disk
+            return;
+//            mCurArticle = mDataManager.getArticleFromDisk(mCurId);
+        } else {
+            // Return article from data
+            mCurArticle = mDataManager.getArticle(mCurId, mCategory);
+        }
         // Download description
         getArticleDesc();
     }
@@ -151,6 +161,10 @@ public class ArticleViewActivity extends AppCompatActivity {
         Intent i = getIntent();
         mCurId = i.getLongExtra(EXTRA_ARTICLE_ID, -1);
 
+        if (i.hasExtra(EXTRA_FROM_BOOKMARK)) {
+            mIsFromBookmark = true;
+            return;
+        }
         if (i.hasExtra(EXTRA_ARTICLE_CATEGORY))
             mCategory = (Category) i.getSerializableExtra(EXTRA_ARTICLE_CATEGORY);
         else

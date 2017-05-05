@@ -7,22 +7,28 @@ package com.android.casopisinterfon.interfon.model;
 public enum Category {
     ALL(0),
     NEWS(45),
-    INTERESTING(38),
-    SCIENCE(960),
-    CULTURE(1371),
     INTERVIEWS(1370),
-    COLUMNS(758),
     PRACTICE(3759),
+    BI(8171),
+    INTERESTING(38),
+    CULTURE(1371),
     SPORT(48),
-    INTRAFON(37),
+    SCIENCE(960),
+    COLUMNS(758),
     FONNEWS(2085),
-    POETS(4422);
+    POETS(4422),
+    IT(8170),
+    MARKETING(8172);
+
+    /**
+     * Total number of categories on interFON casopis
+     */
+    public static final int CATEGORY_COUNT = 8;
+    public static final String tabTitles[] = {"Sve", "Vesti", "Intervjui",
+            "Prakse", "Biznis Insajder", "Interesantno", "Kultura", "Sport"};
 
 
     private int catId;
-
-    Category() {
-    }
 
     Category(int id) {
         this.catId = id;
@@ -39,8 +45,6 @@ public enum Category {
                 return "Vesti";
             case 2085:
                 return "Vesti sa FONa";
-            case 37:
-                return "IntraFON";
             case 38:
                 return "Interesantno";
             case 960:
@@ -57,6 +61,12 @@ public enum Category {
                 return "Sport";
             case 4422:
                 return "Poetski kutak";
+            case 8171:
+                return "Biznis Insajder";
+            case 8170:
+                return "IT";
+            case 8172:
+                return "Marketing";
         }
     }
 
@@ -69,7 +79,7 @@ public enum Category {
 //    }
 
 
-    public static Category getCategory(int pagePosition) {
+    public static Category getCategoryByPagePos(int pagePosition) {
 
         switch (pagePosition) {
             default:
@@ -78,20 +88,17 @@ public enum Category {
             case 1:
                 return NEWS;
             case 2:
-                return INTERESTING;
-            case 3:
-                return SCIENCE;
-            case 4:
-                return CULTURE;
-            case 5:
                 return INTERVIEWS;
-            case 6:
-                return COLUMNS;
-            case 7:
+            case 3:
                 return PRACTICE;
-            case 8:
+            case 4:
+                return BI;
+            case 5:
+                return INTERESTING;
+            case 6:
+                return CULTURE;
+            case 7:
                 return SPORT;
-
         }
     }
 
@@ -101,15 +108,13 @@ public enum Category {
      */
     public static Category getCategoryById(int id) {
         switch (id) {
-            default: // Ostalo je par kategorija - http://casopisinterfon.org/api/get_category_index/
+            default: // kategorije - http://casopisinterfon.org/api/get_category_index/
             case 45:
                 return NEWS;
             case 0:
                 return ALL;
             case 2085:
                 return FONNEWS;
-            case 37:
-                return INTRAFON;
             case 38:
                 return INTERESTING;
             case 960:
@@ -126,6 +131,12 @@ public enum Category {
                 return SPORT;
             case 4422:
                 return POETS;
+            case 8170:
+                return IT;
+            case 8171:
+                return BI;
+            case 8172:
+                return MARKETING;
         }
     }
 

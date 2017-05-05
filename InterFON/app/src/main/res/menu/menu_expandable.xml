@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/miBookmarks"
+        android:title="@string/menu_item_sacuvani_clanci" />
+    <item
+        android:id="@+id/miSettings"
+        android:title="@string/menu_item_opcije" />
 
-    <item android:title="@string/menu_item_opcije"
-        android:id="@+id/miSettings" />
-    <item android:title="@string/menu_item_o_nama"
-        android:id="@+id/miAboutUs" />
-    <item android:title="@string/menu_item_kontakt"
-        android:id="@+id/miContacts" />
-    <item android:title="@string/menu_item_sacuvani_clanci"
-        android:id="@+id/miBookmarks" />
+    <item
+        android:id="@+id/miContacts"
+        android:title="@string/menu_item_kontakt" />
+    <item
+        android:id="@+id/miAboutUs"
+        android:title="@string/menu_item_o_nama" />
 </menu>

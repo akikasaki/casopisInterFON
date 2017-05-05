@@ -31,7 +31,7 @@
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_marginBottom="@dimen/article_divider_bottom_margin"
+        android:layout_marginBottom="@dimen/article_divider_marginBottom"
         android:layout_marginLeft="@dimen/main_divider_margin_left"
         android:layout_marginRight="@dimen/main_divider_margin_right"
         android:background="@color/article_view_divider_color" />

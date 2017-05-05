@@ -1,76 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/cardview_background_darker"
+    >
 
     <include layout="@layout/toolbar" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <TextView
+
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:paddingTop="14dp"
             android:text="@string/settings_activity_notifications_state" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
             <ToggleButton
                 android:id="@+id/tbNotifications"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.20"
+                android:layout_below="@+id/textView"
+                android:layout_centerHorizontal="true"
                 android:text="ToggleButton" />
-        </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="0.5dp"
+        android:layout_marginBottom="@dimen/article_divider_marginBottom"
+        android:layout_marginTop="@dimen/settings_activity_divider_marginTop"
+        android:background="@color/article_view_divider_color" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tvFont"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:text="@string/settings_activity_font" />
 
         <RadioGroup
             android:id="@+id/rgFont"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingRight="@dimen/settings_activity_radio_group_padding_right"
+            android:layout_below="@+id/tvFont">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
             <RadioButton
                 android:id="@+id/rbSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_margin="@dimen/settings_activity_fon_button_margin"
                 android:text="@string/settings_activity_mali" />
 
             <RadioButton
                 android:id="@+id/rbMedium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_margin="@dimen/settings_activity_fon_button_margin"
                 android:text="@string/settings_activity_srednji" />
 
             <RadioButton
                 android:id="@+id/rbLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_margin="@dimen/settings_activity_fon_button_margin"
                 android:text="@string/settings_activity_veliki" />
+</LinearLayout>
         </RadioGroup>
-    </LinearLayout>
+    </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginBottom="@dimen/article_divider_marginBottom"
+        android:layout_marginTop="@dimen/settings_activity_divider_marginTop"
+        android:background="@color/article_view_divider_color" />
 </LinearLayout>

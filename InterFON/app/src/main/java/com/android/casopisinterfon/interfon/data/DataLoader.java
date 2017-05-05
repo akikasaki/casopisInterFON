@@ -2,7 +2,7 @@ package com.android.casopisinterfon.interfon.data;
 
 import android.content.Context;
 
-import com.android.casopisinterfon.interfon.activity.ArticleViewActivity;
+import com.android.casopisinterfon.interfon.activity.article_view.ArticleViewActivity;
 import com.android.casopisinterfon.interfon.model.Article;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

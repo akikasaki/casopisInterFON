@@ -1,4 +1,4 @@
-package com.android.casopisinterfon.interfon.activity;
+package com.android.casopisinterfon.interfon.activity.article_view;
 
 
 import android.app.ProgressDialog;
@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.android.casopisinterfon.interfon.R;
 import com.android.casopisinterfon.interfon.data.DataLoader;
 import com.android.casopisinterfon.interfon.data.DataManager;
-import com.android.casopisinterfon.interfon.internet.events.URLImageParser;
+import com.android.casopisinterfon.interfon.internet.URLImageParser;
 import com.android.casopisinterfon.interfon.model.Article;
 import com.android.casopisinterfon.interfon.model.Category;
 import com.android.casopisinterfon.interfon.utils.FontPreferences;
@@ -94,10 +94,9 @@ public class BookmarkViewActivity extends AppCompatActivity{
 
             //Implements ImageGetter to parse an Image URL when an <img> tag occurs
             URLImageParser p = new URLImageParser(tvDescription, this);
-            //Creates a spannable String to work with
-            //                                                                      MODE_LEGACY flag for html-s format
-            Spanned htmlSpan = Html.fromHtml(mCurArticle.getArticleDescription(),Html.FROM_HTML_MODE_LEGACY, p, null);
-            tvDescription.setText(htmlSpan);
+            ArticleTextStyle style = new ArticleTextStyle(mCurArticle.getArticleDescription(), p);
+            // Display parsed data
+            tvDescription.setText(style.format());
         }
         // Display data
         if (mCurArticle != null) {

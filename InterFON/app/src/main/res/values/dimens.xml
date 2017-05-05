@@ -54,7 +54,7 @@
     <dimen name="article_thumbnail_bottom_margin">16dp</dimen>
     <dimen name="article_title_bottom_margin">@dimen/article_thumbnail_bottom_margin</dimen>
     <dimen name="article_info_bottom_margin">6dp</dimen>
-    <dimen name="article_divider_bottom_margin">@dimen/activity_vertical_margin</dimen>
+    <dimen name="article_divider_marginBottom">@dimen/activity_vertical_margin</dimen>
     <dimen name="article_divider_side_margin">8dp</dimen>
     <!-- Text size related -->
     <dimen name="article_title_textSize">?attr/font_xxlarge</dimen>
@@ -72,6 +72,10 @@
     <dimen name="contact_us_desription_margin">20dp</dimen>
     <dimen name="contact_us_email_margin_bottom">20dp</dimen>
     <dimen name="contact_us_email_margin_top">8dp</dimen>
+    <dimen name="settings_activity_radio_group_padding_right">18dp</dimen>
+    <dimen name="settings_activity_divider_marginTop">16dp</dimen>
+    <dimen name="settings_activity_divider_marginBottom">16dp</dimen>
+    <dimen name="settings_activity_fon_button_margin">8dp</dimen>
 
 
 </resources>

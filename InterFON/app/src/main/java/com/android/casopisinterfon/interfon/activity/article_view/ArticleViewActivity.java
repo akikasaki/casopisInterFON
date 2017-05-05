@@ -144,8 +144,8 @@ public class ArticleViewActivity extends AppCompatActivity {
 
         if(mIsFromBookmark){
             // Return article from file disk
-            return;
-//            mCurArticle = mDataManager.getArticleFromDisk(mCurId);
+//            return;
+            mCurArticle = mDataManager.getArticleFromDisk(mCurId, this);
         } else {
             // Return article from data
             mCurArticle = mDataManager.getArticle(mCurId, mCategory);

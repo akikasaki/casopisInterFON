@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/toolbar" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/map"
+        android:src="@drawable/map"
+        android:elevation="4dp"/>
+
+    <TextView
+        android:layout_margin="@dimen/contact_us_desription_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/contact_us_description"
+        android:textAlignment="center" />
+    <FrameLayout
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginBottom="@dimen/article_divider_marginBottom"
+        android:layout_marginLeft="@dimen/main_divider_margin_left"
+        android:layout_marginRight="@dimen/main_divider_margin_right"
+        android:background="@color/article_view_divider_color" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/contact_us_adress"
+        android:textAlignment="center" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/contact_us_email_margin_bottom"
+        android:layout_marginTop="@dimen/contact_us_email_margin_top"
+        android:text="@string/contact_us_email"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/bSendEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/contact_us_posalji_mejl"
+        android:layout_gravity="center"
+        />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.12"
+        android:paddingTop="15dp"
+        app:srcCompat="@drawable/ic_logo" />
+</LinearLayout>

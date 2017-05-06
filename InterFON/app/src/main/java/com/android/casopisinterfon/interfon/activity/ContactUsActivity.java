@@ -1,6 +1,9 @@
 package com.android.casopisinterfon.interfon.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,27 +22,33 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+
 
 public class ContactUsActivity extends AppCompatActivity implements OnMapReadyCallback,View.OnClickListener {
 
     private static final String MAIL_RECIPIENT = "info@casopisinterfon.org";
+    private static final String PACKAGE_PLAY_SERVICES = "com.google.android.gms.common";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         // TODO Add functionality to the Map
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.contact_us);
+        if(isPackageInstalled(this,PACKAGE_PLAY_SERVICES)) {
+            setContentView(R.layout.contact_us);
 
+            //Set a map fragment and add some functionality to it
+            MapFragment mapFragment = (MapFragment) getFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
+        }
+        else{
+            setContentView(R.layout.contact_us_map_image);
+        }
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         ((TextView) findViewById(R.id.tvHeading)).setText(R.string.contact_us_activity_heading);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        //Set a map fragment and add some functionality to it
-        MapFragment mapFragment = (MapFragment) getFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
         //For contacting Via email
         Button sendEmail = (Button) findViewById(R.id.bSendEmail);
         sendEmail.setOnClickListener(this);
@@ -69,5 +78,15 @@ public class ContactUsActivity extends AppCompatActivity implements OnMapReadyCa
                 startActivity(Intent.createChooser(intent, "Send Email"));
                 break;
         }
+    }
+
+    public static boolean isPackageInstalled(Context context, String packageName) {
+        final PackageManager packageManager = context.getPackageManager();
+        Intent intent = packageManager.getLaunchIntentForPackage(packageName);
+        if (intent == null) {
+            return false;
+        }
+        List<ResolveInfo> list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        return list.size() > 0;
     }
 }

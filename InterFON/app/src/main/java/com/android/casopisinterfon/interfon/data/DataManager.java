@@ -1,6 +1,7 @@
 package com.android.casopisinterfon.interfon.data;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -21,6 +22,14 @@ import java.util.Map;
  */
 public class DataManager {
     private static final String TAG = DataManager.class.getSimpleName();
+    /**
+     * Shared prefs name in which last article id will be stored.
+     */
+    private static final String LAST_ARTICLE_PREFS = "last_article_prefs";
+    /**
+     * Shared prefs key which will map to last article id preference.
+     */
+    private static final String LAST_ARTICLE_ID = "article_id";
     /**
      * Contains single instance of this class.
      */
@@ -52,7 +61,7 @@ public class DataManager {
      * @param isFreshData boolean that indicates if this list of data is fresh and old one should be cleared first.
      * @param category    indicates which category of article this list contains
      */
-    public void addData(@NonNull List<Article> data, boolean isFreshData, Category category) {
+    public void addData(@NonNull List<Article> data, boolean isFreshData, Category category, Context context) {
         // TODO - refactor adding data
         Map<Long, Article> m = mData.get(category.ordinal());
         if (isFreshData && data.size() > 0) {
@@ -60,9 +69,17 @@ public class DataManager {
             m.clear();
         }
 
+        // Saves first article id used later when checking for new articles in notifications
+        if (category == Category.ALL && isFreshData) {
+            SharedPreferences preferences = context.getSharedPreferences(LAST_ARTICLE_PREFS, Context.MODE_PRIVATE);
+            preferences.edit().putLong(LAST_ARTICLE_ID, data.get(0).getId()).apply();
+        }
+
         for (Article a : data) {
             m.put(a.getId(), a);
         }
+
+
         Log.d(TAG, String.format("%d articles added, category:%s", data.size(), category.getName()));
     }
 
@@ -100,7 +117,9 @@ public class DataManager {
      * @param category category of wanted article.
      * @return newly created article object if found, null otherwise.
      */
-    public @Nullable Article getArticle(long id, Category category) {
+    public
+    @Nullable
+    Article getArticle(long id, Category category) {
 
 //        for (Article a :
 //                mData) {
@@ -114,12 +133,15 @@ public class DataManager {
 
     /**
      * Return {@link Article} object from file disk(from bookmarks) based on article id.
-     * @param mCurId id or wanted article.
+     *
+     * @param mCurId  id or wanted article.
      * @param context context
      * @return newly created article object if found, null otherwise.
      */
-    public @Nullable Article getArticleFromDisk(long mCurId, Context context) {
-        List<Article> bookmarkedArticles= new DataLoader(context).readData(ArticleViewActivity.ARTICLES_FILE);
+    public
+    @Nullable
+    Article getArticleFromDisk(long mCurId, Context context) {
+        List<Article> bookmarkedArticles = new DataLoader(context).readData(ArticleViewActivity.ARTICLES_FILE);
         Iterator<Article> iter = bookmarkedArticles.iterator();
 
         while (iter.hasNext()) {
@@ -132,5 +154,17 @@ public class DataManager {
 
         return null;
 
+    }
+
+    /**
+     * Method for checking if article with provided id has already been downloaded before.
+     *
+     * @param _id article id which needs to be checked.
+     * @return true if the article isn't new one and it already has been downloaded sometime.
+     */
+    public boolean checkIfItLastArticle(long _id, Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(LAST_ARTICLE_PREFS, Context.MODE_PRIVATE);
+
+        return (preferences.getLong(LAST_ARTICLE_ID, -1) == _id);
     }
 }

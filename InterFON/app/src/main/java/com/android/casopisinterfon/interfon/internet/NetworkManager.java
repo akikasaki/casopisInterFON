@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.android.casopisinterfon.interfon.activity.MainActivity;
 import com.android.casopisinterfon.interfon.data.DataManager;
 import com.android.casopisinterfon.interfon.internet.events.ItemDownloadedEvent;
 import com.android.casopisinterfon.interfon.internet.events.ListDownloadedEvent;
@@ -70,7 +69,7 @@ public class NetworkManager {
      * @param pageIndex page number of articles to download from
      * @param freshData boolean that indicates if fresh data is needed for download thus deleting all old data.
      */
-    public void downloadArticles(final int pageIndex, final boolean freshData) {
+    public void downloadArticles(final int pageIndex, final boolean freshData, final Context context) {
         Uri.Builder builder = Uri.parse(UrlData.GET_POSTS)
                 .buildUpon()
                 .appendQueryParameter(UrlData.PARAM_PAGE, Integer.toString(pageIndex))
@@ -89,7 +88,7 @@ public class NetworkManager {
                         DataManager.getInstance().addData(
                                 // Parse data
                                 new ArticlesParser().parseAll(response),
-                                freshData, Category.ALL);
+                                freshData, Category.ALL, context);
                         // Notify UI
                         EventBus.getDefault().post(new ListDownloadedEvent(true));
                         // Log
@@ -108,9 +107,9 @@ public class NetworkManager {
      * @param freshData boolean that indicates if fresh data is needed for download thus deleting all old data.
      * @param category  articles with this category will only be downloaded.
      */
-    public void downloadArticles(final int pageIndex, final boolean freshData, @Nullable final Category category) {
+    public void downloadArticles(final int pageIndex, final boolean freshData, @Nullable final Category category, final Context context) {
         if (category == null) {
-            downloadArticles(pageIndex, freshData);
+            downloadArticles(pageIndex, freshData, context);
             return;
         }
 
@@ -133,7 +132,7 @@ public class NetworkManager {
                         DataManager.getInstance().addData(
                                 // Parse data
                                 new ArticlesParser().parseAll(response),
-                                freshData, category);
+                                freshData, category, context);
                         // Notify UI
                         EventBus.getDefault().post(new ListDownloadedEvent(true, category));
                         // Log
@@ -171,8 +170,8 @@ public class NetworkManager {
                 // Parse article
                 Article a = null;
                 try {
-                     a = parser.parseArticle(response.getJSONObject("post"));
-                }catch (JSONException e){
+                    a = parser.parseArticle(response.getJSONObject("post"));
+                } catch (JSONException e) {
                     Log.e(TAG, e.getLocalizedMessage(), e);
                 }
                 // Add info to article
@@ -183,6 +182,21 @@ public class NetworkManager {
             }
         });
 
+    }
+
+    /**
+     * Download latest article from the server.
+     * @param successListener listener that will be called after download is complete.
+     */
+    public void downloadLastArticle(Response.Listener<JSONObject> successListener) {
+        Uri.Builder builder = Uri.parse(UrlData.GET_POSTS)
+                .buildUpon()
+                .appendQueryParameter(UrlData.PARAM_PAGE, Integer.toString(0))
+                .appendQueryParameter(UrlData.PARAM_COUNT, Integer.toString(1))
+                // Exclude content
+                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_POST_CONTENT);
+
+        startDownloadProcess(builder.build().toString(), successListener);
     }
 
     /**

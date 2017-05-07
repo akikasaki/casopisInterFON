@@ -163,9 +163,9 @@ public class ArticlesFragment extends Fragment implements ArticlesAdapter.ItemCl
     private void downloadArticles(int page, boolean isFreshData) {
         if (isFreshData && scrollListener != null) scrollListener.resetState();
         if (mFragPosition != 0)
-            mNetManager.downloadArticles(page, isFreshData, Category.getCategoryByPagePos(mFragPosition));
+            mNetManager.downloadArticles(page, isFreshData, Category.getCategoryByPagePos(mFragPosition), getContext());
         else
-            mNetManager.downloadArticles(page, isFreshData, null);
+            mNetManager.downloadArticles(page, isFreshData, null, getContext());
     }
 
 

@@ -15,10 +15,14 @@ import android.view.MenuItem;
 
 import com.android.casopisinterfon.interfon.R;
 import com.android.casopisinterfon.interfon.activity.fragment.ArticlesFragment;
+import com.android.casopisinterfon.interfon.internet.ArticlesParser;
 import com.android.casopisinterfon.interfon.internet.NetworkManager;
+import com.android.casopisinterfon.interfon.model.Article;
 import com.android.casopisinterfon.interfon.model.Category;
+import com.android.volley.Response;
 
-import static com.android.casopisinterfon.interfon.model.Category.CATEGORY_COUNT;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -103,8 +107,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+
 //        Intent notificationStarter = new Intent(this, NotificationService.class);
-//        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
+//        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_PREFS, MODE_PRIVATE);
 //        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
 //            stopService(notificationStarter);
 //        }
@@ -114,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 //        Intent notificationStarter = new Intent(this, NotificationService.class);
-//        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_TOGGLE, MODE_PRIVATE);
+//        SharedPreferences prefs = getSharedPreferences(SettingsActivity.NOTIFICATION_PREFS, MODE_PRIVATE);
 //        if (prefs.getBoolean(SettingsActivity.NOTIFICATION_STATE, true)) {
 //            startService(notificationStarter);
 //        }

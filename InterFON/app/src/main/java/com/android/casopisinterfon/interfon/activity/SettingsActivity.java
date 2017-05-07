@@ -1,10 +1,16 @@
 package com.android.casopisinterfon.interfon.activity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -12,6 +18,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.android.casopisinterfon.interfon.R;
+import com.android.casopisinterfon.interfon.receiver.DataCheckReceiver;
 import com.android.casopisinterfon.interfon.utils.FontPreferences;
 import com.android.casopisinterfon.interfon.utils.FontStyle;
 
@@ -20,7 +27,7 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
     private static final String TAG = "SettingsActivity";
 
 
-    public final static String NOTIFICATION_TOGGLE = "NotificationsOn";
+    public final static String NOTIFICATION_PREFS = "notification_prefs";
     public final static String NOTIFICATION_STATE = "NotificationsState";
     public final static String FONTS = "fonts";
     public final static String GET_A_FONT = "getAFont";
@@ -55,7 +62,7 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
         tvFont = (TextView) findViewById(R.id.tvFont);
         fontGroup = (RadioGroup) findViewById(R.id.rgFont);
         //previous notification toggled state
-        SharedPreferences prefs = getSharedPreferences(NOTIFICATION_TOGGLE, MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences(NOTIFICATION_PREFS, MODE_PRIVATE);
 
         final FontPreferences fontPrefs = new FontPreferences(this);
         FontStyle style = fontPrefs.getFontStyle();
@@ -73,7 +80,7 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
                 rbLarge.setChecked(true);
                 break;
         }
-        tbNotifications.setChecked(prefs.getBoolean(NOTIFICATION_STATE, true));
+        tbNotifications.setChecked(prefs.getBoolean(NOTIFICATION_STATE, false));
         tbNotifications.setOnCheckedChangeListener(this);
         fontGroup.setOnCheckedChangeListener(this);
 
@@ -84,16 +91,35 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
      */
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        SharedPreferences prefs = getSharedPreferences(NOTIFICATION_PREFS, MODE_PRIVATE);
 
-
-        SharedPreferences.Editor editor = getSharedPreferences(NOTIFICATION_TOGGLE, MODE_PRIVATE).edit();
         if (isChecked) {
-            editor.putBoolean(NOTIFICATION_STATE, true);
-            editor.apply();
+            prefs.edit().putBoolean(NOTIFICATION_STATE, true).apply();
+            cancelAlarm(this, am);
+            setAlarm(this, am);
         } else {
-            editor.putBoolean(NOTIFICATION_STATE, false);
-            editor.apply();
+            prefs.edit().putBoolean(NOTIFICATION_STATE, false).apply();
+            cancelAlarm(this, am);
         }
+    }
+
+    public static void setAlarm(Context context, AlarmManager am) {
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTimeInMillis(System.currentTimeMillis());
+//        calendar.set(Calendar.HOUR_OF_DAY, 13);
+
+        Intent i = new Intent(context, DataCheckReceiver.class);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
+        am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME,
+                SystemClock.elapsedRealtime(), AlarmManager.INTERVAL_HOUR * 4, pi); // Millisec * Second * Minute
+
+    }
+
+    public static void cancelAlarm(Context context, AlarmManager am) {
+        Intent intent = new Intent(context, DataCheckReceiver.class);
+        PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
+        am.cancel(sender);
     }
 
     /**
@@ -129,11 +155,22 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
         }
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return (super.onOptionsItemSelected(item));
+    }
 //    @Override
 //    protected void onDestroy() {
 //        super.onDestroy();
 //        Intent notificationStarter= new Intent(this,NotificationService.class);
-//        SharedPreferences prefs = getSharedPreferences(NOTIFICATION_TOGGLE, MODE_PRIVATE);
+//        SharedPreferences prefs = getSharedPreferences(NOTIFICATION_PREFS, MODE_PRIVATE);
 //        if(prefs.getBoolean(NOTIFICATION_STATE, true)){
 //            startService(notificationStarter);}
 //    }
@@ -142,7 +179,7 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
 //    protected void onStart() {
 //        super.onStart();
 //        Intent notificationStarter= new Intent(this,NotificationService.class);
-//        SharedPreferences prefs = getSharedPreferences(NOTIFICATION_TOGGLE, MODE_PRIVATE);
+//        SharedPreferences prefs = getSharedPreferences(NOTIFICATION_PREFS, MODE_PRIVATE);
 //        if(prefs.getBoolean(NOTIFICATION_STATE, true)){
 //            stopService(notificationStarter);
 //        }

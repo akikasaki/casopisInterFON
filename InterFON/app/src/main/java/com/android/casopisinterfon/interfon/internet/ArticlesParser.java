@@ -69,7 +69,7 @@ public class ArticlesParser {
      * @throws IllegalArgumentException
      */
     @Nullable
-    Article parseArticle(JSONObject jsonObject) throws IllegalArgumentException {
+    public Article parseArticle(JSONObject jsonObject) throws IllegalArgumentException {
         if (jsonObject == null)
             throw new IllegalArgumentException("Cannot parse null as Article object.");
         Article a;

@@ -7,8 +7,6 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -16,6 +14,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.casopisinterfon.interfon.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -25,7 +25,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.List;
 
 
-public class ContactUsActivity extends AppCompatActivity implements OnMapReadyCallback,View.OnClickListener {
+public class ContactUsActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener {
 
     private static final String MAIL_RECIPIENT = "info@casopisinterfon.org";
     private static final String PACKAGE_PLAY_SERVICES = "com.google.android.gms.common";
@@ -34,15 +34,14 @@ public class ContactUsActivity extends AppCompatActivity implements OnMapReadyCa
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         // TODO Add functionality to the Map
         super.onCreate(savedInstanceState);
-        if(isPackageInstalled(this,PACKAGE_PLAY_SERVICES)) {
+        if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS) {
             setContentView(R.layout.contact_us);
 
             //Set a map fragment and add some functionality to it
             MapFragment mapFragment = (MapFragment) getFragmentManager()
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
-        }
-        else{
+        } else {
             setContentView(R.layout.contact_us_map_image);
         }
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
@@ -61,18 +60,18 @@ public class ContactUsActivity extends AppCompatActivity implements OnMapReadyCa
         //TODO Map without Google Play Services
         //Set a marker at FON when first loading the map
         googleMap.addMarker(new MarkerOptions()
-                .position(new LatLng(44.7725999,20.4748169))
+                .position(new LatLng(44.7725999, 20.4748169))
                 .title("Marker"));
     }
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.bSendEmail:
                 Intent intent = new Intent(Intent.ACTION_SENDTO);
                 intent.setType("text/rfc822");
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Tema");
-                intent.setData(Uri.parse("mailto:"+MAIL_RECIPIENT));
+                intent.setData(Uri.parse("mailto:" + MAIL_RECIPIENT));
                 //So that user returns to InterFON instead the email app on clicking back
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(Intent.createChooser(intent, "Send Email"));

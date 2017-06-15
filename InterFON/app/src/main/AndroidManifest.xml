@@ -30,7 +30,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBvSawNwhbkcj65iAdzDaoAu3JihN-BjF8" />
 
-        <activity android:name=".activity.MainActivity">
+        <activity android:name="com.interfon.android.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,12 +39,12 @@
         </activity>
 
         <activity
-            android:name=".activity.article_view.ArticleViewActivity"
-            android:parentActivityName=".activity.MainActivity"
+            android:name="com.interfon.android.activity.article_view.ArticleViewActivity"
+            android:parentActivityName="com.interfon.android.activity.MainActivity"
             android:theme="@style/FontStyle.Small">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.android.casopisinterfon.interfon.activity.MainActivity" />
+                android:value="com.android.casopisinterfon.interfon.com.interfon.casopisinterfon.interfon.activity.MainActivity" />
 
             <intent-filter android:label="@string/filter_title_linkInterFON">
                 <action android:name="android.intent.action.VIEW" />
@@ -62,23 +62,23 @@
                     android:scheme="http" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SettingsActivity" />
+        <activity android:name="com.interfon.android.activity.SettingsActivity" />
         <activity
-            android:name=".activity.AboutActivity"
-            android:parentActivityName=".activity.MainActivity" />
+            android:name="com.interfon.android.activity.AboutActivity"
+            android:parentActivityName="com.interfon.android.activity.MainActivity" />
         <activity
-            android:name=".activity.ContactUsActivity"
-            android:parentActivityName=".activity.MainActivity" />
+            android:name="com.interfon.android.activity.ContactUsActivity"
+            android:parentActivityName="com.interfon.android.activity.MainActivity" />
         <activity
-            android:name=".activity.BookmarksActivity"
-            android:parentActivityName=".activity.MainActivity" />
+            android:name="com.interfon.android.activity.BookmarksActivity"
+            android:parentActivityName="com.interfon.android.activity.MainActivity" />
 
         <receiver
-            android:name=".receiver.DataCheckReceiver"
+            android:name="com.interfon.android.receiver.DataCheckReceiver"
             android:enabled="true"
             android:exported="true" />
         <receiver
-            android:name=".receiver.BootCompleteReceiver"
+            android:name="com.interfon.android.receiver.BootCompleteReceiver"
             android:enabled="true"
 
             android:exported="true">

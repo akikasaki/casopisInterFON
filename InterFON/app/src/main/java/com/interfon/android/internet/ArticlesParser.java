@@ -35,6 +35,7 @@ public class ArticlesParser {
     static final String KEY_AUTHOR = "author";
     static final String KEY_TAGS = "tags";
     static final String KEY_COMMENTS = "comments";
+    static final String KEY_ATTCH = "attachments";
 
     /**
      * Method for parsing {@link JSONObject} instance to list of {@link Article} objects.

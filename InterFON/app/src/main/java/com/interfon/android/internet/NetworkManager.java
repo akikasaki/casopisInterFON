@@ -6,12 +6,6 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.interfon.android.data.DataManager;
-import com.interfon.android.internet.events.ItemDownloadedEvent;
-import com.interfon.android.internet.events.ListDownloadedEvent;
-import com.interfon.android.model.Article;
-import com.interfon.android.model.Category;
-import com.interfon.android.utils.TaskHandler;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,6 +13,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.interfon.android.data.DataManager;
+import com.interfon.android.internet.events.ItemDownloadedEvent;
+import com.interfon.android.internet.events.ListDownloadedEvent;
+import com.interfon.android.model.Article;
+import com.interfon.android.model.Category;
+import com.interfon.android.utils.TaskHandler;
 
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
@@ -29,13 +29,11 @@ import org.json.JSONObject;
  * Downloads data from the server and call DataManager for saving it.
  */
 public class NetworkManager {
-    private static final String TAG = NetworkManager.class.getSimpleName();
-
     /**
      * Starting index for article list on server
      */
     public static final int START_PAGE_INDEX = 1;
-
+    private static final String TAG = NetworkManager.class.getSimpleName();
     /**
      * Contains page index that are already downloaded.
      */
@@ -50,6 +48,10 @@ public class NetworkManager {
     private static NetworkManager mInstance;
     private RequestQueue mRequestQueue;
 
+    private NetworkManager(Context context) {
+        mRequestQueue = Volley.newRequestQueue(context.getApplicationContext());
+    }
+
     public static synchronized NetworkManager getInstance(Context context) {
         if (mInstance == null) {
             mInstance = new NetworkManager(context);
@@ -58,8 +60,34 @@ public class NetworkManager {
         return mInstance;
     }
 
-    private NetworkManager(Context context) {
-        mRequestQueue = Volley.newRequestQueue(context.getApplicationContext());
+    /**
+     * Return page index for provided category.
+     *
+     * @param category category to return index for.
+     * @return page index of data that has already been downloaded.
+     */
+    public static int getCategoryPageIndex(Category category) {
+        return mCategoryPageIndex[category.ordinal()];
+    }
+
+    /**
+     * Sets current index for given category.
+     *
+     * @param category category for index.
+     * @param index    index of page data.
+     */
+    public static void setCategoryPageIndex(Category category, int index) {
+        mCategoryPageIndex[category.ordinal()] = index;
+    }
+
+    /**
+     * Increment page index for given category.
+     *
+     * @param category category.
+     * @return page index after increment.
+     */
+    public static int incrementCatPageIndex(Category category) {
+        return mCategoryPageIndex[category.ordinal()] += 1;
     }
 
     /**
@@ -74,7 +102,13 @@ public class NetworkManager {
                 .buildUpon()
                 .appendQueryParameter(UrlData.PARAM_PAGE, Integer.toString(pageIndex))
                 // Exclude content
-                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_POST_CONTENT);
+                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION,
+                        ArticlesParser.KEY_POST_CONTENT.concat(",")
+                                .concat(ArticlesParser.KEY_CUSTOM_FIELDS).concat(",")
+                                .concat(ArticlesParser.KEY_COMMENTS).concat(",")
+                                .concat(ArticlesParser.KEY_AUTHOR).concat(",")
+                                .concat(ArticlesParser.KEY_TAGS).concat(",")
+                                .concat(ArticlesParser.KEY_ATTCH));
 
         startDownloadProcess(builder.build().toString(), new Response.Listener<JSONObject>() {
             @Override
@@ -118,8 +152,20 @@ public class NetworkManager {
                 .appendQueryParameter(UrlData.PARAM_CAT_ID, Integer.toString(category.getCatId()))
                 .appendQueryParameter(UrlData.PARAM_PAGE, Integer.toString(pageIndex))
                 // Exclude content
-                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_POST_CONTENT)
-                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_CUSTOM_FIELDS);
+                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION,
+                                ArticlesParser.KEY_POST_CONTENT.concat(",")
+                                .concat(ArticlesParser.KEY_CUSTOM_FIELDS).concat(",")
+                                .concat(ArticlesParser.KEY_COMMENTS).concat(",")
+                                .concat(ArticlesParser.KEY_AUTHOR).concat(",")
+                                .concat(ArticlesParser.KEY_TAGS).concat(",")
+                                .concat(ArticlesParser.KEY_ATTCH));
+        // TODO - finish exclude
+//                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_CUSTOM_FIELDS)
+//                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_COMMENTS)
+//                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_AUTHOR)
+//                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_TAGS)
+//                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_ATTCH);
+
 
         startDownloadProcess(builder.build().toString(), new Response.Listener<JSONObject>() {
             @Override
@@ -186,6 +232,7 @@ public class NetworkManager {
 
     /**
      * Download latest article from the server.
+     *
      * @param successListener listener that will be called after download is complete.
      */
     public void downloadLastArticle(Response.Listener<JSONObject> successListener) {
@@ -229,35 +276,5 @@ public class NetworkManager {
                 });
 
         mRequestQueue.add(request);
-    }
-
-    /**
-     * Return page index for provided category.
-     *
-     * @param category category to return index for.
-     * @return page index of data that has already been downloaded.
-     */
-    public static int getCategoryPageIndex(Category category) {
-        return mCategoryPageIndex[category.ordinal()];
-    }
-
-    /**
-     * Sets current index for given category.
-     *
-     * @param category category for index.
-     * @param index    index of page data.
-     */
-    public static void setCategoryPageIndex(Category category, int index) {
-        mCategoryPageIndex[category.ordinal()] = index;
-    }
-
-    /**
-     * Increment page index for given category.
-     *
-     * @param category category.
-     * @return page index after increment.
-     */
-    public static int incrementCatPageIndex(Category category) {
-        return mCategoryPageIndex[category.ordinal()] += 1;
     }
 }

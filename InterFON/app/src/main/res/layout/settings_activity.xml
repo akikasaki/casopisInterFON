@@ -54,13 +54,11 @@
             android:id="@+id/rgFont"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tvFont"
             android:layout_centerHorizontal="true"
-            android:paddingRight="@dimen/settings_activity_radio_group_padding_right"
-            android:layout_below="@+id/tvFont">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingRight="@dimen/settings_activity_radio_group_padding_right">
+
             <RadioButton
                 android:id="@+id/rbSmall"
                 android:layout_width="wrap_content"
@@ -81,7 +79,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/settings_activity_fon_button_margin"
                 android:text="@string/settings_activity_veliki" />
-</LinearLayout>
         </RadioGroup>
     </RelativeLayout>
     <FrameLayout

@@ -59,6 +59,7 @@ public class URLImageParser implements Html.ImageGetter {
         @Override
         protected void onPostExecute(Drawable result) {
 
+            if (result == null) return;
             // set the correct bound according to the result from HTTP call
             urlDrawable.setBounds(0, 0, 0 + result.getBounds().right, 0
                     + result.getBounds().bottom);
@@ -96,12 +97,12 @@ public class URLImageParser implements Html.ImageGetter {
 
                 float ratio = 1;
                 try {
-                    ratio = (float)container.getWidth() / (float)drawable.getIntrinsicWidth();
+                    ratio = (float) container.getWidth() / (float) drawable.getIntrinsicWidth();
                 } catch (Exception e) {
                 }
 
                 drawable.setBounds(0, 0, container.getWidth() == 0 ? drawable.getIntrinsicWidth() : container.getWidth(),
-                        (int)(drawable.getIntrinsicHeight() * ratio));
+                        (int) (drawable.getIntrinsicHeight() * ratio));
                 return drawable;
             } catch (Exception e) {
                 return null;

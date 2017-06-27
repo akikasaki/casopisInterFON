@@ -191,9 +191,9 @@ public class NetworkManager {
     }
 
     /**
-     * Method for downloading article description.
+     * Method for downloading article description and author.
      *
-     * @param article article which description text will be downloaded.
+     * @param article article which description text  will be downloaded.
      */
     public void downloadArticleDesc(final Article article) {
         if (article == null) return;
@@ -202,11 +202,14 @@ public class NetworkManager {
                 .buildUpon()
                 .appendQueryParameter(UrlData.PARAM_ARTICLE_ID, Long.toString(article.getId()))
                 // Exclude content
-                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_THUMBNAIL_IMAGES)
-                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_COMMENTS)
-                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_AUTHOR)
-                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_TAGS)
-                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION, ArticlesParser.KEY_POST_CATEGORIES);
+                .appendQueryParameter(UrlData.PARAM_EXCLUDE_OPTION,
+                        ArticlesParser.KEY_POST_CONTENT.concat(",")
+                                .concat(ArticlesParser.KEY_CUSTOM_FIELDS).concat(",")
+                                .concat(ArticlesParser.KEY_COMMENTS).concat(",")
+                                .concat(ArticlesParser.KEY_TAGS).concat(",")
+                                .concat(ArticlesParser.KEY_THUMBNAIL_IMAGES).concat(",")
+                                .concat(ArticlesParser.KEY_POST_CATEGORIES).concat(",")
+                                .concat(ArticlesParser.KEY_ATTCH));
 
         startDownloadProcess(builder.build().toString(), new Response.Listener<JSONObject>() {
             @Override

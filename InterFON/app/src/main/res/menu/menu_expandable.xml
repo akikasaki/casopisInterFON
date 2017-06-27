@@ -10,6 +10,11 @@
     <item
         android:id="@+id/miContacts"
         android:title="@string/menu_item_kontakt" />
+
+    <item
+    android:id="@+id/miRate"
+    android:title="@string/menu_item_rate" />
+
     <item
         android:id="@+id/miAboutUs"
         android:title="@string/menu_item_o_nama" />

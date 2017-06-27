@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import com.android.casopisinterfon.interfon.R;
 import com.interfon.android.activity.fragment.ArticlesFragment;
 import com.interfon.android.model.Category;
+import com.interfon.android.utils.AppRater;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
 //        mDataManager = DataManager.getInstance();
+        AppRater.app_launched(this);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -89,6 +91,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.miBookmarks:
                 Intent openBookmarks = new Intent(this, BookmarksActivity.class);
                 startActivity(openBookmarks);
+                return true;
+            case R.id.miRate:
+                AppRater.showInputDialog(this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
